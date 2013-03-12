@@ -4,7 +4,7 @@ analyse: *.o analyseXML analyseDTD main.c makefile
 analyseXML: xml/*.l xml/*.y xml/makefile
 	cd xml; make all
 analyseDTD: dtd/*.l dtd/*.y dtd/makefile
-	cd dtd, make all
+	cd dtd; make all
 clean:
 	rm -rf *.o analyse
 	cd xml; make clean
