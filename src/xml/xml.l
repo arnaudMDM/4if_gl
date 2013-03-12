@@ -7,11 +7,11 @@
 #include <string.h>
 #include <stdlib.h>
 #include "commun.h"
-#include "yy.tab.h"
+#include "xml.tab.h"
 
 // si vous activez l'option -P de flex, changez les deux lignes suivantes
-#define YYTEXT yytext
-#define YYLVAL yylval
+#define YYTEXT xmltext
+#define YYLVAL xmllval
 // exemple avec -Pxml
 //#define YYTEXT xmltext
 //#define YYLVAL xmllval
