@@ -18,7 +18,7 @@ int yylex(void);
 }
 
 %token ELEMENT ATTLIST SUP OUVREPAR FERMEPAR VIRGULE BARRE FIXED EMPTY ANY PCDATA AST PTINT PLUS CDATA
-%token <s> NOM TOKENTYPE DECLARATION VALEUR
+%token <s> DTDNOM TOKENTYPE DECLARATION DTDVALEUR
 
 %%
 
@@ -26,8 +26,8 @@ main: dtd_list_opt
 ;
 
 dtd_list_opt
-: dtd_list_opt ATTLIST NOM att_definition_opt SUP
-| dtd_list_opt ELEMENT NOM children SUP
+: dtd_list_opt ATTLIST DTDNOM att_definition_opt SUP
+| dtd_list_opt ELEMENT DTDNOM children SUP
 | /* vide */
 ;
 
@@ -42,7 +42,7 @@ choice
 ;
 
 cp
-: NOM card_opt
+: DTDNOM card_opt
 | choice card_opt
 | seq card_opt
 ;
@@ -73,7 +73,7 @@ att_definition_opt
 ;
 
 attribut
-: NOM att_type defaut_declaration
+: DTDNOM att_type defaut_declaration
 ;
 
 att_type
@@ -87,18 +87,18 @@ type_enumere
 ;
 
 liste_enum_plus
-: liste_enum BARRE NOM
+: liste_enum BARRE DTDNOM
 ;
 
 liste_enum
-: NOM
-| liste_enum BARRE NOM
+: DTDNOM
+| liste_enum BARRE DTDNOM
 ;
 
 defaut_declaration
 : DECLARATION
-| VALEUR
-| FIXED VALEUR
+| DTDVALEUR
+| FIXED DTDVALEUR
 ;
 
 %%

@@ -81,9 +81,9 @@ any         "ANY"
 <DEDANS>{any}                { return ANY; }
 <DEDANS>{pcdata}             { return PCDATA; }
 <DEDANS>{cdata}              { return CDATA; }
-<DEDANS>{chaine}             { stringreturn(VALEUR); }
+<DEDANS>{chaine}             { stringreturn(DTDVALEUR); }
 <DEDANS>{tokentype}{esp}?    { stringreturn(TOKENTYPE); }
-<DEDANS>{nom}{esp}?          { stringreturn(NOM); }
+<DEDANS>{nom}{esp}?          { stringreturn(DTDNOM); }
 {comment}		              { /* les commentaires sont ignorés */ }
 
 .			{fprintf(stderr, "!ERROR(%c)\n", *YYTEXT);}
