@@ -33,7 +33,7 @@ dtd_list_opt
 children
 : choice card_opt
 | seq card_opt
-| PCDATA
+| OUVREPAR PCDATA FERMEPAR
 ;
 
 choice
