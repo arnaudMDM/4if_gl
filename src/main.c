@@ -1,5 +1,6 @@
-#include "dtd/dtd.tab.h"
-#include "xml/yy.tab.h" 
+#include "dtd/dtd.tab.h" 
+#include "xml/xml.tab.h"
+
 
 int main(int argc, char **argv)
 {
