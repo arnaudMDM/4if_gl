@@ -6,6 +6,6 @@ analyseXML: xml/*.l xml/*.y xml/makefile
 analyseDTD: dtd/*.l dtd/*.y dtd/makefile
 	cd dtd, make all
 clean:
-	-rm -rf *.o analyse
+	rm -rf *.o analyse
 	cd xml; make clean
 	cd dtd; make clean

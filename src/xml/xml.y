@@ -5,7 +5,7 @@ using namespace std;
 #include <cstdio>
 #include <cstdlib>
 #include "commun.h"
-#include "yy.tab.h"
+#include "xml.tab.h"
 
 // ces trois fonctions devront changer de nom dans le cas où l'otion -p est utilisée
 int yywrap(void);
