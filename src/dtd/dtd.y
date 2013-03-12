@@ -6,6 +6,7 @@ using namespace std;
 #include <cstdlib>
 
 
+
 void yyerror(char *msg);
 int yywrap(void);
 int yylex(void);

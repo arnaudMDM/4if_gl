@@ -5,7 +5,10 @@
 #include <ctype.h>
 #include <string.h>
 #include <stdlib.h>
-#include "yy.tab.h"
+#include "dtd.tab.h"
+
+#define YYTEXT dtdtext
+#define YYLVAL dtdlval
 
 static char* skipSpace(char *s) {
   char *buf;
@@ -20,7 +23,7 @@ static char* skipSpace(char *s) {
 }
   
 /* affecte la valeur de la chaine de caractère et renvoie le token */
-#define stringreturn(tokenval) yylval.s=skipSpace(yytext);return(tokenval)
+#define stringreturn(tokenval) YYLVAL.s=skipSpace(YYTEXT);return(tokenval)
 
 %}
 %option noyywrap
@@ -83,4 +86,4 @@ any         "ANY"
 <DEDANS>{nom}{esp}?          { stringreturn(NOM); }
 {comment}		              { /* les commentaires sont ignorés */ }
 
-.			{fprintf(stderr, "!ERROR(%c)\n", *yytext);}
+.			{fprintf(stderr, "!ERROR(%c)\n", *YYTEXT);}
