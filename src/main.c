@@ -5,7 +5,9 @@
 int xmlparse();
 int dtdparse();
 extern int xmldebug;
+extern int dtddebug;
 extern char * sDtd;
+extern FILE * dtdin;
 
 int main(int argc, char **argv)
 {
@@ -21,22 +23,23 @@ int main(int argc, char **argv)
 	printf("Aucun dtd associé\n", err);
   else
   {
+	dtddebug = 1;
   	FILE *file;
    	file = fopen(sDtd, "r");
 	
 	if(!file) {
 		fprintf(stderr, "Could not open %s \n", sDtd);
-		exit(1);
+		return(1);
 	}
 	
    	dtdin = file;
-   	dtdout = fopen("out.txt", "w");
+   	//dtdout = fopen("out.txt", "w");
 
-    	err=dtdlex();
+    	err=dtdparse();
 	if (err != 0) printf("Parse ended with %d error(s)\n", err);
 		else  printf("Parse ended with success\n", err);
-    	fclose(dtdin);
-    	fclose(dtdout);
+    	fclose(file);
+    	//fclose(dtdout);
   }
 
   return 0;
