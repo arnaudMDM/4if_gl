@@ -9,7 +9,7 @@
 #define ABSTRACTELEMENT_H_
 
 class AbstractElement {
-   void afficher()=0;
+   virtual void afficher()=0;
 };
 
 #endif /* ABSTRACTELEMENT_H_ */

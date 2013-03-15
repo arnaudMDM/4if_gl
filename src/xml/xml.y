@@ -24,7 +24,7 @@ char * sDtd;
    char * s;
    ElementName * en;  /* le nom d'un element avec son namespace, cf commun.h */
    AbstractElement * abstractElement; /* C est un element balise uniquement */
-   list<AbstractElement*> * lstAbstractElement; /* C est une liste */
+   list<AbstractElement *> * lstAbstractElement; /* C est une liste */
 }
 
 %token EGAL SLASH SUP SUPSPECIAL DOCTYPE

@@ -21,6 +21,7 @@ protected:
 public:
 	ElementTexte();
 	virtual ~ElementTexte();
+        void afficher();
     string getTexte() const;
 };
 
