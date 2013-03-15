@@ -14,25 +14,30 @@ int main(int argc, char **argv)
   xmldebug = 1; // pour désactiver l'affichage de l'exécution du parser LALR, commenter cette ligne
 
   err = xmlparse();
-  printf("coucou: %s",sDtd);
   if (err != 0) printf("Parse ended with %d error(s)\n", err);
         else  printf("Parse ended with success\n", err);
-/*
- if(argc > 1) {
-        FILE *file;
-        file = fopen(argv[1], "r");
 
-        if(!file) {
-           fprintf(stderr, "Could not open %s \n", argv[1]);
-           exit(1);
-        }
+  if(sDtd==NULL)
+	printf("Aucun dtd associé\n", err);
+  else
+  {
+  	FILE *file;
+   	file = fopen(sDtd, "r");
+	
+	if(!file) {
+		fprintf(stderr, "Could not open %s \n", sDtd);
+		exit(1);
+	}
+	
+   	dtdin = file;
+   	dtdout = fopen("out.txt", "w");
 
-        yyin = file;
-        yyout = fopen("out.txt", "w");
-    }
-    yylex();
-    fclose(yyin);
-    fclose(yyout);
-*/
+    	err=dtdlex();
+	if (err != 0) printf("Parse ended with %d error(s)\n", err);
+		else  printf("Parse ended with success\n", err);
+    	fclose(dtdin);
+    	fclose(dtdout);
+  }
+
   return 0;
 }

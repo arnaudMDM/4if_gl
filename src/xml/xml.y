@@ -44,7 +44,7 @@ declarations
  
 declaration
  : DOCTYPE NOM SYSTEM DTD SUP {sDtd=$4;}
- | DOCTYPE NOM NOM VALEUR SUP {sDtd=$4;}
+ | DOCTYPE NOM NOM VALEUR SUP 
  ;
 
 element
