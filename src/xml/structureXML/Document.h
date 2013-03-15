@@ -13,26 +13,22 @@ using namespace std;
 // Includes
 #include <string>
 #include "ElementBalise.h"
+#include <list>
 
 class Document {
-
-// Attributs de classe
 protected:
-	string version;
-	string encoding;
-	ElementBalise elementBalise;
-
-// Constructeurs et Méthodes
+    string nomXml;
+    string nomDtd;
+    //list<string> nomFeuilleDeStyle;
+    ElementBalise elementBalise;
 public:
-	Document();
-
-	Document(string version, string encoding, ElementBalise elementBalise);
-
-	virtual ~Document();
-
-	string getEncoding() const;
-
-    string getVersion() const;
+    Document();
+    //Document(ElementBalise elementBalise);
+    virtual ~Document();
+    void setElementBalise(ElementBalise elementBalise);
+    void setNomDtd(string nomDtd);
+    void setNomFeuilleDeStyle(list<string> nomFeuilleDeStyle);
+    void setNomXml(string nomXml);
 };
 
 #endif /* DOCUMENT_H_ */

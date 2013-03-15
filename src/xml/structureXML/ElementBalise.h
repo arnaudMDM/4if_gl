@@ -14,12 +14,14 @@ using namespace std;
 #include <string>
 #include <list>
 #include "AbstractElement.h"
+#include "AttributXML.h"
 
 class ElementBalise : public AbstractElement {
 
 // Attributs de classe
 protected:
 	string nom;
+	list<AttributXML> * lstAttributs;
 	list<AbstractElement> * lstAbstractElement;
 
 // Constructeurs et Méthodes

@@ -16,16 +16,28 @@ Document::~Document() {
 	// TODO Auto-generated destructor stub
 }
 
-Document::Document(string version, string encoding, ElementBalise elementBalise) : version(version), encoding(encoding), elementBalise(elementBalise){
+/*Document::Document(string version, string encoding, ElementBalise elementBalise) : version(version), encoding(encoding), elementBalise(elementBalise){
 
-}
+}*/
 
-string Document::getEncoding() const
+
+void Document::setElementBalise(ElementBalise elementBalise)
 {
-   return encoding;
+    this->elementBalise = elementBalise;
 }
 
-string Document::getVersion() const
+void Document::setNomDtd(string nomDtd)
 {
-   return version;
+    this->nomDtd = nomDtd;
 }
+
+void Document::setNomFeuilleDeStyle(list<string> nomFeuilleDeStyle)
+{
+    this->nomFeuilleDeStyle = nomFeuilleDeStyle;
+}
+
+void Document::setNomXml(string nomXml)
+{
+    this->nomXml = nomXml;
+}
+
