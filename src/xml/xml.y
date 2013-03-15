@@ -5,11 +5,16 @@ using namespace std;
 #include <cstdio>
 #include <cstdlib>
 #include "commun.h"
+#include "structureXML/AbstractElement.h"
+#include "structureXML/ElementTexte.h"
+#include "structureXML/ElementBalise.h"
+#include "structureXML/Document.h"
+#include <list>
 #include "xml.tab.h"
 
 // ces trois fonctions devront changer de nom dans le cas où l'otion -p est utilisée
 int xmlwrap(void);
-void xmlerror(char *msg);
+void xmlerror(Document * doc, char *msg);
 int xmllex(void);
 char * sDtd;
 
@@ -26,7 +31,10 @@ char * sDtd;
 %token <s> ENCODING VALEUR DONNEES COMMENT NOM ENNOM DTD SYSTEM
 %token <en> OBALISEEN OBALISE OBALISESPECIALE FBALISE FBALISEEN
 %type <abstractElement> element
-%type <lstAbstractElement> contenu_opt
+%type <lstAbstractElement> contenu_opt  
+%type <lstAbstractElement> vide_ou_contenu
+%type <lstAbstractElement> ferme_contenu_et_fin
+%type <en> ouvre
 
 /* Pour recuperer le document en entier */ 
 %parse-param {Document * docXml}
@@ -45,7 +53,7 @@ misc
  ;
 
 declarations
- : declarations declaration { $$ = $1 }
+ : declarations declaration
  | /*vide*/ 
  ;
 
@@ -53,22 +61,22 @@ declarations
 <!DOCTYPE rapport SYSTEM "rap2.dtd">
 <?xml-stylesheet type="text/xsl" href="cdcatalog.xsl"?> */  
 declaration
- : DOCTYPE NOM SYSTEM DTD SUP {sDtd=$4;docXML->setNomDtd($4); docXML->setNomXml($2)}
- : DOCTYPE NOM NOM VALEUR SUP
+ : DOCTYPE NOM SYSTEM DTD SUP {sDtd=$4;docXml->setNomDtd($4); docXml->setNomXml($2)}
+ | DOCTYPE NOM NOM VALEUR SUP
  /*: OBALISESPECIALE NOM attributs_opt_declarations SUPSPECIAL */
  ;
 
  /*attributs_opt_declarations
- : attributs_opt_declarations NOM EGAL VALEUR {docXML->setNomFeuilleDeStyle($4)}
- | /*vide*/ { $$ = new list<string>() }
+ : attributs_opt_declarations NOM EGAL VALEUR {docXml->setNomFeuilleDeStyle($4)}
+ | /*vide*/ /*{ $$ = new list<string>() }
  ;*/
 
 element
- : ouvre attributs_opt vide_ou_contenu { $$ = new ElementBalise($1)}
+ : ouvre attributs_opt vide_ou_contenu { $$ = new ElementBalise($1->second)}
  ;
 ouvre
- : OBALISE
- | OBALISEEN
+ : OBALISE {$$ = $1}
+ | OBALISEEN {$$ = $1}
  ;
 
 attributs_opt
@@ -77,14 +85,14 @@ attributs_opt
  ;
 
 vide_ou_contenu
- : SLASH SUP
- | ferme_contenu_et_fin SUP { $$ = $1 } 
+ : SLASH SUP {$$=new list<AbstractElement*>()} /*contenu vide*/
+ | ferme_contenu_et_fin SUP { $$ = $1 }  /*contenu non vide*/
  ;
 ferme_contenu_et_fin
- : SUP contenu_opt FBALISE
+ : SUP contenu_opt FBALISE { $$ = $2 }
  ;
 contenu_opt /* Regle de construction en commentaire */
- : contenu_opt DONNEES { $$ = $1 ; $$->push_back(new ElementTexte($2)) ; delete $2 }
+ : contenu_opt DONNEES { $$ = $1 ; $$->push_back(new ElementTexte(string($2))) ; delete $2 }
  | contenu_opt misc { $$ = $1 }
  | contenu_opt element  { $$ = $1 ; $$->push_back($2) ; delete $2 }
  | /*vide*/     { $$ = new list<AbstractElement*>() }      
@@ -98,7 +106,7 @@ int xmlwrap(void)
   return 1;
 }
 
-void xmlerror(char *msg)
+void xmlerror(Document * doc, char *msg)
 {
   fprintf(stderr, "%s\n", msg);
 }
