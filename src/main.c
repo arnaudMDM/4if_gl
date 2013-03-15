@@ -59,6 +59,9 @@ int main(int argc, char **argv)
 int verifXml(DocumentDTD * dtd, Document * xml)
 {
 	ElementBalise * racine = xml->racine;
+	set<ElementDTD> elts = dtd->getElementsDtd();
 
 	string nomNoeudCourant = racineXml->getNom();
+
+
 }

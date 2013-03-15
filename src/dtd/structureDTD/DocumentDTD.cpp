@@ -8,7 +8,7 @@
 #include "DocumentDTD.h"
 
 DocumentDTD::DocumentDTD() {
-	this->lstElementDTD = new set<ElementDTD>();
+	this->setElementDTD = new set<ElementDTD>();
 }
 
 DocumentDTD::~DocumentDTD() {
