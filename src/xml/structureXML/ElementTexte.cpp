@@ -14,6 +14,11 @@ ElementTexte::ElementTexte() {
 ElementTexte::~ElementTexte() {
 }
 
+void ElementTexte::afficher()
+{
+   cout<<Texte<<endl;
+}
+
 string ElementTexte::getTexte() const
 {
     return Texte;
