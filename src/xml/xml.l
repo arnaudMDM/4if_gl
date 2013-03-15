@@ -7,6 +7,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "commun.h"
+#include "structureXML/Document.h"
 #include "xml.tab.h"
 
 // si vous activez l'option -P de flex, changez les deux lignes suivantes
