@@ -13,6 +13,7 @@ using namespace std;
 // Includes
 #include <string>
 #include <list>
+#include <iostream>
 #include "AbstractElement.h"
 #include "AttributXML.h"
 
@@ -31,6 +32,8 @@ public:
 	virtual ~ElementBalise();
     string getNom() const;
     list<AbstractElement> getLstAbstractElement() const;
+    list<AttributXML> getLstAttributXML() const;
+    void afficher();
 };
 
 #endif /* ELEMENTBALISE_H_ */

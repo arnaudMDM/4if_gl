@@ -19,6 +19,30 @@ ElementBalise::ElementBalise(string nom)
 	this->lstAbstractElement = new list<AbstractElement>();
 }
 
+void ElementBalise::afficher()
+{
+  cout<<"<"<<nom;
+  list<AttributXML>::iterator it;
+  for(it=lstAttributs.begin();it!=lstAttributs.end();it++)
+  {
+  	it->afficher();
+  }
+  if(lstAbstractElement->size()>0)
+  {
+  	cout<<">"<<endl;
+  	list<AbstractElement>::iterator it2;
+	for(it2=listElts.begin();it2!=listElts.end();it2++)
+  	{
+  		it2->afficher();
+  	}
+	cout<<"</"<<nom<<">"<<endl;
+  }
+  else
+  {
+	cout<<"/>"<<endl;
+  }
+}
+
 string ElementBalise::getNom() const
 {
     return nom;

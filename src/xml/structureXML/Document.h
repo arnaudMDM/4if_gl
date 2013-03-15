@@ -25,10 +25,12 @@ public:
     Document();
     //Document(ElementBalise elementBalise);
     virtual ~Document();
+    ElementBalise* getElementBalise()
     void setElementBalise(ElementBalise elementBalise);
     void setNomDtd(string nomDtd);
     void setNomFeuilleDeStyle(list<string> nomFeuilleDeStyle);
     void setNomXml(string nomXml);
+    void afficher();
 };
 
 #endif /* DOCUMENT_H_ */

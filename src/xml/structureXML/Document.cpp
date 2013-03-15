@@ -21,6 +21,11 @@ Document::~Document() {
 }*/
 
 
+void Document::afficher()
+{
+    elementBalise.afficher();
+}
+
 void Document::setElementBalise(ElementBalise elementBalise)
 {
     this->elementBalise = elementBalise;

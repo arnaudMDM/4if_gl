@@ -30,7 +30,7 @@ public:
     string getNom() const;
 
     string getValeur() const;
-
+    void afficher();
 };
 
 #endif /* ATTRIBUTXML_H_ */
