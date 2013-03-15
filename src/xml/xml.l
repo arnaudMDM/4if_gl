@@ -94,6 +94,8 @@ xmlversion   {esp}?"<?xml"{esp}"version="{chaine}{esp}"encoding="{chaine}"?>"{nl
 doctype     {esp}?"<!DOCTYPE"{esp}
 infspecial {esp}?"<?"
 supspecial "?>"{nl}?
+dtd  \"[A-Za-z\200-\377_0-9]+".dtd"\"
+system  "SYSTEM"
 
 /*
  * Le mode CONTENU est utilisé entre les balises ouvrantes et fermantes
@@ -111,8 +113,10 @@ supspecial "?>"{nl}?
 <INITIAL>"="		{return EGAL;}
 <INITIAL>{sup}	{BEGIN(CONTENU); return SUP;}
 <INITIAL>{supspecial}	{ return SUPSPECIAL;}
+<INITIAL>{system} {YYLVAL.s = strdup(YYTEXT); return SYSTEM;}
 <INITIAL>{nom}		{YYLVAL.s = strdup(YYTEXT); return NOM;}
 <INITIAL>{ennom}		{YYLVAL.s = strdup(YYTEXT); return ENNOM;}
+<INITIAL>{dtd}	{YYLVAL.s = strdup(enleveGuillemets(YYTEXT)); return DTD;}
 <INITIAL>{chaine}	{YYLVAL.s = strdup(enleveGuillemets(YYTEXT)); return VALEUR;}
 
 {infspecial}{esp}?{nom}	{BEGIN(INITIAL); char * tmp = mot(YYTEXT); YYLVAL.en = new ElementName("",tmp); free(tmp); return OBALISESPECIALE;}
@@ -121,6 +125,7 @@ supspecial "?>"{nl}?
 {inf}"/"{nom}		{BEGIN(INITIAL); char * tmp = mot(YYTEXT); YYLVAL.en = new ElementName("",tmp); free(tmp); return FBALISE;}
 {inf}"/"{ennom}		{BEGIN(INITIAL); char *tmp1 = espaceDeNom(YYTEXT); char * tmp2 = separeNom(YYTEXT); YYLVAL.en = new ElementName(tmp1,tmp2); free(tmp1); free(tmp2); return FBALISEEN;}
 {comment}		{YYLVAL.s = strdup(YYTEXT); return COMMENT;}
+
 
 <CONTENU>{esp}?{pcdata}		{YYLVAL.s = strdup(supprimeEspaces(YYTEXT)); return DONNEES;}
 

@@ -11,6 +11,7 @@ using namespace std;
 int xmlwrap(void);
 void xmlerror(char *msg);
 int xmllex(void);
+char * sDtd;
 
 %}
 
@@ -20,7 +21,7 @@ int xmllex(void);
 }
 
 %token EGAL SLASH SUP SUPSPECIAL DOCTYPE
-%token <s> ENCODING VALEUR DONNEES COMMENT NOM ENNOM
+%token <s> ENCODING VALEUR DONNEES COMMENT NOM ENNOM DTD SYSTEM
 %token <en> OBALISEEN OBALISE OBALISESPECIALE FBALISE FBALISEEN
 
 %%
@@ -42,7 +43,8 @@ declarations
  ;
  
 declaration
- : DOCTYPE NOM NOM VALEUR SUP
+ : DOCTYPE NOM SYSTEM DTD SUP {sDtd=$4;}
+ | DOCTYPE NOM NOM VALEUR SUP {sDtd=$4;}
  ;
 
 element

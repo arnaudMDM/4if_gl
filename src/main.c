@@ -1,10 +1,11 @@
 #include "dtd/dtd.tab.h" 
 #include "xml/xml.tab.h"
-#include <iostream>
+#include <stdio.h>
 
 int xmlparse();
 int dtdparse();
 extern int xmldebug;
+extern char * sDtd;
 
 int main(int argc, char **argv)
 {
@@ -13,6 +14,7 @@ int main(int argc, char **argv)
   xmldebug = 1; // pour désactiver l'affichage de l'exécution du parser LALR, commenter cette ligne
 
   err = xmlparse();
+  printf("coucou: %s",sDtd);
   if (err != 0) printf("Parse ended with %d error(s)\n", err);
         else  printf("Parse ended with success\n", err);
 /*
