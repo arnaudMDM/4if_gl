@@ -23,7 +23,7 @@ public:
 	DocumentDTD();
 
 	virtual ~DocumentDTD();
-	set<ElementDTD> getElementDTD() const;
+	set<ElementDTD> getElementsDTD() const;
 
 };
 

@@ -14,7 +14,7 @@ DocumentDTD::DocumentDTD() {
 DocumentDTD::~DocumentDTD() {
 }
 
-list<ElementDTD> DocumentDTD::getElementDTD() const
+set<ElementDTD> DocumentDTD::getElementsDTD() const
 {
 	return *setElementDTD;
 }

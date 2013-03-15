@@ -60,5 +60,5 @@ int verifXml(DocumentDTD * dtd, Document * xml)
 {
 	ElementBalise * racine = xml->racine;
 
-	string * nomNoeudCourant = &racine->nom;
+	string nomNoeudCourant = racineXml->getNom();
 }
