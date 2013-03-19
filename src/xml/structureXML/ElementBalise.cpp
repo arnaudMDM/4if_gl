@@ -6,6 +6,7 @@
  */
 
 #include "ElementBalise.h"
+#include <iostream>
 
 #include <iostream>
 

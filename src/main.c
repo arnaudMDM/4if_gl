@@ -37,10 +37,13 @@ int main(int argc, char **argv)
   if (err != 0) printf("Parse ended with %d error(s)\n", err);
   else  printf("Parse ended with success\n", err);
 
+  docXML->afficher();
+
   if (sDtd==NULL)
   {
 	 printf("Aucun dtd associé\n", err);
   }
+
   else
   {
 dtddebug = 1;
@@ -82,7 +85,7 @@ bool verifXml(DocumentDTD * dtd, Document * xml)
 bool verifNoeud(AbstractElement * abstractNoeud, map<string, ElementDTD> * elts)
 {
 
-	ElementBalise* noeud = dynamic_cast<ElementBalise*>(abstractNoeud);
+	/*ElementBalise* noeud = dynamic_cast<ElementBalise*>(abstractNoeud);
 	if (noeud == 0)
 	{
 		// il s'agit d'un élément texte
@@ -102,5 +105,5 @@ bool verifNoeud(AbstractElement * abstractNoeud, map<string, ElementDTD> * elts)
 	// vérification des attributs du noeud courant
   
 
-	// vérification des sous-éléments
+	// vérification des sous-éléments*/ 
 }

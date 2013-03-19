@@ -19,7 +19,7 @@ AttributXML::~AttributXML() {
 AttributXML::AttributXML(string nom, string valeur) : nom(nom), valeur(valeur)
 {}
 
-void AttributXML::afficher()
+void AttributXML::afficher() const
 {
     cout << " " << nom << "=\"" << valeur << "\"";
 }

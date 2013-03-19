@@ -28,7 +28,7 @@ public:
     string getNom() const;
 
     string getValeur() const;
-    void afficher();
+    void afficher() const;
 };
 
 #endif /* ATTRIBUTXML_H_ */
