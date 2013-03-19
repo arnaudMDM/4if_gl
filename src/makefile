@@ -2,7 +2,7 @@ XMLO=lex.xml.o xml.tab.o
 DTDO=dtd.tab.o lex.dtd.o
 
 XMLSTRUCTPATH=xml/structureXML/
-XMLSTRUCT=$(XMLSTRUCTPATH)AbstractElement.cpp $(XMLSTRUCTPATH)AttributXML.h $(XMLSTRUCTPATH)ElementBalise.cpp $(XMLSTRUCTPATH)ElementTexte.h $(XMLSTRUCTPATH)AbstractElement.h $(XMLSTRUCTPATH)Document.cpp $(XMLSTRUCTPATH)ElementBalise.h $(XMLSTRUCTPATH)makefile $(XMLSTRUCTPATH)AttributXML.cpp $(XMLSTRUCTPATH)Document.h $(XMLSTRUCTPATH)ElementTexte.cpp
+XMLSTRUCT= $(XMLSTRUCTPATH)AttributXML.h $(XMLSTRUCTPATH)ElementBalise.cpp $(XMLSTRUCTPATH)ElementTexte.h $(XMLSTRUCTPATH)AbstractElement.h $(XMLSTRUCTPATH)Document.cpp $(XMLSTRUCTPATH)ElementBalise.h $(XMLSTRUCTPATH)makefile $(XMLSTRUCTPATH)AttributXML.cpp $(XMLSTRUCTPATH)Document.h $(XMLSTRUCTPATH)ElementTexte.cpp
 
 DTDSTRUCTPATH=dtd/structureDTD/
 DTDSTRUCT=$(DTDSTRUCTPATH)AttributDTD.cpp $(DTDSTRUCTPATH)DocumentDTD.cpp $(DTDSTRUCTPATH)ElementDTD.cpp $(DTDSTRUCTPATH)makefile $(DTDSTRUCTPATH)AttributDTD.h $(DTDSTRUCTPATH)DocumentDTD.h $(DTDSTRUCTPATH)ElementDTD.h
