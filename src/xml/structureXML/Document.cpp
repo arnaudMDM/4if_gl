@@ -35,22 +35,20 @@ void Document::setNomDtd(string nomDtd)
 {
     this->nomDtd = nomDtd;
 }
-<<<<<<< .mine
 
+/*void Document::setNomFeuilleDeStyle(list<string> nomFeuilleDeStyle)
 ElementBalise * Document::getElementBalise()
 {
    return &elementBalise;
 }
-=======
 
 void Document::setNomFeuilleDeStyle(list<string> nomFeuilleDeStyle)
 {
     this->nomFeuilleDeStyle = nomFeuilleDeStyle;
-}
+}*/
 
 void Document::setNomXml(string nomXml)
 {
     this->nomXml = nomXml;
 }
 
->>>>>>> .r35

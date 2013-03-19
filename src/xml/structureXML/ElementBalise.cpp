@@ -23,7 +23,7 @@ void ElementBalise::afficher()
 {
   cout<<"<"<<nom;
   list<AttributXML>::iterator it;
-  for(it=lstAttributs.begin();it!=lstAttributs.end();it++)
+  for(it=lstAttributs->begin();it!=lstAttributs->end();it++)
   {
   	it->afficher();
   }
@@ -31,9 +31,10 @@ void ElementBalise::afficher()
   {
   	cout<<">"<<endl;
   	list<AbstractElement>::iterator it2;
-	for(it2=listElts.begin();it2!=listElts.end();it2++)
+	for(it2=lstAbstractElement->begin();it2!=lstAbstractElement->end();it2++)
   	{
-  		it2->afficher();
+//   		it2->afficher();
+		cout << "COUCOU"<<endl; 
   	}
 	cout<<"</"<<nom<<">"<<endl;
   }

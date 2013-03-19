@@ -9,6 +9,7 @@
 #define ABSTRACTELEMENT_H_
 
 class AbstractElement {
+public:
    virtual void afficher()=0;
 };
 

@@ -28,10 +28,10 @@ public:
     void afficher();
     void setElementBalise(ElementBalise elementBalise);
     void setNomDtd(string nomDtd);
-    void setNomFeuilleDeStyle(list<string> nomFeuilleDeStyle);
+    //void setNomFeuilleDeStyle(list<string> nomFeuilleDeStyle);
     void setNomXml(string nomXml);
 
-    ElementBalise * getElementBalise();
+    //ElementBalise * getElementBalise();
 };
 
 #endif /* DOCUMENT_H_ */

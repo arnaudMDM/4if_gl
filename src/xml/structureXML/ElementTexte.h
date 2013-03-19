@@ -20,10 +20,8 @@ protected:
 	string Texte;
 public:
 	ElementTexte(string Texte);
-	ElementTexte(const ElementTexte&);
-	ElementTexte(string s);
 	virtual ~ElementTexte();
-        void afficher();
+        virtual void afficher();
     string getTexte() const;
 };
 

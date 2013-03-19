@@ -6,15 +6,11 @@
  */
 
 #include "ElementTexte.h"
+#include <iostream>
 
 ElementTexte::ElementTexte(string Texte) {
 	this->Texte = Texte; 
 
-}
-
-ElementTexte::ElementTexte(const ElementTexte&eT)
-{
-	Texte=Et;
 }
 
 ElementTexte::~ElementTexte() {

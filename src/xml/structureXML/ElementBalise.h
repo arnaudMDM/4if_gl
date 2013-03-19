@@ -33,7 +33,7 @@ public:
     string getNom() const;
     list<AbstractElement> getLstAbstractElement() const;
     list<AttributXML> getLstAttributXML() const;
-    void afficher();
+    virtual void afficher();
 };
 
 #endif /* ELEMENTBALISE_H_ */
