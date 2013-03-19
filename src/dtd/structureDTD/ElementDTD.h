@@ -26,7 +26,7 @@ public:
 	ElementDTD(string nom, bool isText);
 	virtual ~ElementDTD();
     bool getIsText() const;
-    list<ElementDTD> getLstElementDTD() const;
+    list<ElementDTD> * getLstElementDTD() const;
     string getNom() const;
 };
 

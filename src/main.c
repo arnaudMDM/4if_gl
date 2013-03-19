@@ -18,7 +18,7 @@
 int xmlparse(Document * xml);
 int dtdparse();
 bool verifXml(DocumentDTD * dtd, Document * xml);
-bool verifNoeud(AbstractElement * noeud, map<string, ElementDTD> * elts);
+bool verifNoeud(AbstractElement * noeud, map<string, ElementDTD*> * elts);
 
 extern int xmldebug;
 extern int dtddebug;
@@ -74,18 +74,19 @@ dtddebug = 1;
 bool verifXml(DocumentDTD * dtd, Document * xml)
 {
 	ElementBalise * noeud;
-	map<string, ElementDTD> elts;
+	map<string, ElementDTD*> * elts;
 
 	noeud = xml->getElementBalise();
 	elts = dtd->getElementsDTD();
 	
-	return verifNoeud(noeud, &elts);
+	return verifNoeud(noeud, elts);
 }
 
-bool verifNoeud(AbstractElement * abstractNoeud, map<string, ElementDTD> * elts)
+bool verifNoeud(AbstractElement * abstractNoeud, map<string, ElementDTD*> * elts)
 {
 
-	/*ElementBalise* noeud = dynamic_cast<ElementBalise*>(abstractNoeud);
+	ElementBalise * noeud = dynamic_cast<ElementBalise*>(abstractNoeud);
+
 	if (noeud == 0)
 	{
 		// il s'agit d'un élément texte
@@ -94,7 +95,7 @@ bool verifNoeud(AbstractElement * abstractNoeud, map<string, ElementDTD> * elts)
 
 	string nomNoeudCourant = noeud->getNom();
 
-	ElementDTD * noeudDTD = elts[nomNoeudCourant];
+	ElementDTD * noeudDTD = (*elts)[nomNoeudCourant];
 
 	// verification de l'existance du noeud courant dans la dtd
 	if (noeudDTD == NULL)

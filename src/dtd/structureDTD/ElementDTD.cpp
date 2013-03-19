@@ -8,12 +8,11 @@
 #include "ElementDTD.h"
 
 ElementDTD::ElementDTD() {
-	// TODO Auto-generated constructor stub
 
 }
 
 ElementDTD::~ElementDTD() {
-	// TODO Auto-generated destructor stub
+	delete(this->lstElementDTD);
 }
 
 ElementDTD::ElementDTD(string nom, bool isText)
@@ -28,9 +27,9 @@ bool ElementDTD::getIsText() const
     return isText;
 }
 
-list<ElementDTD> ElementDTD::getLstElementDTD() const
+list<ElementDTD> * ElementDTD::getLstElementDTD() const
 {
-    return *lstElementDTD;
+    return lstElementDTD;
 }
 
 string ElementDTD::getNom() const

@@ -8,17 +8,14 @@
 #include "DocumentDTD.h"
 
 DocumentDTD::DocumentDTD() {
-	this->mapElementDTD = new map<string, ElementDTD>();
+	this->mapElementDTD = new map<string, ElementDTD*>();
 }
 
 DocumentDTD::~DocumentDTD() {
 	delete(this->mapElementDTD);
 }
 
-map<string, ElementDTD> DocumentDTD::getElementsDTD() const
+map<string, ElementDTD*> * DocumentDTD::getElementsDTD() const
 {
-	return *mapElementDTD;
+	return mapElementDTD;
 }
-
-
-

@@ -18,13 +18,13 @@ using namespace std;
 class DocumentDTD {
 // Attributs de classe
 protected:
-	map<string, ElementDTD> * mapElementDTD;
+	map<string, ElementDTD*> * mapElementDTD;
 // Constructeurs et méthodes
 public:
 	DocumentDTD();
 
 	virtual ~DocumentDTD();
-	map<string, ElementDTD> getElementsDTD() const;
+	map<string, ElementDTD*> * getElementsDTD() const;
 
 };
 
