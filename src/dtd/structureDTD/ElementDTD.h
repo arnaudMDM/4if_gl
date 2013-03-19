@@ -21,16 +21,16 @@ class ElementDTD {
 protected:
 	string nom;
 	bool isText;
-	list<ElementDTD> * lstElementDTD;
-	set<AttributDTD> * setAttributDTD;
+	list<ElementDTD*> * lstElementDTD;
+	set<AttributDTD*> * setAttributDTD;
 // Constructeurs et Méthodes
 public:
 	ElementDTD();
 	ElementDTD(string nom, bool isText);
 	virtual ~ElementDTD();
     bool getIsText() const;
-    list<ElementDTD> * getLstElementDTD() const;
-    set<AttributDTD> * getSetAttributDTD() const;
+    list<ElementDTD*> * getLstElementDTD() const;
+    set<AttributDTD*> * getSetAttributDTD() const;
     string getNom() const;
 };
 

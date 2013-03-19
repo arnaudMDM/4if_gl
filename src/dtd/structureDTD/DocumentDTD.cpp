@@ -12,6 +12,11 @@ DocumentDTD::DocumentDTD() {
 }
 
 DocumentDTD::~DocumentDTD() {
+	map<string, ElementDTD*>::iterator it;
+	for (it = this->mapElementDTD->begin(); it != this->mapElementDTD->end(); it++)
+	{
+		delete(it->second);
+	}
 	delete(this->mapElementDTD);
 }
 
