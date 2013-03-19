@@ -21,35 +21,35 @@ ElementBalise::ElementBalise(string nom)
 
 void ElementBalise::afficher()
 {
-  cout<<"<"<<nom;
+  cout << "<" << nom;
   list<AttributXML>::iterator it;
-  for(it=lstAttributs->begin();it!=lstAttributs->end();it++)
+  for (it = lstAttributs->begin(); it != lstAttributs->end(); it++)
   {
   	it->afficher();
   }
-  if(lstAbstractElement->size()>0)
+  if (lstAbstractElement->size() > 0)
   {
-  	cout<<">"<<endl;
+  	cout << ">" << endl;
   	list<AbstractElement>::iterator it2;
-	for(it2=lstAbstractElement->begin();it2!=lstAbstractElement->end();it2++)
+	for (it2 = lstAbstractElement->begin(); it2 != lstAbstractElement->end(); it2++)
   	{
 //   		it2->afficher();
-		cout << "COUCOU"<<endl; 
+		cout << "COUCOU" << endl; 
   	}
-	cout<<"</"<<nom<<">"<<endl;
+	  cout << "</" << nom << ">" << endl;
   }
   else
   {
-	cout<<"/>"<<endl;
+	  cout << "/>" << endl;
   }
 }
 
 string ElementBalise::getNom() const
 {
-    return nom;
+  return nom;
 }
 
 list<AbstractElement> ElementBalise::getLstAbstractElement() const
 {
-    return *lstAbstractElement;
+  return *lstAbstractElement;
 }

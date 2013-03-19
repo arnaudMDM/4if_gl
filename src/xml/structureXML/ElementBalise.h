@@ -13,7 +13,7 @@ using namespace std;
 // Includes
 #include <string>
 #include <list>
-#include <iostream>
+#include <set>
 #include "AbstractElement.h"
 #include "AttributXML.h"
 
@@ -22,7 +22,7 @@ class ElementBalise : public AbstractElement {
 // Attributs de classe
 protected:
 	string nom;
-	list<AttributXML> * lstAttributs;
+	set<AttributXML> * setAttributs;
 	list<AbstractElement> * lstAbstractElement;
 
 // Constructeurs et Méthodes
@@ -31,8 +31,8 @@ public:
 	ElementBalise(string nom);
 	virtual ~ElementBalise();
     string getNom() const;
+    set<AttributXML> getSetAttribut() const;
     list<AbstractElement> getLstAbstractElement() const;
-    list<AttributXML> getLstAttributXML() const;
     virtual void afficher();
 };
 
