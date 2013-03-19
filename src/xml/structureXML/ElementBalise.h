@@ -22,7 +22,7 @@ class ElementBalise : public AbstractElement {
 // Attributs de classe
 protected:
 	string nom;
-	set<AttributXML> * setAttributs;
+	set<AttributXML*> * setAttributs;
 	list<AbstractElement*> * lstAbstractElement;
 
 // Constructeurs et Méthodes
@@ -33,7 +33,7 @@ public:
     string getNom() const;
 
     list<AbstractElement*> * getLstAbstractElement() const;
-    set<AttributXML> getSetAttribut() const;
+    set<AttributXML*> * getSetAttribut() const;
 
     virtual void afficher();
 };

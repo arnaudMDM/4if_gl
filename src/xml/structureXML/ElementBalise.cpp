@@ -6,8 +6,8 @@
  */
 
 #include "ElementBalise.h"
-#include <iostream>
 
+#include <set>
 #include <iostream>
 
 ElementBalise::ElementBalise() {
@@ -20,15 +20,16 @@ ElementBalise::ElementBalise(string nom)
 {
 	this->nom = nom;
 	this->lstAbstractElement = new list<AbstractElement*>();
+  this->setAttributs = new set<AttributXML*>();
 }
 
 void ElementBalise::afficher()
 {
   cout << "<" << nom;
-  set<AttributXML>::iterator it;
+  set<AttributXML*>::iterator it;
   for (it = setAttributs->begin(); it != setAttributs->end(); it++)
   {
-  	//it->afficher();
+  	//(*it)->afficher();
   }
 
   if (lstAbstractElement->size() > 0)
@@ -54,5 +55,10 @@ string ElementBalise::getNom() const
 
 list<AbstractElement*> * ElementBalise::getLstAbstractElement() const
 {
-    return lstAbstractElement;
+  return lstAbstractElement;
+}
+
+set<AttributXML*> * ElementBalise::getSetAttribut() const
+{
+  return setAttributs;
 }
