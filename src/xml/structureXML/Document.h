@@ -28,6 +28,7 @@ public:
     void afficher();
     void setElementBalise(ElementBalise * elementBalise);
     void setNomDtd(string nomDtd);
+    string getNomDtd();
     //void setNomFeuilleDeStyle(list<string> nomFeuilleDeStyle);
     void setNomXml(string nomXml);
 

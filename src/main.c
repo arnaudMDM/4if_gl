@@ -20,61 +20,87 @@ int xmlparse(Document * xml);
 int dtdparse();
 bool verifXml(DocumentDTD * dtd, Document * xml);
 bool verifNoeud(AbstractElement * noeud, map<string, ElementDTD*> * elts);
+bool parser(Document * docXML, DocumentDTD * docDTD);
 
 extern int xmldebug;
 extern int dtddebug;
-extern char * sDtd;
 extern FILE * dtdin;
 
 int main(int argc, char **argv)
 {
-  int err;
-
   Document * docXML = new Document();
+  DocumentDTD * docDTD = new DocumentDTD();
 
+  parser(docXML, docDTD);
+
+  verifNoeud(docXML);
+
+  return 0;
+}
+
+/* ---VERIF XSLT------------------------------------- */
+bool verifXslt(Document xslt, DocumentDTD dtdXsl)
+{
+
+  return true;
+}
+
+
+/* ---PARSEUR------------------------------------- */
+bool parser(Document * docXML, DocumentDTD * docDTD)
+{
   xmldebug = 1; // pour désactiver l'affichage de l'exécution du parser LALR, commenter cette ligne
 
+  int err;
   err = xmlparse(docXML);
-  if (err != 0) printf("Parse ended with %d error(s)\n", err);
-  else  printf("Parse ended with success\n", err);
-
-  if(docXML->getElementBalise() == NULL)
+  if (err != 0)
   {
-    cout << "Erreur : Pas de racine définie pour le XML" << endl;
+    printf("Parse ended with %d error(s)\n", err);
+  }
+  else
+  {
+    printf("Parse ended with success\n", err);
   }
 
   docXML->afficher();
 
-  if (sDtd==NULL)
+  string nomDtd = docXML->getNomDtd();
+  if (nomDtd == NULL)
   {
-	 printf("Aucun dtd associé\n", err);
+    printf("Aucune dtd associée\n", err);
   }
-
   else
   {
     dtddebug = 1;
-  	FILE *file;
-   	file = fopen(sDtd, "r");
-	
-	if(!file) {
-		fprintf(stderr, "Could not open %s \n", sDtd);
-		return(1);
-	}
-	
-   	dtdin = file;
-   	//dtdout = fopen("out.txt", "w");
+    FILE *file;
+    file = fopen(nomDtd, "r");
+  
+    if (!file)
+    {
+      fprintf(stderr, "Could not open %s \n", nomDtd);
+      return false;
+    }
+    
+    dtdin = file;
 
-    	err=dtdparse();
-	if (err != 0) printf("Parse ended with %d error(s)\n", err);
-		else  printf("Parse ended with success\n", err);
-    	fclose(file);
-    	//fclose(dtdout);
+    err = dtdparse();
+    if (err != 0)
+    {
+      printf("Parse ended with %d error(s)\n", err);
+    }
+    else
+    {
+      printf("Parse ended with success\n", err);
+    }
+    
+    fclose(file);
   }
-  return 0;
+
+  return true;
 }
 
 
-/* ---------------------------------------- */
+/* ---VERIFICATION------------------------------------- */
 
 
 bool verifXml(DocumentDTD * dtd, Document * xml)

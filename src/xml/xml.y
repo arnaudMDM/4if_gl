@@ -17,7 +17,6 @@ using namespace std;
 int xmlwrap(void);
 void xmlerror(Document * doc, char *msg);
 int xmllex(void);
-char * sDtd;
 
 %}
 
@@ -64,7 +63,7 @@ declarations
 <!DOCTYPE rapport SYSTEM "rap2.dtd">
 <?xml-stylesheet type="text/xsl" href="cdcatalog.xsl"?> */  
 declaration
- : DOCTYPE NOM SYSTEM DTD SUP {sDtd=$4;docXml->setNomDtd(string($4)); docXml->setNomXml(string($2))}
+ : DOCTYPE NOM SYSTEM DTD SUP {docXml->setNomDtd(string($4)); docXml->setNomXml(string($2))}
  | DOCTYPE NOM NOM VALEUR SUP
  /*: OBALISESPECIALE NOM attributs_opt_declarations SUPSPECIAL */
  ;

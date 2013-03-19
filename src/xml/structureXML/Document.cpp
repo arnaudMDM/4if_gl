@@ -49,6 +49,11 @@ void Document::setNomFeuilleDeStyle(list<string> nomFeuilleDeStyle)
     this->nomFeuilleDeStyle = nomFeuilleDeStyle;
 }*/
 
+string Document::getNomDtd()
+{
+	return this->nomDtd;
+}
+
 void Document::setNomXml(string nomXml)
 {
     this->nomXml = nomXml;
