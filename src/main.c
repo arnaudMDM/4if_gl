@@ -4,6 +4,7 @@
 #include <string>
 #include <set>
 #include <iterator>
+#include <iostream>
 
 #include "xml/structureXML/AbstractElement.h"
 #include "xml/structureXML/AttributXML.h"
@@ -29,13 +30,18 @@ int main(int argc, char **argv)
 {
   int err;
 
-  Document * docXML;
+  Document * docXML = new Document();
 
   xmldebug = 1; // pour désactiver l'affichage de l'exécution du parser LALR, commenter cette ligne
 
   err = xmlparse(docXML);
   if (err != 0) printf("Parse ended with %d error(s)\n", err);
   else  printf("Parse ended with success\n", err);
+
+  if(docXML->getElementBalise() == NULL)
+  {
+    cout << "Erreur : Pas de racine définie pour le XML" << endl;
+  }
 
   docXML->afficher();
 
@@ -46,7 +52,7 @@ int main(int argc, char **argv)
 
   else
   {
-dtddebug = 1;
+//  dtddebug = 1;
   	FILE *file;
    	file = fopen(sDtd, "r");
 	

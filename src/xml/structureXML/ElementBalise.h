@@ -28,11 +28,12 @@ protected:
 // Constructeurs et Méthodes
 public:
 	ElementBalise();
-	ElementBalise(string nom);
+	ElementBalise(string nom, list<AbstractElement*> * lstAbstractElement, set<AttributXML*> * s);
 	virtual ~ElementBalise();
     string getNom() const;
 
     list<AbstractElement*> * getLstAbstractElement() const;
+
     set<AttributXML*> * getSetAttribut() const;
 
     virtual void afficher();

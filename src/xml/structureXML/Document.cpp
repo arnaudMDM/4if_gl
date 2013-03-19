@@ -8,7 +8,7 @@
 #include "Document.h"
 
 Document::Document() {
-	// TODO Auto-generated constructor stub
+	elementBalise = NULL;
 
 }
 

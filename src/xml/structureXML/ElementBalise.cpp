@@ -16,10 +16,11 @@ ElementBalise::ElementBalise() {
 ElementBalise::~ElementBalise() {
 }
 
-ElementBalise::ElementBalise(string nom)
+ElementBalise::ElementBalise(string nom, list<AbstractElement*> * l, set<AttributXML*> * s)
 {
 	this->nom = nom;
-	this->lstAbstractElement = new list<AbstractElement*>();
+	this->lstAbstractElement = l;
+	this->setAttributs = s;
   this->setAttributs = new set<AttributXML*>();
 }
 
