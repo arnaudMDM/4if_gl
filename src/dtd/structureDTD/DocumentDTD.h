@@ -21,7 +21,7 @@ protected:
 	map<string, ElementDTD*> * mapElementDTD;
 // Constructeurs et méthodes
 public:
-	DocumentDTD();
+	DocumentDTD(map<string, ElementDTD*> * mapElementDTD);
 
 	virtual ~DocumentDTD();
 	map<string, ElementDTD*> * getElementsDTD() const;

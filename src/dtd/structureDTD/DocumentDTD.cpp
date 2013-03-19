@@ -7,8 +7,8 @@
 
 #include "DocumentDTD.h"
 
-DocumentDTD::DocumentDTD() {
-	this->mapElementDTD = new map<string, ElementDTD*>();
+DocumentDTD::DocumentDTD(map<string, ElementDTD*> * mapElementDTD) {
+	this->mapElementDTD = mapElementDTD;
 }
 
 DocumentDTD::~DocumentDTD() {
