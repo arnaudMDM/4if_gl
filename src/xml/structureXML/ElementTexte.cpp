@@ -7,18 +7,14 @@
 
 #include "ElementTexte.h"
 
-ElementTexte::ElementTexte() {
+ElementTexte::ElementTexte(string Texte) {
+	this->Texte = Texte; 
 
 }
 
 ElementTexte::ElementTexte(const ElementTexte&eT)
 {
 	Texte=Et;
-}
-
-ElementTexte::ElementTexte(string s)
-{
-	Texte=s;
 }
 
 ElementTexte::~ElementTexte() {

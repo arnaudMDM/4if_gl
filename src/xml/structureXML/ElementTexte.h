@@ -19,7 +19,7 @@ class ElementTexte : public AbstractElement  {
 protected:
 	string Texte;
 public:
-	ElementTexte();
+	ElementTexte(string Texte);
 	ElementTexte(const ElementTexte&);
 	ElementTexte(string s);
 	virtual ~ElementTexte();
