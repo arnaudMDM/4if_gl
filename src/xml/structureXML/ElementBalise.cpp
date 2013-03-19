@@ -29,7 +29,7 @@ void ElementBalise::afficher()
   set<AttributXML*>::iterator it;
   for (it = setAttributs->begin(); it != setAttributs->end(); it++)
   {
-  	//(*it)->afficher();
+  	(*it)->afficher();
   }
 
   if (lstAbstractElement->size() > 0)
