@@ -20,38 +20,6 @@ extern int dtddebug;
 extern char * sDtd;
 extern FILE * dtdin;
 
-int affichageEltXML(ElementBalise * eltXML)
-{
-  printf("<%s",eltXML->getNom());
-  list<AttributXML>::iterator it;
-  list<AttributXML> listAtts=eltXML->getLstAttributXML();
-  for(it=listAtts.begin();it!=listAtts.end();it++)
-  {
-  	printf(" %s=\"%s\"",it->getNom(),it->getValeur());
-  } 
-  list<AbstractElement> listElts=eltXML->getLstAbstractElement();
-  if(listElts->size()>0)
-  {
-  	printf(">");
-  	list<AbstractElement>::iterator it2;
-	for(it2=listElts.begin();it2!=listElts.end();it2++)
-  	{
-  		affichageEltXML(it2);
-  	}
-	printf("</%s>",eltXML->getNom());
-  }
-  else
-  {
-	printf("/>");
-  }
-}
-
-int affichageDocXML(Document * dXML)
-{
-  ElementBalise * pEltBalise=dXML->getElementBalise();
-  affichageEltXML(pEltBalise);
-}
-
 int main(int argc, char **argv)
 {
   int err;

@@ -6,6 +6,7 @@
  */
 
 #include "AttributXML.h"
+#include <iostream>
 
 AttributXML::AttributXML() {
 	// TODO Auto-generated constructor stub

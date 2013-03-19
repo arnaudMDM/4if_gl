@@ -11,6 +11,16 @@ ElementTexte::ElementTexte() {
 
 }
 
+ElementTexte::ElementTexte(const ElementTexte&eT)
+{
+	Texte=Et;
+}
+
+ElementTexte::ElementTexte(string s)
+{
+	Texte=s;
+}
+
 ElementTexte::~ElementTexte() {
 }
 
