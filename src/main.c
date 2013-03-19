@@ -1,7 +1,9 @@
 #include "dtd/dtd.tab.h" 
 #include "xml/xml.tab.h"
 #include <stdio.h>
-#include <string.h>
+#include <string>
+#include <set>
+#include <iterator>
 
 #include "xml/structureXML/AbstractElement.h"
 #include "xml/structureXML/AttributXML.h"
@@ -15,6 +17,9 @@
 
 int xmlparse();
 int dtdparse();
+bool verifXml(DocumentDTD * dtd, Document * xml);
+bool verifNoeud(AbstractElement * noeud, map<string, ElementDTD> * elts);
+
 extern int xmldebug;
 extern int dtddebug;
 extern char * sDtd;
@@ -59,12 +64,41 @@ int main(int argc, char **argv)
   return 0;
 }
 
-int verifXml(DocumentDTD * dtd, Document * xml)
+bool verifXml(DocumentDTD * dtd, Document * xml)
 {
-	ElementBalise * racine = xml->racine;
-	set<ElementDTD> elts = dtd->getElementsDtd();
+	ElementBalise * noeud;
+	map<string, ElementDTD> elts;
 
-	string nomNoeudCourant = racineXml->getNom();
+	noeud = xml->getElementBalise();
+	elts = dtd->getElementsDTD();
+	
+	return verifNoeud(noeud, &elts);
+}
+
+bool verifNoeud(AbstractElement * abstractNoeud, map<string, ElementDTD> * elts)
+{
+
+	ElementBalise* noeud = dynamic_cast<ElementBalise*>(abstractNoeud);
+	if (noeud == 0)
+	{
+		// il s'agit d'un élément texte
+		return true;
+	}
+
+	string nomNoeudCourant = noeud->getNom();
+
+	ElementDTD * noeudDTD = elts[nomNoeudCourant];
+
+	
+
+	// verification de l'existance du noeud courant dans la dtd
+	if (noeudDTD == NULL)
+	{
+		return false;
+	}
+
+	// vérification des attributs du noeud courant
 
 
+	// vérification des sous-éléments
 }

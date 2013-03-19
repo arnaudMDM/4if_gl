@@ -11,19 +11,20 @@
 using namespace std;
 
 // Includes
-#include <set>
+#include <map>
+#include <string>
 #include "ElementDTD.h"
 
 class DocumentDTD {
 // Attributs de classe
 protected:
-	set<ElementDTD> * setElementDTD;
+	map<string, ElementDTD> * mapElementDTD;
 // Constructeurs et méthodes
 public:
 	DocumentDTD();
 
 	virtual ~DocumentDTD();
-	set<ElementDTD> getElementsDTD() const;
+	map<string, ElementDTD> getElementsDTD() const;
 
 };
 

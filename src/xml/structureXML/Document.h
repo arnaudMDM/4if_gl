@@ -30,6 +30,8 @@ public:
     void setNomDtd(string nomDtd);
     void setNomFeuilleDeStyle(list<string> nomFeuilleDeStyle);
     void setNomXml(string nomXml);
+
+    ElementBalise * getElementBalise();
 };
 
 #endif /* DOCUMENT_H_ */

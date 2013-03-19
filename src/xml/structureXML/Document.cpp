@@ -35,6 +35,13 @@ void Document::setNomDtd(string nomDtd)
 {
     this->nomDtd = nomDtd;
 }
+<<<<<<< .mine
+
+ElementBalise * Document::getElementBalise()
+{
+   return &elementBalise;
+}
+=======
 
 void Document::setNomFeuilleDeStyle(list<string> nomFeuilleDeStyle)
 {
@@ -46,3 +53,4 @@ void Document::setNomXml(string nomXml)
     this->nomXml = nomXml;
 }
 
+>>>>>>> .r35
