@@ -16,7 +16,7 @@ ElementBalise::~ElementBalise() {
 ElementBalise::ElementBalise(string nom)
 {
 	this->nom = nom;
-	this->lstAbstractElement = new list<AbstractElement>();
+	this->lstAbstractElement = new list<AbstractElement*>();
 }
 
 void ElementBalise::afficher()
@@ -30,11 +30,10 @@ void ElementBalise::afficher()
   if (lstAbstractElement->size() > 0)
   {
   	cout << ">" << endl;
-  	list<AbstractElement>::iterator it2;
+  	list<AbstractElement*>::iterator it2;
 	for (it2 = lstAbstractElement->begin(); it2 != lstAbstractElement->end(); it2++)
   	{
-//   		it2->afficher();
-		cout << "COUCOU" << endl; 
+   		(*it2)->afficher();
   	}
 	  cout << "</" << nom << ">" << endl;
   }
@@ -49,7 +48,7 @@ string ElementBalise::getNom() const
   return nom;
 }
 
-list<AbstractElement> ElementBalise::getLstAbstractElement() const
+list<AbstractElement*> * ElementBalise::getLstAbstractElement() const
 {
-  return *lstAbstractElement;
+    return lstAbstractElement;
 }

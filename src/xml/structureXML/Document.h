@@ -20,18 +20,18 @@ protected:
     string nomXml;
     string nomDtd;
     //list<string> nomFeuilleDeStyle;
-    ElementBalise elementBalise;
+    ElementBalise * elementBalise;
 public:
     Document();
     //Document(ElementBalise elementBalise);
     virtual ~Document();
     void afficher();
-    void setElementBalise(ElementBalise elementBalise);
+    void setElementBalise(ElementBalise * elementBalise);
     void setNomDtd(string nomDtd);
     //void setNomFeuilleDeStyle(list<string> nomFeuilleDeStyle);
     void setNomXml(string nomXml);
 
-    //ElementBalise * getElementBalise();
+    ElementBalise * getElementBalise();
 };
 
 #endif /* DOCUMENT_H_ */

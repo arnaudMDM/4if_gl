@@ -15,7 +15,7 @@
 #include "dtd/structureDTD/DocumentDTD.h"
 #include "dtd/structureDTD/ElementDTD.h"
 
-int xmlparse();
+int xmlparse(Document * xml);
 int dtdparse();
 bool verifXml(DocumentDTD * dtd, Document * xml);
 bool verifNoeud(AbstractElement * noeud, map<string, ElementDTD> * elts);
@@ -59,8 +59,6 @@ int main(int argc, char **argv)
     	fclose(file);
     	//fclose(dtdout);
   }
-
-  affichageDocXML(docXML);
   return 0;
 }
 

@@ -23,10 +23,10 @@ Document::~Document() {
 
 void Document::afficher()
 {
-    elementBalise.afficher();
+    elementBalise->afficher();
 }
 
-void Document::setElementBalise(ElementBalise elementBalise)
+void Document::setElementBalise(ElementBalise * elementBalise)
 {
     this->elementBalise = elementBalise;
 }
@@ -50,5 +50,10 @@ void Document::setNomFeuilleDeStyle(list<string> nomFeuilleDeStyle)
 void Document::setNomXml(string nomXml)
 {
     this->nomXml = nomXml;
+}
+
+ElementBalise * Document::getElementBalise()
+{
+	return this->elementBalise; 
 }
 
