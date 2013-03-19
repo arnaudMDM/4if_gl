@@ -6,6 +6,7 @@
  */
 
 #include "Document.h"
+#include <iostream>
 
 Document::Document() {
 	elementBalise = NULL;
@@ -23,6 +24,7 @@ Document::~Document() {
 
 void Document::afficher()
 {
+	cout << "<!DOCTYPE " << this->nomXml << " SYSTEM \"" <<this->nomDtd<< "\">" << endl;
     elementBalise->afficher();
 }
 
