@@ -52,7 +52,7 @@ int main(int argc, char **argv)
 
   else
   {
-//  dtddebug = 1;
+    dtddebug = 1;
   	FILE *file;
    	file = fopen(sDtd, "r");
 	
@@ -120,13 +120,26 @@ bool verifNoeud(AbstractElement * abstractNoeud, map<string, ElementDTD*> * elts
 	}
 
 	// vérification des attributs du noeud courant
-  set<AttributXML> * attsXML = noeud->getSetAttribut();
-  set<AttributDTD> * attsDTD = noeudDTD->getSetAttributDTD();
+  set<AttributXML*> * attsXML = noeud->getSetAttribut();
+  set<AttributDTD*> * attsDTD = noeudDTD->getSetAttributDTD();
 
-  set<AttributXML>::iterator it;
+  set<AttributXML*>::iterator it;
+  set<AttributDTD*>::iterator it2;
+  bool trouve;
   for (it = attsXML->begin(); it != attsXML->end(); it++)
   {
-    if ((*attsDTD)[(*it)] == NULL)
+    trouve = false;
+
+    for (it2 = attsDTD->begin(); it2 != attsDTD->end(); it2++)
+    {
+      if ((*it)->getNom() == (*it2)->getNom())
+      {
+        trouve = true;
+        break;
+      }
+    }
+
+    if (!trouve)
     {
       return false;
     }
@@ -134,10 +147,10 @@ bool verifNoeud(AbstractElement * abstractNoeud, map<string, ElementDTD*> * elts
 
 	// vérification des sous-éléments*/
   list<AbstractElement*> * lstEltsXML = noeud->getLstAbstractElement();
-  list<AbstractElement*>::iterator it2;
-  for (it2 = lstEltsXML->begin(); it2 != lstEltsXML->end(); it2++)
+  list<AbstractElement*>::iterator it3;
+  for (it3 = lstEltsXML->begin(); it3 != lstEltsXML->end(); it3++)
   {
-    if (!verifNoeud(*(it2), elts))
+    if (!verifNoeud(*(it3), elts))
     {
       return false;
     }
