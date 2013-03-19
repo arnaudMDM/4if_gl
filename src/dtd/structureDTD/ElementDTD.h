@@ -13,6 +13,8 @@ using namespace std;
 // Includes
 #include <string>
 #include <list>
+#include <set>
+#include "AttributDTD.h"
 
 class ElementDTD {
 // Attributs de classe
@@ -20,6 +22,7 @@ protected:
 	string nom;
 	bool isText;
 	list<ElementDTD> * lstElementDTD;
+	set<AttributDTD> * setAttributDTD;
 // Constructeurs et Méthodes
 public:
 	ElementDTD();
@@ -27,6 +30,7 @@ public:
 	virtual ~ElementDTD();
     bool getIsText() const;
     list<ElementDTD> * getLstElementDTD() const;
+    set<AttributDTD> * getSetAttributDTD() const;
     string getNom() const;
 };
 

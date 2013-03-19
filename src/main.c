@@ -73,6 +73,11 @@ dtddebug = 1;
 
 bool verifXml(DocumentDTD * dtd, Document * xml)
 {
+  if (dtd == NULL || xml == NULL)
+  {
+    return false;
+  }
+
 	ElementBalise * noeud;
 	map<string, ElementDTD*> * elts;
 
@@ -84,6 +89,11 @@ bool verifXml(DocumentDTD * dtd, Document * xml)
 
 bool verifNoeud(AbstractElement * abstractNoeud, map<string, ElementDTD*> * elts)
 {
+
+  if (abstractNoeud == NULL || elts == NULL)
+  {
+    return false;
+  }
 
 	ElementBalise * noeud = dynamic_cast<ElementBalise*>(abstractNoeud);
 
@@ -104,7 +114,28 @@ bool verifNoeud(AbstractElement * abstractNoeud, map<string, ElementDTD*> * elts
 	}
 
 	// vérification des attributs du noeud courant
-  
+  set<AttributXML> * attsXML = noeud->getSetAttribut();
+  set<AttributDTD> * attsDTD = noeudDTD->getSetAttributDTD();
 
-	// vérification des sous-éléments*/ 
+  set<AttributXML>::iterator it;
+  for (it = attsXML->begin(); it != attsXML->end(); it++)
+  {
+    if ((*attsDTD)[(*it)] == NULL)
+    {
+      return false;
+    }
+  }
+
+	// vérification des sous-éléments*/
+  list<AbstractElement*> * lstEltsXML = noeud->getLstAbstractElement();
+  list<AbstractElement*>::iterator it2;
+  for (it2 = lstEltsXML->begin(); it2 != lstEltsXML->end(); it2++)
+  {
+    if (!verifNoeud(*(it2), elts))
+    {
+      return false;
+    }
+  }
+
+  return true;
 }

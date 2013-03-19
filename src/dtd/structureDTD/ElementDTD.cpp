@@ -13,6 +13,7 @@ ElementDTD::ElementDTD() {
 
 ElementDTD::~ElementDTD() {
 	delete(this->lstElementDTD);
+	delete(this->setAttributDTD);
 }
 
 ElementDTD::ElementDTD(string nom, bool isText)
@@ -20,6 +21,7 @@ ElementDTD::ElementDTD(string nom, bool isText)
 	this->nom = nom;
 	this->isText = isText;
 	this->lstElementDTD = new list<ElementDTD>();
+	this->setAttributDTD = new set<AttributDTD>();
 }
 
 bool ElementDTD::getIsText() const
@@ -30,6 +32,11 @@ bool ElementDTD::getIsText() const
 list<ElementDTD> * ElementDTD::getLstElementDTD() const
 {
     return lstElementDTD;
+}
+
+set<AttributDTD> * ElementDTD::getSetAttributDTD() const
+{
+    return setAttributDTD;
 }
 
 string ElementDTD::getNom() const
