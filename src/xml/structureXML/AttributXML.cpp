@@ -9,12 +9,11 @@
 #include <iostream>
 
 AttributXML::AttributXML() {
-	// TODO Auto-generated constructor stub
-
+	
 }
 
 AttributXML::~AttributXML() {
-	// TODO Auto-generated destructor stub
+	
 }
 
 AttributXML::AttributXML(string nom, string valeur) : nom(nom), valeur(valeur)
@@ -22,7 +21,7 @@ AttributXML::AttributXML(string nom, string valeur) : nom(nom), valeur(valeur)
 
 void AttributXML::afficher()
 {
-    cout<<" "<<nom<<"=\""<<valeur<<"\"";
+    cout << " " << nom << "=\"" << valeur << "\"";
 }
 
 string AttributXML::getNom() const

@@ -7,6 +7,8 @@
 
 #include "ElementBalise.h"
 
+#include <iostream>
+
 ElementBalise::ElementBalise() {
 }
 
@@ -22,16 +24,17 @@ ElementBalise::ElementBalise(string nom)
 void ElementBalise::afficher()
 {
   cout << "<" << nom;
-  list<AttributXML>::iterator it;
-  for (it = lstAttributs->begin(); it != lstAttributs->end(); it++)
+  set<AttributXML>::iterator it;
+  for (it = setAttributs->begin(); it != setAttributs->end(); it++)
   {
-  	it->afficher();
+  	//it->afficher();
   }
+
   if (lstAbstractElement->size() > 0)
   {
   	cout << ">" << endl;
   	list<AbstractElement*>::iterator it2;
-	for (it2 = lstAbstractElement->begin(); it2 != lstAbstractElement->end(); it2++)
+	  for (it2 = lstAbstractElement->begin(); it2 != lstAbstractElement->end(); it2++)
   	{
    		(*it2)->afficher();
   	}

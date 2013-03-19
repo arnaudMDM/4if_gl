@@ -35,13 +35,15 @@ int main(int argc, char **argv)
 
   err = xmlparse(docXML);
   if (err != 0) printf("Parse ended with %d error(s)\n", err);
-        else  printf("Parse ended with success\n", err);
+  else  printf("Parse ended with success\n", err);
 
-  if(sDtd==NULL)
-	printf("Aucun dtd associé\n", err);
+  if (sDtd==NULL)
+  {
+	 printf("Aucun dtd associé\n", err);
+  }
   else
   {
-	dtddebug = 1;
+dtddebug = 1;
   	FILE *file;
    	file = fopen(sDtd, "r");
 	
@@ -61,6 +63,10 @@ int main(int argc, char **argv)
   }
   return 0;
 }
+
+
+/* ---------------------------------------- */
+
 
 bool verifXml(DocumentDTD * dtd, Document * xml)
 {
@@ -87,8 +93,6 @@ bool verifNoeud(AbstractElement * abstractNoeud, map<string, ElementDTD> * elts)
 
 	ElementDTD * noeudDTD = elts[nomNoeudCourant];
 
-	
-
 	// verification de l'existance du noeud courant dans la dtd
 	if (noeudDTD == NULL)
 	{
@@ -96,7 +100,7 @@ bool verifNoeud(AbstractElement * abstractNoeud, map<string, ElementDTD> * elts)
 	}
 
 	// vérification des attributs du noeud courant
-
+  
 
 	// vérification des sous-éléments
 }

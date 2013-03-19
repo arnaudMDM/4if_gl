@@ -5,8 +5,6 @@
  *      Author: alefevre
  */
 
-
-
 #ifndef ATTRIBUTXML_H_
 #define ATTRIBUTXML_H_
 
