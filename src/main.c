@@ -29,11 +29,11 @@ extern FILE * dtdin;
 int main(int argc, char **argv)
 {
   Document * docXML = new Document();
-  DocumentDTD * docDTD = new DocumentDTD();
+  //DocumentDTD * docDTD = new DocumentDTD();
 
-  parser(docXML, docDTD);
+  parser(docXML, /*docDTD*/ NULL);
 
-  verifNoeud(docXML);
+  verifXml(NULL, docXML);
 
   return 0;
 }
@@ -65,7 +65,7 @@ bool parser(Document * docXML, DocumentDTD * docDTD)
   docXML->afficher();
 
   string nomDtd = docXML->getNomDtd();
-  if (nomDtd == NULL)
+  if (nomDtd == "")
   {
     printf("Aucune dtd associée\n", err);
   }
@@ -73,11 +73,11 @@ bool parser(Document * docXML, DocumentDTD * docDTD)
   {
     dtddebug = 1;
     FILE *file;
-    file = fopen(nomDtd, "r");
+    file = fopen(nomDtd.c_str(), "r");
   
     if (!file)
     {
-      fprintf(stderr, "Could not open %s \n", nomDtd);
+      fprintf(stderr, "Could not open %s \n", nomDtd.c_str());
       return false;
     }
     
