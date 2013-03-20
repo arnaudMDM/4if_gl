@@ -15,11 +15,12 @@ using namespace std;
 
 class AttributDTD {
 protected:
-	string nom;
+	string nomAttribut;
 	string valeur;
+	string nomElement;
 public:
 	AttributDTD();
-	AttributDTD(string nom, string valeur);
+	AttributDTD(string nomAttribut, string valeur,string nomElement);
 	virtual ~AttributDTD();
     string getNom() const;
     string getValeur() const;

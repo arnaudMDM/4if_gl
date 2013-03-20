@@ -15,12 +15,17 @@ int dtdlex(void);
 
 %union { 
    char *s; 
+   map<string, ElementDTD*> * mapElementDTD;
+   ElementDTD * elementDTD;
+   list<string> * lstElementDTD;
+   set<AttributDTD*> * setAttributDTD;
 }
 
 %token ELEMENT ATTLIST SUP OUVREPAR FERMEPAR VIRGULE BARRE FIXED EMPTY ANY PCDATA AST PTINT PLUS CDATA
 %token <s> DTDNOM TOKENTYPE DECLARATION DTDVALEUR
 
-%%
+
+%%P
 
 main: dtd_list_opt
 ;

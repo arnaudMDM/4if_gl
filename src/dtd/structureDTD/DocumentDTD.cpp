@@ -24,3 +24,8 @@ map<string, ElementDTD*> * DocumentDTD::getElementsDTD() const
 {
 	return mapElementDTD;
 }
+
+void DocumentDTD::setMapElementDTD(map<string, ElementDTD*> *m)
+{
+	this->mapElementDTD=m;
+}

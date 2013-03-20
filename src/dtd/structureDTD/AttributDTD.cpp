@@ -13,7 +13,7 @@ AttributDTD::AttributDTD() {
 AttributDTD::~AttributDTD() {
 }
 
-AttributDTD::AttributDTD(string nom, string valeur):nom(nom),valeur(valeur)
+AttributDTD::AttributDTD(string nomAttribut, string valeur,string nomElement):nomAttribut(nomAttribut),valeur(valeur),nomElement(nomElement)
 {}
 
 string AttributDTD::getNom() const

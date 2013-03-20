@@ -19,6 +19,8 @@ class DocumentDTD {
 // Attributs de classe
 protected:
 	map<string, ElementDTD*> * mapElementDTD;
+	map<string, ElementDTD*> * mapElementSansPere;
+	map<string, ElementDTD*> * mapElementSansFils;
 // Constructeurs et méthodes
 public:
 	DocumentDTD(map<string, ElementDTD*> * mapElementDTD);
