@@ -1,19 +1,20 @@
 /*
- * Attribut.h
+ * AttributXSL.h
  *
  *  Created on: 12 mars 2013
  *      Author: alefevre
  */
 
-#ifndef ATTRIBUTXML_H_
-#define ATTRIBUTXML_H_
+#ifndef ATTRIBUTXSL_H_
+#define ATTRIBUTXSL_H_
 
 using namespace std;
 
 // Includes
 #include <string>
 
-class AttributXML {
+class AttributXSL 
+{
 
 // Attributs de classe
 protected:
@@ -22,13 +23,13 @@ protected:
 
 // Constructeurs et classes
 public:
-	AttributXML();
-	AttributXML(string nom, string valeur);
-	virtual ~AttributXML();
-    string getNom() const;
+	AttributXSL();
+	AttributXSL(string nom, string valeur);
+	virtual ~AttributXSL();
 
+    string getNom() const;
     string getValeur() const;
     void afficher() const;
 };
 
-#endif /* ATTRIBUTXML_H_ */
+#endif /* ATTRIBUTXSL_H_ */
