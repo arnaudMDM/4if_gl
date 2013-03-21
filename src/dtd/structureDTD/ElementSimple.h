@@ -10,6 +10,7 @@ class ElementSimple : public GroupeSubElement{
 public:
 	ElementSimple(string n,Quantificateur q);
 	virtual ~ElementSimple();
+	virtual void Afficher() const; 
 protected:
 	string nom;
 };

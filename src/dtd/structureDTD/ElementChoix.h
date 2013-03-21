@@ -10,6 +10,7 @@ class ElementChoix : public GroupeSubElement{
 public:
 	ElementChoix(list<GroupeSubElement*> * l,Quantificateur q);
 	virtual ~ElementChoix();
+	virtual void Afficher() const;
 protected:
 	list<GroupeSubElement*> * listGroupeSubElement;
 };

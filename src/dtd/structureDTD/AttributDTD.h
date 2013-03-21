@@ -17,17 +17,17 @@ using namespace std;
 class AttributDTD {
 protected:
 	string nom;
-	string valeur;
+	string type;
 	string defaut;
 	list<string> * listType;
 	bool bEnum;
 public:
 	AttributDTD();
-	AttributDTD(string nom, string valeur,string defaut);
+	AttributDTD(string nom, string type,string defaut);
 	AttributDTD(string nom, list<string> * listType,string defaut);
 	virtual ~AttributDTD();
     string getNom() const;
-    string getValeur() const;
+    //string getValeur() const;
 };
 
 #endif /* ATTRIBUTDTD_H_ */

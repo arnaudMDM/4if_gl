@@ -14,3 +14,10 @@ ElementSequence::~ElementSequence(){
 
 	delete(this->listGroupeSubElement);
 }
+
+void ElementSequence::Afficher() const
+{
+	
+}
+
+

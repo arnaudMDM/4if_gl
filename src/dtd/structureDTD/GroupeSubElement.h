@@ -13,6 +13,9 @@ enum Quantificateur{
 class GroupeSubElement{
 protected:
 	Quantificateur quantificateur;
+
+public:
+	void Afficher()=0; 
 };
 
 #endif

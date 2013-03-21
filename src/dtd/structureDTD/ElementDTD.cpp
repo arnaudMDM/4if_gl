@@ -6,6 +6,9 @@
  */
 
 #include "ElementDTD.h"
+#include <iostream>
+
+ using namespace std; 
 
 ElementDTD::ElementDTD() {
 
@@ -61,3 +64,11 @@ void ElementDTD::ajouterAttribut(set<AttributDTD *> * setAtt)
 
 		setAttributDTD->insert(setAtt->begin(),setAtt->end());
 }
+
+void ElementDTD::Afficher() const;
+{
+	cout<< "<!ELEMENT " << nom;
+	groupeSubElement->Afficher(); 
+	cout<< ">" << endl; 
+
+} 

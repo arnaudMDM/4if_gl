@@ -14,3 +14,19 @@ ElementChoix::~ElementChoix(){
 
 	delete(this->listGroupeSubElement);
 }
+
+void ElementChoix::Afficher() const
+{
+	cout << nom ; 
+	switch(quantificateur)
+	{
+		case INTERROGATION : cout << "?"; 
+		break; 
+		case CROIX : cout << "+";
+		break;  
+		case ETOILE : cout << "*";
+		break; 
+		default : 
+		break;  
+	}
+}

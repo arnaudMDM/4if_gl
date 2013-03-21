@@ -35,6 +35,7 @@ public:
     void ajouterAttribut(set<AttributDTD *> * setAtt);
     string getNom() const;
     void setNom(string nom);
+    void Afficher(); 
 };
 
 #endif /* ELEMENTDTD_H_ */
