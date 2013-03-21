@@ -28,6 +28,6 @@ public:
 	virtual ~AttributDTD();
     string getNom() const;
     //string getValeur() const;
-};
+}
 
 #endif /* ATTRIBUTDTD_H_ */

@@ -4,8 +4,6 @@
 #include <list>
 #include "GroupeSubElement.h"
 
-using namespace std;
-
 class ElementSequence : public GroupeSubElement{
 public:
 	ElementSequence(list<GroupeSubElement*> * l,Quantificateur q);
@@ -13,6 +11,6 @@ public:
 	virtual void Afficher() const; 
 protected:
 	list<GroupeSubElement*> * listGroupeSubElement;
-};
+}
 
 #endif

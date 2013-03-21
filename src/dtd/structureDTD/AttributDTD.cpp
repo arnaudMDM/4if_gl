@@ -6,6 +6,7 @@
  */
 
 #include "AttributDTD.h"
+#include <iostream>
 
 AttributDTD::AttributDTD() {
 }

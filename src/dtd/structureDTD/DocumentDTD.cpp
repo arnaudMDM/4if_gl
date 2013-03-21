@@ -32,8 +32,8 @@ void DocumentDTD::setMapElementDTD(map<string, ElementDTD*> *m)
 void DocumentDTD::Afficher()
 {
 	map<string, ElementDTD*>::iterator it; 
-	for(it = mapElementDTD->begin() ; it != mapElementDTD.end() ; it++)
+	for(it = mapElementDTD->begin() ; it != mapElementDTD->end() ; it++)
 	{
-		(*(it->second))->Afficher(); 
+		(it->second)->Afficher(); 
 	} 
 }

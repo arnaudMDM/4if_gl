@@ -15,7 +15,7 @@ protected:
 	Quantificateur quantificateur;
 
 public:
-	void Afficher()=0; 
-};
+	virtual void Afficher()=0; 
+}
 
 #endif

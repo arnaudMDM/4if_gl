@@ -1,4 +1,5 @@
 #include "ElementSequence.h"
+#include <iostream>
 
 ElementSequence::ElementSequence(list<GroupeSubElement*> * l,Quantificateur q){
 	listGroupeSubElement=l;
@@ -19,5 +20,3 @@ void ElementSequence::Afficher() const
 {
 	
 }
-
-

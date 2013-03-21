@@ -4,8 +4,6 @@
 #include <string>
 #include "GroupeSubElement.h"
 
-using namespace std;
-
 class ElementSimple : public GroupeSubElement{
 public:
 	ElementSimple(string n,Quantificateur q);
@@ -13,6 +11,5 @@ public:
 	virtual void Afficher() const; 
 protected:
 	string nom;
-};
-
+}
 #endif

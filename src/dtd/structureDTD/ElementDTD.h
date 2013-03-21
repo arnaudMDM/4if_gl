@@ -8,8 +8,6 @@
 #ifndef ELEMENTDTD_H_
 #define ELEMENTDTD_H_
 
-using namespace std;
-
 // Includes
 #include <string>
 #include <set>
@@ -35,7 +33,7 @@ public:
     void ajouterAttribut(set<AttributDTD *> * setAtt);
     string getNom() const;
     void setNom(string nom);
-    void Afficher(); 
-};
+    void Afficher() const; 
+}
 
 #endif /* ELEMENTDTD_H_ */

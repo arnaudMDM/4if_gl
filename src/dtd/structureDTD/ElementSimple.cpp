@@ -1,4 +1,5 @@
 #include "ElementSimple.h"
+#include <iostream>
 
 ElementSimple::ElementSimple(string n,Quantificateur q){
 	nom=n;
@@ -22,4 +23,3 @@ void ElementSimple::Afficher() const
 		break;  
 	}
 }
-

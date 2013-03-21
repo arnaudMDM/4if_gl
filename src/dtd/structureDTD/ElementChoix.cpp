@@ -1,4 +1,5 @@
 #include "ElementChoix.h"
+#include <iostream>
 
 ElementChoix::ElementChoix(list<GroupeSubElement*> * l,Quantificateur q){
 	listGroupeSubElement=l;
@@ -17,7 +18,7 @@ ElementChoix::~ElementChoix(){
 
 void ElementChoix::Afficher() const
 {
-	cout << nom ; 
+	// TODO Pourquoi pas de nom dans Element choix cout << nom ; 
 	switch(quantificateur)
 	{
 		case INTERROGATION : cout << "?"; 

@@ -13,6 +13,6 @@ public:
 	virtual void Afficher() const;
 protected:
 	list<GroupeSubElement*> * listGroupeSubElement;
-};
+}
 
 #endif
