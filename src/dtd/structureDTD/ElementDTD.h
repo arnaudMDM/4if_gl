@@ -34,6 +34,6 @@ public:
     string getNom() const;
     void setNom(string nom);
     void Afficher() const; 
-}
+};
 
 #endif /* ELEMENTDTD_H_ */

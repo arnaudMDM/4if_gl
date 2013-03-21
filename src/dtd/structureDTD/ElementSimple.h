@@ -11,5 +11,5 @@ public:
 	virtual void Afficher() const; 
 protected:
 	string nom;
-}
+};
 #endif
