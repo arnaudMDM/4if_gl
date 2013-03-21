@@ -18,5 +18,27 @@ ElementSequence::~ElementSequence(){
 
 void ElementSequence::Afficher() const
 {
+	cout<<"(";
+	list<GroupeSubElement*>::iterator it=listGroupeSubElement->begin();
+
+	(*it)->Afficher();
+
+	for(it++ ; it!=listGroupeSubElement->end() ; it++)
+	{
+		cout<<",";
+		(*it)->Afficher();
+	}
 	
+	cout<<")";	
+	switch(quantificateur)
+	{
+		case INTERROGATION : cout << "?"; 
+		break; 
+		case CROIX : cout << "+";
+		break;  
+		case ETOILE : cout << "*";
+		break; 
+		default : 
+		break;  
+	}
 }

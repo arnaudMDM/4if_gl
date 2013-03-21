@@ -18,7 +18,18 @@ ElementChoix::~ElementChoix(){
 
 void ElementChoix::Afficher() const
 {
-	// TODO Pourquoi pas de nom dans Element choix cout << nom ; 
+	cout<<"(";
+	list<GroupeSubElement*>::iterator it=listGroupeSubElement->begin();
+
+	(*it)->Afficher();
+
+	for(it++ ; it!=listGroupeSubElement->end() ; it++)
+	{
+		cout<<"|";
+		(*it)->Afficher();
+	}
+
+	cout<<")";	
 	switch(quantificateur)
 	{
 		case INTERROGATION : cout << "?"; 

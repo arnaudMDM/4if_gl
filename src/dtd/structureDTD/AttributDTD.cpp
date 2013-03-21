@@ -26,3 +26,23 @@ string AttributDTD::getNom() const
 {
     return nom;
 }
+
+void AttributDTD::Afficher(string nomElt)
+{
+	cout<<"<!ATTLIST "<<nomElt<<" "<<nom<<" ";
+	if(bEnum)
+	{
+		cout<<"(";
+		list<string>::iterator it=listType->begin();
+		cout<<(*it);
+		for(it++ ; it!=listType->end() ; it++)
+		{
+			cout<<","<<(*it);
+		}
+		cout<<")";
+	}
+	else
+		cout<< type;
+
+	cout<<" "<<defaut<<">"<<endl;;
+}

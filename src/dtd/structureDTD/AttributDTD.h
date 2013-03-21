@@ -28,6 +28,7 @@ public:
 	virtual ~AttributDTD();
     string getNom() const;
     //string getValeur() const;
+    void Afficher(string nomElt);
 };
 
 #endif /* ATTRIBUTDTD_H_ */
