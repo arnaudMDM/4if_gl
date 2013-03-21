@@ -5,7 +5,12 @@
 #include <ctype.h>
 #include <string.h>
 #include <stdlib.h>
+#include "structureDTD/DocumentDTD.h"
+#include "structureDTD/ElementSequence.h"
+#include "structureDTD/ElementSimple.h"
 #include "dtd.tab.h"
+
+
 
 #define YYTEXT dtdtext
 #define YYLVAL dtdlval

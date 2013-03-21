@@ -17,7 +17,7 @@
 #include "dtd/structureDTD/ElementDTD.h"
 
 int xmlparse(Document * xml);
-int dtdparse();
+int dtdparse(DocumentDTD * dtd);
 bool verifXml(DocumentDTD * dtd, Document * xml);
 bool verifNoeud(AbstractElement * noeud, map<string, ElementDTD*> * elts);
 bool parser(Document * docXML, DocumentDTD * docDTD);
@@ -29,9 +29,9 @@ extern FILE * dtdin;
 int main(int argc, char **argv)
 {
 	Document * docXML = new Document();
-	//DocumentDTD * docDTD = new DocumentDTD();
+	DocumentDTD * docDTD = new DocumentDTD();
 
-	parser(docXML, /*docDTD*/ NULL);
+	parser(docXML, docDTD);
 
 	verifXml(NULL, docXML);
 

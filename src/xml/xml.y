@@ -1,6 +1,7 @@
 %{
 
 using namespace std;
+
 #include <cstring>
 #include <cstdio>
 #include <cstdlib>
@@ -25,7 +26,7 @@ int xmllex(void);
    ElementName * en;  /* le nom d'un element avec son namespace, cf commun.h */
    AbstractElement * abstractElement; /* C est un element balise uniquement */
    list<AbstractElement *> * lstAbstractElement; /* C est une liste */
-   set<AttributXML*> * lstAttributXml; 
+   set<AttributXML*> * lstAttributXml;
 }
 
 %token EGAL SLASH SUP SUPSPECIAL DOCTYPE

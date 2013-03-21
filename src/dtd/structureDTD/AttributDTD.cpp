@@ -13,8 +13,13 @@ AttributDTD::AttributDTD() {
 AttributDTD::~AttributDTD() {
 }
 
-AttributDTD::AttributDTD(string nomAttribut, string valeur,string nomElement):nomAttribut(nomAttribut),valeur(valeur),nomElement(nomElement)
+AttributDTD::AttributDTD(string nom, string valeur,string defaut):nom(nom),valeur(valeur),defaut(defaut),bEnum(false)
 {}
+
+AttributDTD::AttributDTD(string nom, list<string> * listType,string defaut):nom(nom),defaut(defaut),bEnum(true)
+{
+	this->listType=listType;
+}
 
 string AttributDTD::getNom() const
 {

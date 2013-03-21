@@ -11,16 +11,20 @@
 using namespace std;
 
 // Includes
-#include<string>
+#include <string>
+#include <list>
 
 class AttributDTD {
 protected:
-	string nomAttribut;
+	string nom;
 	string valeur;
-	string nomElement;
+	string defaut;
+	list<string> * listType;
+	bool bEnum;
 public:
 	AttributDTD();
-	AttributDTD(string nomAttribut, string valeur,string nomElement);
+	AttributDTD(string nom, string valeur,string defaut);
+	AttributDTD(string nom, list<string> * listType,string defaut);
 	virtual ~AttributDTD();
     string getNom() const;
     string getValeur() const;
