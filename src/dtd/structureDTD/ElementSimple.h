@@ -9,6 +9,7 @@ public:
 	ElementSimple(string n,Quantificateur q);
 	virtual ~ElementSimple();
 	virtual void Afficher() const; 
+	virtual string getRegEx() const; 
 protected:
 	string nom;
 };

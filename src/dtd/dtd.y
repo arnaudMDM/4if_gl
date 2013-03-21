@@ -33,8 +33,8 @@ int dtdlex(void);
    list<string> * listeString;
 }
 
-%token ELEMENT ATTLIST SUP OUVREPAR FERMEPAR VIRGULE BARRE EMPTY ANY PCDATA AST PTINT PLUS
-%token <s> DTDNOM TOKENTYPE DECLARATION DTDVALEUR CDATA FIXED
+%token ELEMENT ATTLIST SUP OUVREPAR FERMEPAR VIRGULE BARRE EMPTY ANY AST PTINT PLUS
+%token <s> DTDNOM TOKENTYPE DECLARATION DTDVALEUR CDATA FIXED PCDATA
 %type  <s>att_type_non_enum defaut_declaration
 %type  <mapElementDTD> dtd_list_opt
 %type  <attributDTD> attribut
@@ -61,9 +61,8 @@ dtd_list_opt
 ;
 
 children
-: choice card_opt {$$=new ElementDTD(false,new ElementChoix($1,$2));}
-| seq card_opt {$$=new ElementDTD(false,new ElementSequence($1,$2));}
-| OUVREPAR PCDATA FERMEPAR {$$=new ElementDTD(true,NULL);}
+: choice card_opt {$$=new ElementDTD(new ElementChoix($1,$2));}
+| seq card_opt {$$=new ElementDTD(new ElementSequence($1,$2));}
 ;
 
 choice
@@ -71,7 +70,8 @@ choice
 ;
 
 cp
-: DTDNOM card_opt {$$=new ElementSimple(string($1),$2);}
+: PCDATA card_opt {$$=new ElementSimple(string($1),$2);}
+| DTDNOM card_opt {$$=new ElementSimple(string($1),$2);}
 | choice card_opt {$$=new ElementChoix($1,$2);}
 | seq card_opt {$$=new ElementSequence($1,$2);}
 ;

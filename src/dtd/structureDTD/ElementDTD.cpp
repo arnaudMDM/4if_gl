@@ -28,9 +28,8 @@ ElementDTD::~ElementDTD() {
 	delete(this->setAttributDTD);
 }
 
-ElementDTD::ElementDTD(bool isText,GroupeSubElement* groupeSubElement)
+ElementDTD::ElementDTD(GroupeSubElement* groupeSubElement)
 {
-	this->isText = isText;
 	this->setAttributDTD = new set<AttributDTD*>();
 	this->groupeSubElement=groupeSubElement;
 }
@@ -38,11 +37,6 @@ ElementDTD::ElementDTD(bool isText,GroupeSubElement* groupeSubElement)
 void ElementDTD::setNom(string nom)
 {
 	this->nom = nom;
-}
-
-bool ElementDTD::getIsText() const
-{
-    return isText;
 }
 
 /*list<ElementDTD*> * ElementDTD::getLstElementDTD() const
@@ -78,4 +72,11 @@ void ElementDTD::Afficher() const
 		(*it)->Afficher(nom);
 	}
 
+}
+
+string ElementDTD::getRegEx()
+{
+	string regEx="/";
+	regEx+=groupeSubElement->getRegEx();
+	regEx+="/";
 }

@@ -3,6 +3,8 @@
 
 using namespace std;
 
+#include <string>
+
 enum Quantificateur{
 	INTERROGATION,
 	CROIX,
@@ -15,7 +17,8 @@ protected:
 	Quantificateur quantificateur;
 
 public:
-	virtual void Afficher() const =0; 
+	virtual void Afficher() const =0;
+	virtual string getRegEx() const =0; 
 };
 
 #endif

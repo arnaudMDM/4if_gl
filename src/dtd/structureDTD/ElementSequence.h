@@ -9,6 +9,7 @@ public:
 	ElementSequence(list<GroupeSubElement*> * l,Quantificateur q);
 	virtual ~ElementSequence();
 	virtual void Afficher() const; 
+	virtual string getRegEx() const; 
 protected:
 	list<GroupeSubElement*> * listGroupeSubElement;
 };

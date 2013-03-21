@@ -19,21 +19,20 @@ class ElementDTD {
 // Attributs de classe
 protected:
 	string nom;
-	bool isText;
 	GroupeSubElement * groupeSubElement;
 	set<AttributDTD*> * setAttributDTD;
 // Constructeurs et Méthodes
 public:
 	ElementDTD();
-	ElementDTD(bool isText,GroupeSubElement* groupeSubElement);//#PCDATA peut-on avoir #PCDATA et des fils ?
+	ElementDTD(GroupeSubElement* groupeSubElement);//#PCDATA peut-on avoir #PCDATA et des fils ?
 	virtual ~ElementDTD();
-    bool getIsText() const;
     //list<ElementDTD*> * getLstElementDTD() const;
     //set<AttributDTD*> * getSetAttributDTD() const;
     void ajouterAttribut(set<AttributDTD *> * setAtt);
     string getNom() const;
     void setNom(string nom);
     void Afficher() const; 
+    string getRegEx();
 };
 
 #endif /* ELEMENTDTD_H_ */

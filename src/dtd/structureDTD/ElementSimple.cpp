@@ -23,3 +23,19 @@ void ElementSimple::Afficher() const
 		break;  
 	}
 }
+
+string ElementSimple::getRegEx() const
+{
+	string retour = nom ; 
+	switch(quantificateur)
+	{
+		case INTERROGATION : retour+= "?"; 
+		break; 
+		case CROIX : retour+= "+";
+		break;  
+		case ETOILE : retour+= "*";
+		break; 
+		default : 
+		break;  
+	}
+}

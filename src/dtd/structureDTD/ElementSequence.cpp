@@ -42,3 +42,30 @@ void ElementSequence::Afficher() const
 		break;  
 	}
 }
+
+string ElementSequence::getRegEx() const
+{
+	string retour="(";
+	list<GroupeSubElement*>::iterator it=listGroupeSubElement->begin();
+
+	(*it)->getRegEx();
+
+	for(it++ ; it!=listGroupeSubElement->end() ; it++)
+	{
+		retour+=",";
+		(*it)->getRegEx();
+	}
+	
+	retour+=")";	
+	switch(quantificateur)
+	{
+		case INTERROGATION : retour+= "?"; 
+		break; 
+		case CROIX : retour+= "+";
+		break;  
+		case ETOILE : retour+= "*";
+		break; 
+		default : 
+		break;  
+	}
+}
