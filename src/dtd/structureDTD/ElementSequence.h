@@ -1,5 +1,5 @@
-/*#ifndef ELEMENTSEQUENCE_H_
-#define ELEMENTSEQUENCE_H_*/
+#ifndef ELEMENTSEQUENCE_H_
+#define ELEMENTSEQUENCE_H_
 
 #include <list>
 #include "GroupeSubElement.h"
@@ -14,4 +14,4 @@ protected:
 	list<GroupeSubElement*> * listGroupeSubElement;
 };
 
-//#endif;
+#endif

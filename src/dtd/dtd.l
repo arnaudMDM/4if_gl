@@ -8,6 +8,7 @@
 #include "structureDTD/DocumentDTD.h"
 #include "structureDTD/ElementSequence.h"
 #include "structureDTD/ElementSimple.h"
+#include "structureDTD/ElementChoix.h"
 #include "dtd.tab.h"
 
 

@@ -1,5 +1,5 @@
-/*#ifndef ELEMENTSIMPLE_H_
-#define ELEMENTEIMPLE_H_*/
+#ifndef ELEMENTSIMPLE_H_
+#define ELEMENTEIMPLE_H_
 
 #include <string>
 #include "GroupeSubElement.h"
@@ -14,4 +14,4 @@ protected:
 	string nom;
 };
 
-//#endif;
+#endif

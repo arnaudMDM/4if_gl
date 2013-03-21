@@ -12,6 +12,7 @@ using namespace std;
 #include "structureDTD/DocumentDTD.h"
 #include "structureDTD/ElementSequence.h"
 #include "structureDTD/ElementSimple.h"
+#include "structureDTD/ElementChoix.h"
 
 void dtderror(DocumentDTD * documentDtd, char *msg);
 int dtdwrap(void);
@@ -25,7 +26,6 @@ int dtdlex(void);
    AttributDTD * attributDTD;
    ElementDTD * elementDTD;
    GroupeSubElement * groupeSubElt;
-   ElementSequence * elementSeq;
    Quantificateur quantificateur;
    list<GroupeSubElement*> * listeElt;
    set<AttributDTD*> * setAttDTD;
@@ -39,7 +39,7 @@ int dtdlex(void);
 %type  <elementDTD> children
 %type  <groupeSubElt> cp
 %type  <quantificateur> card_opt
-%type  <listeElt> liste_seq_opt seq
+%type  <listeElt> liste_seq_opt liste_choice seq choice
 %type  <setAttDTD> att_definition_opt
 
 
@@ -58,18 +58,18 @@ dtd_list_opt
 ;
 
 children
-: choice card_opt {$$=NULL;}
+: choice card_opt {$$=new ElementDTD(false,new ElementChoix($1,$2));}
 | seq card_opt {$$=new ElementDTD(false,new ElementSequence($1,$2));}
 | OUVREPAR PCDATA FERMEPAR {$$=new ElementDTD(true,NULL);}
 ;
 
 choice
-: OUVREPAR cp liste_choice FERMEPAR
+: OUVREPAR cp liste_choice FERMEPAR {$3->push_front($2);$$=$3;}
 ;
 
 cp
 : DTDNOM card_opt {$$=new ElementSimple(string($1),$2);}
-| choice card_opt {$$=NULL;}
+| choice card_opt {$$=new ElementChoix($1,$2);}
 | seq card_opt {$$=new ElementSequence($1,$2);}
 ;
 
@@ -85,8 +85,8 @@ seq
 ;
 
 liste_choice
-: liste_choice BARRE cp
-| BARRE cp
+: liste_choice BARRE cp {$$=$1 ; $$->push_back($3);}
+| BARRE cp {$$=new list<GroupeSubElement*>();$$->push_back($2);}
 ;
 
 liste_seq_opt
