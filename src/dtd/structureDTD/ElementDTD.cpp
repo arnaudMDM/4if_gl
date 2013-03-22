@@ -45,10 +45,10 @@ void ElementDTD::setNom(string nom)
     return lstElementDTD;
 }*/
 
-/*set<AttributDTD*> * ElementDTD::getSetAttributDTD() const
+set<AttributDTD*> * ElementDTD::getSetAttributDTD() const
 {
     return setAttributDTD;
-}*/
+}
 
 string ElementDTD::getNom() const
 {

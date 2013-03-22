@@ -5,8 +5,11 @@
  *      Author: alefevre
  */
 
+using namespace std;
+
 #include "AttributDTD.h"
 #include <iostream>
+
 
 AttributDTD::AttributDTD()
 {

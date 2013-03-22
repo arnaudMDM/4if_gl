@@ -5,6 +5,8 @@
  *      Author: alefevre
  */
 
+using namespace std;
+
 #include "DocumentDTD.h"
 
 DocumentDTD::DocumentDTD()
@@ -39,4 +41,5 @@ void DocumentDTD::Afficher()
 	{
 		(it->second)->Afficher(); 
 	} 
+
 }

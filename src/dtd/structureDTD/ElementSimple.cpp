@@ -1,5 +1,8 @@
+using namespace std;
+
 #include "ElementSimple.h"
 #include <iostream>
+
 
 ElementSimple::ElementSimple(string n, Quantificateur q)
 {
@@ -23,7 +26,7 @@ void ElementSimple::Afficher() const
 		case ETOILE :
 			cout << "*";
 			break;
-		default :
+		default : break; 
 	}
 }
 
@@ -41,6 +44,7 @@ string ElementSimple::getRegEx() const
 		case ETOILE :
 			retour += "*";
 			break;
-		default :
+		default : break; 
 	}
+	return retour; 
 }

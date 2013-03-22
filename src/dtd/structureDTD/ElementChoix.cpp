@@ -1,3 +1,5 @@
+using namespace std; 
+
 #include "ElementChoix.h"
 #include <iostream>
 
@@ -43,7 +45,7 @@ void ElementChoix::Afficher() const
 		case ETOILE :
 			cout << "*";
 			break; 
-		default :  
+		default : break;  
 	}
 }
 
@@ -72,6 +74,7 @@ string ElementChoix::getRegEx() const
 		case ETOILE :
 			retour += "*";
 			break; 
-		default :   
+		default : break;   
 	}
+	return retour; 
 }

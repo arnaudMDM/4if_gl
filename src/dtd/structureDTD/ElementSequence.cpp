@@ -1,10 +1,12 @@
 #include "ElementSequence.h"
 #include <iostream>
 
+using namespace std; 
+
 ElementSequence::ElementSequence(list<GroupeSubElement*> * l,Quantificateur q)
 {
-	listGroupeSubElement=l;
-	quantificateur=q;
+	listGroupeSubElement = l;
+	quantificateur = q;
 }
 
 ElementSequence::~ElementSequence()
@@ -44,7 +46,7 @@ void ElementSequence::Afficher() const
 		case ETOILE :
 			cout << "*";
 			break;
-		default :
+		default : break; 
 	}
 }
 
@@ -72,4 +74,6 @@ string ElementSequence::getRegEx() const
 		default : 
 		break;  
 	}
+	return retour; 
 }
+
