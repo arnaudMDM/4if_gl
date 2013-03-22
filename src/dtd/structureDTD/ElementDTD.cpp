@@ -62,7 +62,7 @@ void ElementDTD::ajouterAttribut(set<AttributDTD *> * setAtt)
 
 void ElementDTD::Afficher() const
 {
-	cout<< "<!ELEMENT " << nom;
+	cout<< "<!ELEMENT " << nom << " ";
 	groupeSubElement->Afficher();
 	cout<< ">" << endl; 
 

@@ -41,5 +41,4 @@ void DocumentDTD::Afficher()
 	{
 		(it->second)->Afficher(); 
 	} 
-
 }

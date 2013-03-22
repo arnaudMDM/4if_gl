@@ -55,7 +55,7 @@ main: dtd_list_opt{docDtd->setMapElementDTD((map<string,ElementDTD*>*)$1);}
 ;
 
 dtd_list_opt
-: dtd_list_opt ATTLIST DTDNOM att_definition_opt SUP {$$=$1 ; ($$->find($3)->second)->ajouterAttribut($4);}//si on trouve pas la déclaration de l'élément retourner faux.
+: dtd_list_opt ATTLIST DTDNOM att_definition_opt SUP {$$=$1 ; if ( $$->find($3) != $$->end() ) ($$->find($3)->second)->ajouterAttribut($4); else dtderror(docDtd,"Pas d'élement associé à l'attribut");}//si on trouve pas la déclaration de l'élément retourner faux.
 | dtd_list_opt ELEMENT DTDNOM children SUP{$$=$1 ; $4->setNom(string($3)) ; $$->insert(pair<string,ElementDTD*>(string($3),$4));}//il faut tester si l'élément n'a pas été déjà déclaré
 | /* vide */{$$=new map<string, ElementDTD*>();}
 ;

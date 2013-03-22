@@ -79,14 +79,14 @@ any         "ANY"
 <DEDANS>{virgule}{esp}?      { return VIRGULE; }
 <DEDANS>{barre}{esp}?        { return BARRE; }
 <DEDANS>{declaration}        { stringreturn(DECLARATION); }
-<DEDANS>{fixed}              { return FIXED; }
+<DEDANS>{fixed}              { stringreturn(FIXED); }
 <DEDANS>{ast}                { return AST ; }
 <DEDANS>{ptint}              { return PTINT ; }
 <DEDANS>{plus}               { return PLUS ; }
 <DEDANS>{empty}              { return EMPTY; }
 <DEDANS>{any}                { return ANY; }
-<DEDANS>{pcdata}             { return PCDATA; }
-<DEDANS>{cdata}              { return CDATA; }
+<DEDANS>{pcdata}             { stringreturn(PCDATA); }
+<DEDANS>{cdata}              { stringreturn(CDATA); }
 <DEDANS>{chaine}             { stringreturn(DTDVALEUR); }
 <DEDANS>{tokentype}{esp}?    { stringreturn(TOKENTYPE); }
 <DEDANS>{nom}{esp}?          { stringreturn(DTDNOM); }
