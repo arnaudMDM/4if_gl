@@ -6,12 +6,13 @@
 
 using namespace std;
 
-class ElementChoix : public GroupeSubElement{
+class ElementChoix : public GroupeSubElement
+{
 public:
 	ElementChoix(list<GroupeSubElement*> * l,Quantificateur q);
 	virtual ~ElementChoix();
 	virtual void Afficher() const;
-	virtual string getRegEx() const; 
+	virtual string getRegEx() const;
 protected:
 	list<GroupeSubElement*> * listGroupeSubElement;
 };

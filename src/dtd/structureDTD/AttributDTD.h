@@ -14,7 +14,8 @@ using namespace std;
 #include <string>
 #include <list>
 
-class AttributDTD {
+class AttributDTD
+{
 protected:
 	string nom;
 	string type;

@@ -11,12 +11,13 @@ using namespace std;
 #include <iostream>
 
 
-ElementDTD::ElementDTD() {
-
+ElementDTD::ElementDTD()
+{
+	/* bloc vide */
 }
 
-ElementDTD::~ElementDTD() {
-
+ElementDTD::~ElementDTD()
+{
 	delete(groupeSubElement);
 
 	set<AttributDTD*>::iterator it2;
@@ -56,8 +57,7 @@ string ElementDTD::getNom() const
 
 void ElementDTD::ajouterAttribut(set<AttributDTD *> * setAtt)
 {
-
-		setAttributDTD->insert(setAtt->begin(),setAtt->end());
+	setAttributDTD->insert(setAtt->begin(),setAtt->end());
 }
 
 void ElementDTD::Afficher() const
@@ -67,7 +67,7 @@ void ElementDTD::Afficher() const
 	cout<< ">" << endl; 
 
 	set<AttributDTD*>::iterator it;
-	for(it=setAttributDTD->begin() ; it!=setAttributDTD->end() ; it++)
+	for (it = setAttributDTD->begin(); it != setAttributDTD->end(); it++)
 	{
 		(*it)->Afficher(nom);
 	}
@@ -77,6 +77,6 @@ void ElementDTD::Afficher() const
 string ElementDTD::getRegEx()
 {
 	string regEx="/";
-	regEx+=groupeSubElement->getRegEx();
-	regEx+="/";
+	regEx += groupeSubElement->getRegEx();
+	regEx += "/";
 }

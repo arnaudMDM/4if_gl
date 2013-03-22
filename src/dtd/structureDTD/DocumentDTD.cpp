@@ -7,10 +7,13 @@
 
 #include "DocumentDTD.h"
 
-DocumentDTD::DocumentDTD() {
+DocumentDTD::DocumentDTD()
+{
+	/* bloc vide */
 }
 
-DocumentDTD::~DocumentDTD() {
+DocumentDTD::~DocumentDTD()
+{
 	map<string, ElementDTD*>::iterator it;
 	for (it = this->mapElementDTD->begin(); it != this->mapElementDTD->end(); it++)
 	{
@@ -24,15 +27,15 @@ map<string, ElementDTD*> * DocumentDTD::getElementsDTD() const
 	return mapElementDTD;
 }
 
-void DocumentDTD::setMapElementDTD(map<string, ElementDTD*> *m)
+void DocumentDTD::setMapElementDTD(map<string, ElementDTD*> * m)
 {
-	this->mapElementDTD=m;
+	this->mapElementDTD = m;
 }
 
 void DocumentDTD::Afficher()
 {
 	map<string, ElementDTD*>::iterator it; 
-	for(it = mapElementDTD->begin() ; it != mapElementDTD->end() ; it++)
+	for(it = mapElementDTD->begin(); it != mapElementDTD->end(); it++)
 	{
 		(it->second)->Afficher(); 
 	} 

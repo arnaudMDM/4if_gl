@@ -1,12 +1,14 @@
 #include "ElementSequence.h"
 #include <iostream>
 
-ElementSequence::ElementSequence(list<GroupeSubElement*> * l,Quantificateur q){
+ElementSequence::ElementSequence(list<GroupeSubElement*> * l,Quantificateur q)
+{
 	listGroupeSubElement=l;
 	quantificateur=q;
 }
 
-ElementSequence::~ElementSequence(){
+ElementSequence::~ElementSequence()
+{
 	list<GroupeSubElement*>::iterator it;
 	for (it = this->listGroupeSubElement->begin(); it != this->listGroupeSubElement->end(); it++)
 	{
@@ -23,23 +25,26 @@ void ElementSequence::Afficher() const
 
 	(*it)->Afficher();
 
-	for(it++ ; it!=listGroupeSubElement->end() ; it++)
+	for(it++; it != listGroupeSubElement->end(); it++)
 	{
-		cout<<",";
+		cout << ",";
 		(*it)->Afficher();
 	}
 	
-	cout<<")";	
+	cout << ")";
+
 	switch(quantificateur)
 	{
-		case INTERROGATION : cout << "?"; 
-		break; 
-		case CROIX : cout << "+";
-		break;  
-		case ETOILE : cout << "*";
-		break; 
-		default : 
-		break;  
+		case INTERROGATION :
+			cout << "?";
+			break; 
+		case CROIX :
+			cout << "+";
+			break;  
+		case ETOILE :
+			cout << "*";
+			break;
+		default :
 	}
 }
 

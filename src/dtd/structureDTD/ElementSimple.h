@@ -4,12 +4,13 @@
 #include <string>
 #include "GroupeSubElement.h"
 
-class ElementSimple : public GroupeSubElement{
+class ElementSimple : public GroupeSubElement
+{
 public:
 	ElementSimple(string n,Quantificateur q);
 	virtual ~ElementSimple();
-	virtual void Afficher() const; 
-	virtual string getRegEx() const; 
+	virtual void Afficher() const;
+	virtual string getRegEx() const;
 protected:
 	string nom;
 };

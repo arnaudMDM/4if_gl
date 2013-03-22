@@ -4,12 +4,13 @@
 #include <list>
 #include "GroupeSubElement.h"
 
-class ElementSequence : public GroupeSubElement{
+class ElementSequence : public GroupeSubElement
+{
 public:
 	ElementSequence(list<GroupeSubElement*> * l,Quantificateur q);
 	virtual ~ElementSequence();
-	virtual void Afficher() const; 
-	virtual string getRegEx() const; 
+	virtual void Afficher() const;
+	virtual string getRegEx() const;
 protected:
 	list<GroupeSubElement*> * listGroupeSubElement;
 };

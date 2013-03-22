@@ -5,20 +5,22 @@ using namespace std;
 
 #include <string>
 
-enum Quantificateur{
+enum Quantificateur
+{
 	INTERROGATION,
 	CROIX,
 	ETOILE,
 	AUCUN
 };
 
-class GroupeSubElement{
+class GroupeSubElement
+{
 protected:
 	Quantificateur quantificateur;
 
 public:
 	virtual void Afficher() const =0;
-	virtual string getRegEx() const =0; 
+	virtual string getRegEx() const =0;
 };
 
 #endif

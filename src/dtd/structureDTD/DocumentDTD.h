@@ -15,7 +15,8 @@ using namespace std;
 #include <string>
 #include "ElementDTD.h"
 
-class DocumentDTD {
+class DocumentDTD
+{
 // Attributs de classe
 protected:
 	map<string, ElementDTD*> * mapElementDTD;
@@ -26,7 +27,7 @@ public:
 	virtual ~DocumentDTD();
 	map<string, ElementDTD*> * getElementsDTD() const;
 	void setMapElementDTD(map<string, ElementDTD*> *);
-	void Afficher(); 
+	void Afficher();
 };
 
 #endif /* DOCUMENTDTD_H_ */

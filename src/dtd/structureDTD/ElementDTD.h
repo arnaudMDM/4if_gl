@@ -15,7 +15,8 @@
 #include "AttributDTD.h"
 #include "GroupeSubElement.h"
 
-class ElementDTD {
+class ElementDTD
+{
 // Attributs de classe
 protected:
 	string nom;
@@ -24,7 +25,7 @@ protected:
 // Constructeurs et Méthodes
 public:
 	ElementDTD();
-	ElementDTD(GroupeSubElement* groupeSubElement);//#PCDATA peut-on avoir #PCDATA et des fils ?
+	ElementDTD(GroupeSubElement* groupeSubElement); //#PCDATA peut-on avoir #PCDATA et des fils ?
 	virtual ~ElementDTD();
     //list<ElementDTD*> * getLstElementDTD() const;
     //set<AttributDTD*> * getSetAttributDTD() const;
