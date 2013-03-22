@@ -1,5 +1,3 @@
-#include "dtd/dtd.tab.h" 
-#include "xml/xml.tab.h"
 #include <stdio.h>
 #include <string>
 #include <set>
@@ -15,6 +13,9 @@
 #include "dtd/structureDTD/AttributDTD.h"
 #include "dtd/structureDTD/DocumentDTD.h"
 #include "dtd/structureDTD/ElementDTD.h"
+
+//#include "dtd/dtd.tab.h" 
+//#include "xml/xml.tab.h"
 
 int xmlparse(Document * xml);
 int dtdparse(DocumentDTD * dtd);
@@ -83,7 +84,7 @@ bool parser(Document * docXML, DocumentDTD * docDTD)
 		
 		dtdin = file;
 
-		err = dtdparse();
+		err = dtdparse(docDTD);
 		if (err != 0)
 		{
 			printf("Parse ended with %d error(s)\n", err);
