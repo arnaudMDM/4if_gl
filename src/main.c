@@ -30,8 +30,9 @@ int xmlparse(Document * xml);
 int dtdparse(DocumentDTD * dtd);
 bool verifXml(DocumentDTD * dtd, Document * xml);
 bool verifNoeud(AbstractElement * noeud, map<string, ElementDTD*> * elts);
-bool parser(Document * docXML, DocumentDTD * docDTD);
-bool parserXSL(Document * docXML, DocumentXSL * docXSL);
+bool parserXML(Document * docXML, char* nomFic);
+bool parserDTD(DocumentDTD * docDTD, char* nomFic);
+bool parserXSL(DocumentXSL * docXML, char* nomFic);
 
 
 extern int xmldebug;
@@ -48,7 +49,7 @@ bool construirXML(char* nomXML)
 	Document * docXML = new Document();
 	DocumentDTD * docDTD = new DocumentDTD();
 
-	bool a = parser(docXML, docDTD);
+	bool a = parserXML(docXML, nomXML);
 
 	delete(docXML);
 	delete(docDTD);
@@ -58,40 +59,33 @@ bool construirXML(char* nomXML)
 
 bool construirDTD(char* nomDTD)
 {
-	Document * docXML = new Document();
 	DocumentDTD * docDTD = new DocumentDTD();
-
-	bool a = parser(docXML, docDTD);
-
-	delete(docXML);
+	bool a = parserDTD(docDTD, nomDTD);
 	delete(docDTD);
 
 	return a;
 }
 
-bool VerifXmletDtd(char* nomXML, char* nomDTD)
+bool VerifXmletDtd(char* nomXML)
 {
 	Document * docXML = new Document();
 	DocumentDTD * docDTD = new DocumentDTD();
 
-	bool a = parser(docXML, docDTD);
-	bool b = verifXml(docDTD, docXML);
+	bool a = parserXML(docXML, nomXML);
+	bool b = parserDTD(docDTD, (char*)(docXML->getNomDtd()).c_str());
+	bool c = verifXml(docDTD, docXML);
 
 	delete(docXML);
 	delete(docDTD);
 
-	if (a == true && b == true) return true;
+	if (a == true && b == true && c == true) return true;
 	else return false;
 }
 
-bool construirXSL(char* nomXML, char* nomXSL)
+bool construirXSL(char* nomXSL)
 {
-	Document * docXML = new Document();
 	DocumentXSL * docXSL = new DocumentXSL();
-
-	bool a = parserXSL(docXML, docXSL);
-
-	delete(docXML);
+	bool a = parserXSL(docXSL, nomXSL);
 	delete(docXSL);
 
 	return a;
@@ -125,8 +119,7 @@ int main(int argc, char **argv)
 		}
 		case 2 : // construction des arbres et verif coherence
 		{
-			if(argc < 4) return -1;
-			if (VerifXmletDtd(argv[2], argv[3]))
+			if (VerifXmletDtd(argv[2]))
 				cout << "Check XML and DTD successfull" << endl;
 			else
 				cout << "Error : XML with DTD" << endl;
@@ -134,8 +127,7 @@ int main(int argc, char **argv)
 		}
 		case 3 : // construction de l'arbre xsl
 		{
-			if(argc < 4) return -1;
-			if (construirXSL(argv[2], argv[3]))
+			if (construirXSL(argv[2]))
 				cout << "XSL tree construction successfull" << endl;
 			else
 				cout << "Error : XSL tree" << endl;
@@ -152,42 +144,68 @@ int main(int argc, char **argv)
 
 
 /* ---PARSEURS------------------------------------- */
-bool parserXSL(Document * docXML, DocumentXSL * docXSL)
+bool parserXSL(DocumentXSL * docXSL, char* nomFic)
 {
 	return false;
 }
 
-bool parser(Document * docXML, DocumentDTD * docDTD)
+bool parserXML(Document * docXML, char* nomFic)
 {
 	xmldebug = 1; // pour activer l'affichage de l'exécution du parser LALR
 
 	int err;
-	err = xmlparse(docXML);
-	if (err != 0)
+	if (nomFic == "")
 	{
-		printf("Parse ended with %d error(s)\n", err);
-	}
-	else
-	{
-		printf("Parse ended with success\n", err);
-	}
-
-	docXML->afficher();
-
-	string nomDtd = docXML->getNomDtd();
-	if (nomDtd == "")
-	{
-		printf("Aucune dtd associée\n", err);
+		cout << "Nom de fichier xml vide" << endl;
+		return false;
 	}
 	else
 	{
 		dtddebug = 1;
 		FILE *file;
-		file = fopen(nomDtd.c_str(), "r");
+		file = fopen(nomFic, "r");
 	
 		if (!file)
 		{
-			fprintf(stderr, "Could not open %s \n", nomDtd.c_str());
+			fprintf(stderr, "Could not open %s \n", nomFic);
+			return false;
+		}
+		
+		dtdin = file;
+
+		err = xmlparse(docXML);
+		if (err != 0)
+		{
+			printf("Parse ended with %d error(s)\n", err);
+		}
+		else
+		{
+			printf("Parse ended with success\n", err);
+		}
+		
+		fclose(file);
+	}
+
+	return true;
+}
+
+bool parserDTD(DocumentDTD * docDTD, char* nomFic)
+{
+	int err;
+	if (nomFic == "")
+	{
+		cout << "Nom de fichier dtd vide" << endl;
+		return false;
+	}
+	else
+	{
+		dtddebug = 1;
+		FILE *file;
+		file = fopen(nomFic, "r");
+	
+		if (!file)
+		{
+			fprintf(stderr, "Could not open %s \n", nomFic);
 			return false;
 		}
 		
