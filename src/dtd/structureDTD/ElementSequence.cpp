@@ -47,6 +47,7 @@ void ElementSequence::Afficher() const
 			cout << "*";
 			break;
 		default :
+			break;
 	}
 }
 
@@ -66,15 +67,16 @@ string ElementSequence::getRegEx() const
 	switch (quantificateur)
 	{
 		case INTERROGATION :
-			retour += "?"; 
-			break; 
+			retour += "?";
+			break;
 		case CROIX :
 			retour += "+";
-			break;  
+			break;
 		case ETOILE :
 			retour += "*";
-			break; 
-		default :  
+			break;
+		default :
+			break;
 	}
 	return retour; 
 }
