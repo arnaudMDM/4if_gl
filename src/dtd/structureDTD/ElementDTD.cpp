@@ -80,3 +80,8 @@ string ElementDTD::getRegEx()
 	regEx += groupeSubElement->getRegEx();
 	regEx += "/";
 }
+
+GroupeSubElement * ElementDTD::getGroupeSubElement()
+{
+	return groupeSubElement;  
+}

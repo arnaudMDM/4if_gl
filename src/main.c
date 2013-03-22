@@ -16,11 +16,10 @@
 #include "dtd/structureDTD/ElementDTD.h"
 
 
-#include "xsl/structureXSL/AbstractElementXSL.h"
-#include "xsl/structureXSL/AttributXSL.h"
+/*#include "xsl/structureXSL/AbstractElementXSL.h"
+/#include "xsl/structureXSL/AttributXSL.h"
 #include "xsl/structureXSL/DocumentXSL.h"
-#include "xsl/structureXSL/ElementXSL.h"
-#include "xsl/structureXSL/ElementTextuel.h"
+#include "xsl/structureXSL/ElementTextuel.h"*/
 
 #include <boost/regex.hpp>
 
@@ -31,14 +30,14 @@ bool verifXml(DocumentDTD * dtd, Document * xml);
 bool verifNoeud(AbstractElement * noeud, map<string, ElementDTD*> * elts);
 bool parserXML(Document * docXML, char* nomFic);
 bool parserDTD(DocumentDTD * docDTD, char* nomFic);
-bool parserXSL(DocumentXSL * docXML, char* nomFic);
+//bool parserXSL(DocumentXSL * docXML, char* nomFic);
 
 
 extern int xmldebug;
 extern int dtddebug;
 extern FILE * dtdin; // sert a recuperer la dtd a partir du fichier xml ou xsl
 extern FILE * xmlin; // sert a passer le fichier xml a bison
-extern FILE * xslin; // sert a passer le fichier xsl a bison
+//extern FILE * xslin; // sert a passer le fichier xsl a bison
 
 
 /* --- CONSTRUCTION ------------------------------------------*/
@@ -81,14 +80,14 @@ bool VerifXmletDtd(char* nomXML)
 	else return false;
 }
 
-bool construirXSL(char* nomXSL)
+/*bool construirXSL(char* nomXSL)
 {
 	DocumentXSL * docXSL = new DocumentXSL();
 	bool a = parserXSL(docXSL, nomXSL);
 	delete(docXSL);
 
 	return a;
-}
+}*/
 
 // --- PROGRAM BEGIN -------------------
 
@@ -129,7 +128,7 @@ int main(int argc, char **argv)
 				cout << "Error : XML with DTD" << endl;
 			break;
 		}
-		case 3 : // construction de l'arbre xsl
+		/*case 3 : // construction de l'arbre xsl
 		{
 			if (construirXSL(argv[2]))
 				cout << "XSL tree construction successfull" << endl;
@@ -137,7 +136,7 @@ int main(int argc, char **argv)
 				cout << "Error : XSL tree" << endl;
 			break;
 		}
-		default : cout << "Erreur à l'appel" << endl;
+		default : cout << "Erreur à l'appel" << endl;*/
 	}
 
 	return 0;
@@ -148,10 +147,10 @@ int main(int argc, char **argv)
 
 
 /* ---PARSEURS------------------------------------- */
-bool parserXSL(DocumentXSL * docXSL, char* nomFic)
+/*bool parserXSL(DocumentXSL * docXSL, char* nomFic)
 {
 	return false;
-}
+}*/
 
 bool parserXML(Document * docXML, char* nomFic)
 {

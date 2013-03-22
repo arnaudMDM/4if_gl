@@ -32,6 +32,7 @@ map<string, ElementDTD*> * DocumentDTD::getElementsDTD() const
 void DocumentDTD::setMapElementDTD(map<string, ElementDTD*> * m)
 {
 	this->mapElementDTD = m;
+	VerificationCoherence(); 
 }
 
 void DocumentDTD::Afficher()
@@ -41,4 +42,16 @@ void DocumentDTD::Afficher()
 	{
 		(it->second)->Afficher(); 
 	} 
+}
+
+// TODO 
+bool DocumentDTD::VerificationCoherence()
+{
+	map<string, ElementDTD*>::iterator it; 
+	for (it = mapElementDTD.begin() ; it != mapElementDTD.end() ; it++)
+	{
+		ElementDTD * tmpElement = it->second;
+		GroupeSubElement tmpElementFils =  
+	}
+	return true; 
 }

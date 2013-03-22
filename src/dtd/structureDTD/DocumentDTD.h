@@ -28,6 +28,14 @@ public:
 	map<string, ElementDTD*> * getElementsDTD() const;
 	void setMapElementDTD(map<string, ElementDTD*> *);
 	void Afficher();
+
+	/** 
+	 * Description : Fonction de verifier la coherence d'un fichier dtd. 
+	 * Tous les fils d'element doivent être instanciés  
+	 * Les erreurs seront affichées sur stderr
+	 * @return : true si le document est semantiquement correct et false sinon  
+	 */
+	bool VerificationCoherence(); 
 };
 
 #endif /* DOCUMENTDTD_H_ */

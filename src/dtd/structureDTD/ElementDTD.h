@@ -34,6 +34,7 @@ public:
     void setNom(string nom);
     void Afficher() const; 
     string getRegEx();
+	GroupeSubElement * getGroupeSubElement(); 
 };
 
 #endif /* ELEMENTDTD_H_ */
