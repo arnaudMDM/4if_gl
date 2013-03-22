@@ -7,7 +7,7 @@
 class ElementSequence : public GroupeSubElement
 {
 public:
-	ElementSequence(list<GroupeSubElement*> * l,Quantificateur q);
+	ElementSequence(list<GroupeSubElement*> * l, Quantificateur q);
 	virtual ~ElementSequence();
 	virtual void Afficher() const;
 	virtual string getRegEx() const;

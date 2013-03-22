@@ -3,6 +3,7 @@
 #include <set>
 #include <iterator>
 #include <iostream>
+#include <boost/regex.hpp>
 
 #include "xml/structureXML/AbstractElement.h"
 #include "xml/structureXML/AttributXML.h"

@@ -22,8 +22,8 @@ ElementSequence::~ElementSequence()
 
 void ElementSequence::Afficher() const
 {
-	cout<<"(";
-	list<GroupeSubElement*>::iterator it=listGroupeSubElement->begin();
+	cout << "(";
+	list<GroupeSubElement*>::iterator it = listGroupeSubElement->begin();
 
 	(*it)->Afficher();
 
@@ -35,7 +35,7 @@ void ElementSequence::Afficher() const
 	
 	cout << ")";
 
-	switch(quantificateur)
+	switch (quantificateur)
 	{
 		case INTERROGATION :
 			cout << "?";
@@ -46,33 +46,35 @@ void ElementSequence::Afficher() const
 		case ETOILE :
 			cout << "*";
 			break;
-		default : break; 
+		default :
 	}
 }
 
 string ElementSequence::getRegEx() const
 {
-	string retour="(";
-	list<GroupeSubElement*>::iterator it=listGroupeSubElement->begin();
+	string retour = "(";
+	list<GroupeSubElement*>::iterator it = listGroupeSubElement->begin();
 
 	(*it)->getRegEx();
 
-	for(it++ ; it!=listGroupeSubElement->end() ; it++)
+	for (it++; it != listGroupeSubElement->end(); it++)
 	{
 		(*it)->getRegEx();
 	}
 	
-	retour+=")";	
-	switch(quantificateur)
+	retour += ")";	
+	switch (quantificateur)
 	{
-		case INTERROGATION : retour+= "?"; 
-		break; 
-		case CROIX : retour+= "+";
-		break;  
-		case ETOILE : retour+= "*";
-		break; 
-		default : 
-		break;  
+		case INTERROGATION :
+			retour += "?"; 
+			break; 
+		case CROIX :
+			retour += "+";
+			break;  
+		case ETOILE :
+			retour += "*";
+			break; 
+		default :  
 	}
 	return retour; 
 }
