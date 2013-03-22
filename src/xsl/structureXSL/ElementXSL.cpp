@@ -10,15 +10,16 @@
 #include <set>
 #include <iostream>
 
+using namespace std;
+
 ElementXSL::ElementXSL() {}
 ElementXSL::~ElementXSL() {}
 
-ElementXSL::ElementXSL(string nom, list<AbstractElementXSL*> * l, set<AttributXSL*> * s)
+ElementXSL::ElementXSL(Type type, list<AbstractElementXSL*> * l, AttributXSL * s)
 {
-	this->nom = nom;
+	this->type = type; 
 	this->lstAbstractElementXSL = l;
-	this->setAttributXSL = s;
-  this->setAttributXSL = new set<AttributXSL*>();
+	this->attributXSL = s;
 }
 
 void ElementXSL::afficher()
@@ -26,9 +27,9 @@ void ElementXSL::afficher()
 
 }
 
-string ElementXSL::getNom() const
+Type ElementXSL::getType() const
 {
-  return nom;
+  return type;
 }
 
 list<AbstractElementXSL*> * ElementXSL::getLstAbstractElementXSL() const
@@ -36,7 +37,7 @@ list<AbstractElementXSL*> * ElementXSL::getLstAbstractElementXSL() const
   return lstAbstractElementXSL;
 }
 
-set<AttributXSL*> * ElementXSL::getSetAttributXSL() const
+AttributXSL* ElementXSL::getAttributXSL() const
 {
-  return setAttributXSL;
+  return attributXSL;
 }

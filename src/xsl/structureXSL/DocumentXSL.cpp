@@ -36,6 +36,11 @@ string DocumentXSL::getVersion()
 	return this->version;
 }
 
+void DocumentXSL::setVersion(string version)
+{
+	this->version = version; 
+}
+
 string DocumentXSL::getStylesheet()
 {
 	return this->stylesheet;

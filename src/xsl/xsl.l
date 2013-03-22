@@ -6,8 +6,9 @@
 #include <ctype.h>
 #include <string.h>
 #include <stdlib.h>
+#include "structureXSL/ElementTextuel.h"
+#include "structureXSL/ElementXSL.h"
 #include "structureXSL/DocumentXSL.h"
-#include "xsl.tab.h"
 
 // si vous activez l'option -P de flex, changez les deux lignes suivantes
 #define YYTEXT xmltext
@@ -91,6 +92,9 @@ pcdata		[^<]+
 comment		{inf}"!--"([^-]|"-"[^-])*"--"{sup}
 chaine		\"([^"&]|{esc})*\"|\'([^'&]|{esc})*\'
 xmlversion   {esp}?"<?xml"{esp}"version="{chaine}{esp}"encoding="{chaine}"?>"{nl}?
+stylesheet {esp}?"<xsl:stylesheet"{esp}
+template {esp}?"<xsl:template"{esp}
+applytemplate {esp}?"<xsl:apply-templates"{esp}
 doctype     {esp}?"<!DOCTYPE"{esp}
 infspecial {esp}?"<?"
 supspecial "?>"{nl}?
@@ -107,7 +111,7 @@ system  "SYSTEM"
 %%
 
 <INITIAL>{esp}		{/* skip */}
-<INITIAL>{xmlversion} {/* skip */}
+<INITIAL>{xmlversion} {return XMLVERSION;}
 <INITIAL>{doctype} {return DOCTYPE;}
 <INITIAL>"/"		{return SLASH;}
 <INITIAL>"="		{return EGAL;}

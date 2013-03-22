@@ -4,12 +4,10 @@ using namespace std;
 #include <cstring>
 #include <cstdio>
 #include <cstdlib>
-#include "structureXSL/AbstractElement.h"
-#include "structureXSL/ElementTexte.h"
-#include "structureXSL/ElementBalise.h"
-#include "structureXSL/Document.h"
+#include "structureXSL/ElementTextuel.h"
+#include "structureXSL/ElementXSL.h"
+#include "structureXSL/DocumentXSL.h"
 #include <list>
-#include <set>
 #include "xsl.tab.h"
 
 // ces trois fonctions devront changer de nom dans le cas où l'option -p est utilisée
@@ -24,7 +22,7 @@ int xsllex(void);
    ElementName * en;  /* le nom d'un element avec son namespace, cf commun.h */
    XSLElement * abstractElement; /* C est un element balise uniquement */
    list<XSLElement *> * lstAbstractElement; /* C est une liste */
-   set<AttributXSL*> * lstAttributXml; 
+   AttributXSL* lstAttributXml; 
 }
 
 %token EGAL SLASH SUP SUPSPECIAL DOCTYPE
@@ -38,12 +36,12 @@ int xsllex(void);
 %type <lstAttributXml> attributs_opt
 
 /* Pour recuperer le document en entier */ 
-%parse-param {Document * docXml}
+%parse-param {DocumentXSL * docXSL}
 
 %%
 
 document
- : declarations element misc_seq_opt {docXml->setElementBalise((ElementBalise*)$2)}
+ : declarations element misc_seq_opt {docXml->setElementXSL((ElementXSL*)$2)}
  ;
 misc_seq_opt
  : misc_seq_opt misc /*  si je ne veux pas stocker, je ne mets rien : { $$ = $1  }; $$->push_back(string($2)) }*/ 
@@ -61,9 +59,10 @@ declarations
 /*  <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE rapport SYSTEM "rap2.dtd">
 <?xml-stylesheet type="text/xsl" href="cdcatalog.xsl"?> */  
-declaration
- : DOCTYPE NOM SYSTEM DTD SUP {docXml->setNomDtd(string($4)); docXml->setNomXml(string($2))}
- | DOCTYPE NOM NOM VALEUR SUP
+/*declaration
+ : XMLVERSION {docXSL->setVersion($1);}
+// : DOCTYPE NOM SYSTEM DTD SUP {docXml->setNomDtd(string($4)); docXml->setNomXml(string($2))}
+// | DOCTYPE NOM NOM VALEUR SUP
  /*: OBALISESPECIALE NOM attributs_opt_declarations SUPSPECIAL */
  ;
 
@@ -73,7 +72,7 @@ declaration
  ;*/
 
 element
- : ouvre attributs_opt vide_ou_contenu {$$ = new ElementBalise($1->second,$3,$2)}
+ : ouvre attributs_opt vide_ou_contenu {$$ = new ElementXSL($1->second,$3,$2)}
  ;
 ouvre
  : OBALISE {$$ = $1}
