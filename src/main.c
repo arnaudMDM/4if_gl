@@ -45,12 +45,9 @@ extern FILE * xslin; // sert a passer le fichier xsl a bison
 bool construirXML(char* nomXML)
 {
 	Document * docXML = new Document();
-	DocumentDTD * docDTD = new DocumentDTD();
-
 	bool a = parserXML(docXML, nomXML);
-
+	docXML->afficher();
 	delete(docXML);
-	delete(docDTD);
 
 	return a;
 }
@@ -59,6 +56,7 @@ bool construirDTD(char* nomDTD)
 {
 	DocumentDTD * docDTD = new DocumentDTD();
 	bool a = parserDTD(docDTD, nomDTD);
+	docDTD->Afficher();
 	delete(docDTD);
 
 	return a;
@@ -70,7 +68,9 @@ bool VerifXmletDtd(char* nomXML)
 	DocumentDTD * docDTD = new DocumentDTD();
 
 	bool a = parserXML(docXML, nomXML);
+	docXML->afficher();
 	bool b = parserDTD(docDTD, (char*)(docXML->getNomDtd()).c_str());
+	docDTD->Afficher();
 	bool c = verifXml(docDTD, docXML);
 
 	delete(docXML);
@@ -162,8 +162,7 @@ bool parserXML(Document * docXML, char* nomFic)
 	}
 	else
 	{
-		printf("Parse XML ended with success\n", err);
-		dtddebug = 1;
+		//xmldebug = 1;
 		FILE *file;
 		file = fopen(nomFic, "r");
 	
@@ -173,16 +172,16 @@ bool parserXML(Document * docXML, char* nomFic)
 			return false;
 		}
 		
-		dtdin = file;
+		xmlin = file;
 
 		err = xmlparse(docXML);
 		if (err != 0)
 		{
-			printf("Parse ended with %d error(s)\n", err);
+			printf("Parse XML ended with %d error(s)\n", err);
 		}
 		else
 		{
-			printf("Parse ended with success\n", err);
+			printf("Parse XML ended with success\n", err);
 		}
 		
 		fclose(file);
