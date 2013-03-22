@@ -21,6 +21,8 @@
 #include "xsl/structureXSL/ElementXSL.h"
 #include "xsl/structureXSL/ElementTextuel.h"
 
+#include <boost/regex.hpp>
+
 
 int xmlparse(Document * xml);
 int dtdparse(DocumentDTD * dtd);
@@ -147,7 +149,7 @@ bool parserXSL(DocumentXSL * docXSL, char* nomFic)
 
 bool parserXML(Document * docXML, char* nomFic)
 {
-	//xmldebug = 1; // pour désactiver l'affichage de l'exécution du parser LALR, commenter cette ligne
+	//xmldebug = 1; // active l'affichage de l'exécution du parser LALR
 
 	int err;
 	if (nomFic == "")
