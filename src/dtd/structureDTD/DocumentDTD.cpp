@@ -40,8 +40,3 @@ void DocumentDTD::Afficher()
 		(it->second)->Afficher(); 
 	} 
 }
-
-string DocumentDTD::getRegEx() const
-{
-	
-}

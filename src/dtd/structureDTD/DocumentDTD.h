@@ -28,7 +28,6 @@ public:
 	map<string, ElementDTD*> * getElementsDTD() const;
 	void setMapElementDTD(map<string, ElementDTD*> *);
 	void Afficher();
-	string getRegEx() const;
 };
 
 #endif /* DOCUMENTDTD_H_ */
