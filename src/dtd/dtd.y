@@ -35,7 +35,7 @@ int dtdlex(void);
 
 %token ELEMENT ATTLIST SUP OUVREPAR FERMEPAR VIRGULE BARRE EMPTY ANY AST PTINT PLUS
 %token <s> DTDNOM TOKENTYPE DECLARATION DTDVALEUR CDATA FIXED PCDATA
-%type  <s>att_type_non_enum defaut_declaration
+%type  <s> att_type_non_enum defaut_declaration
 %type  <mapElementDTD> dtd_list_opt
 %type  <attributDTD> attribut
 %type  <elementDTD> children
