@@ -94,8 +94,13 @@ bool construirXSL(char* nomXSL)
 int main(int argc, char **argv)
 {
 	if (argc < 3) return -1;
-	int choix = atoi(argv[1]);
-	cout << "Votre choix : " << choix << endl;
+
+	int choix;
+	if (strcmp(*(argv+1), "-cxml") == 0) choix = 0;
+	else if (strcmp(*(argv+1), "-cdtd") == 0) choix = 1;
+	else if (strcmp(*(argv+1), "-check") == 0) choix = 2;
+	else if (strcmp(*(argv+1), "-all") == 0) choix = 3;
+	else choix = 999;
 
 	switch (choix)
 	{
