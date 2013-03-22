@@ -57,7 +57,6 @@ string ElementSequence::getRegEx() const
 
 	for(it++ ; it!=listGroupeSubElement->end() ; it++)
 	{
-		retour+=",";
 		(*it)->getRegEx();
 	}
 	
