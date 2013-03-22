@@ -28,7 +28,7 @@ public:
 	ElementDTD(GroupeSubElement* groupeSubElement); //#PCDATA peut-on avoir #PCDATA et des fils ?
 	virtual ~ElementDTD();
     //list<ElementDTD*> * getLstElementDTD() const;
-    //set<AttributDTD*> * getSetAttributDTD() const;
+    set<AttributDTD*> * getSetAttributDTD() const;
     void ajouterAttribut(set<AttributDTD *> * setAtt);
     string getNom() const;
     void setNom(string nom);
