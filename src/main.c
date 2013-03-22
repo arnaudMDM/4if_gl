@@ -22,10 +22,6 @@
 #include "xsl/structureXSL/ElementTextuel.h"
 
 
-//#include "dtd/dtd.tab.h" 
-//#include "xml/xml.tab.h"
-
-
 int xmlparse(Document * xml);
 int dtdparse(DocumentDTD * dtd);
 bool verifXml(DocumentDTD * dtd, Document * xml);
@@ -151,16 +147,20 @@ bool parserXSL(DocumentXSL * docXSL, char* nomFic)
 
 bool parserXML(Document * docXML, char* nomFic)
 {
-	xmldebug = 1; // pour activer l'affichage de l'exécution du parser LALR
+	//xmldebug = 1; // pour désactiver l'affichage de l'exécution du parser LALR, commenter cette ligne
 
 	int err;
 	if (nomFic == "")
 	{
+
+		printf("Parse XML ended with %d error(s)\n", err);
 		cout << "Nom de fichier xml vide" << endl;
 		return false;
+
 	}
 	else
 	{
+		printf("Parse XML ended with success\n", err);
 		dtddebug = 1;
 		FILE *file;
 		file = fopen(nomFic, "r");
@@ -199,7 +199,7 @@ bool parserDTD(DocumentDTD * docDTD, char* nomFic)
 	}
 	else
 	{
-		dtddebug = 1;
+		//dtddebug = 1;
 		FILE *file;
 		file = fopen(nomFic, "r");
 	
@@ -214,13 +214,13 @@ bool parserDTD(DocumentDTD * docDTD, char* nomFic)
 		err = dtdparse(docDTD);
 		if (err != 0)
 		{
-			printf("Parse ended with %d error(s)\n", err);
+			printf("Parse DTD ended with %d error(s)\n", err);
 		}
 		else
 		{
-			printf("Parse ended with success\n", err);
+			printf("Parse DTD ended with success\n", err);
 		}
-		
+		docDTD->Afficher();
 		fclose(file);
 	}
 
