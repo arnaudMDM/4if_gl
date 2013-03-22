@@ -32,7 +32,9 @@ void ElementSimple::Afficher() const
 
 string ElementSimple::getRegEx() const
 {
-	string retour = nom;
+	string retour = "(";
+	retour += nom;
+	retour += ")";
 	switch (quantificateur)
 	{
 		case INTERROGATION :
