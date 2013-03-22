@@ -13,20 +13,21 @@ XSLSTRUCT=$(XSLSTRUCTPATH)
 EXEC=analyse
 
 all: $(EXEC)
-$(EXEC): analyseXML analyseDTD analyseXSL structureXML structureDTD structureXSL main.c makefile
+#$(EXEC): analyseXML analyseDTD analyseXSL structureXML structureDTD structureXSL main.c makefile
+$(EXEC): analyseXML analyseDTD structureXML structureDTD main.c makefile
 	g++ -g -o $(EXEC) *.o main.c
 analyseXML: xml/*.l xml/*.y xml/makefile
 	cd xml; make all
 analyseDTD: dtd/*.l dtd/*.y dtd/makefile
 	cd dtd; make all
-analyseXSL: xsl/*.l xsl/*.y dtd/makefile
-	cd xsl; make all
+#analyseXSL: xsl/*.l xsl/*.y dtd/makefile
+#	cd xsl; make all
 structureXML: $(XMLSTRUCT)
 	cd xml/structureXML; make all
 structureDTD: $(DTDSTRUCT)
 	cd dtd/structureDTD; make all
-structureXSL: $(XSLSTRUCT)
-	cd xsl/structureXSL; make all
+#structureXSL: $(XSLSTRUCT)
+#	cd xsl/structureXSL; make all
 clean:
 	rm -rf *.o $(EXEC)
 	cd xml; make clean
