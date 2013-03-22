@@ -6,8 +6,8 @@
 #include <ctype.h>
 #include <string.h>
 #include <stdlib.h>
-#include "structureXML/Document.h"
-#include "xml.tab.h"
+#include "structureXSL/DocumentXSL.h"
+#include "xsl.tab.h"
 
 // si vous activez l'option -P de flex, changez les deux lignes suivantes
 #define YYTEXT xmltext

@@ -14,43 +14,152 @@
 #include "dtd/structureDTD/DocumentDTD.h"
 #include "dtd/structureDTD/ElementDTD.h"
 
+
+#include "xsl/structureXSL/AbstractElementXSL.h"
+#include "xsl/structureXSL/AttributXSL.h"
+#include "xsl/structureXSL/DocumentXSL.h"
+#include "xsl/structureXSL/ElementXSL.h"
+#include "xsl/structureXSL/ElementTextuel.h"
+
+
 //#include "dtd/dtd.tab.h" 
 //#include "xml/xml.tab.h"
+
 
 int xmlparse(Document * xml);
 int dtdparse(DocumentDTD * dtd);
 bool verifXml(DocumentDTD * dtd, Document * xml);
 bool verifNoeud(AbstractElement * noeud, map<string, ElementDTD*> * elts);
 bool parser(Document * docXML, DocumentDTD * docDTD);
+bool parserXSL(Document * docXML, DocumentXSL * docXSL);
+
 
 extern int xmldebug;
 extern int dtddebug;
-extern FILE * dtdin;
+extern FILE * dtdin; // sert a recuperer la dtd a partir du fichier xml ou xsl
+extern FILE * xmlin; // sert a passer le fichier xml a bison
+extern FILE * xslin; // sert a passer le fichier xsl a bison
 
-int main(int argc, char **argv)
+
+/* --- CONSTRUCTION ------------------------------------------*/
+
+bool construirXML(char* nomXML)
 {
 	Document * docXML = new Document();
 	DocumentDTD * docDTD = new DocumentDTD();
 
-	parser(docXML, docDTD);
+	bool a = parser(docXML, docDTD);
 
-	verifXml(NULL, docXML);
+	delete(docXML);
+	delete(docDTD);
+
+	return a;
+}
+
+bool construirDTD(char* nomDTD)
+{
+	Document * docXML = new Document();
+	DocumentDTD * docDTD = new DocumentDTD();
+
+	bool a = parser(docXML, docDTD);
+
+	delete(docXML);
+	delete(docDTD);
+
+	return a;
+}
+
+bool VerifXmletDtd(char* nomXML, char* nomDTD)
+{
+	Document * docXML = new Document();
+	DocumentDTD * docDTD = new DocumentDTD();
+
+	bool a = parser(docXML, docDTD);
+	bool b = verifXml(docDTD, docXML);
+
+	delete(docXML);
+	delete(docDTD);
+
+	if (a == true && b == true) return true;
+	else return false;
+}
+
+bool construirXSL(char* nomXML, char* nomXSL)
+{
+	Document * docXML = new Document();
+	DocumentXSL * docXSL = new DocumentXSL();
+
+	bool a = parserXSL(docXML, docXSL);
+
+	delete(docXML);
+	delete(docXSL);
+
+	return a;
+}
+
+// --- PROGRAM BEGIN -------------------
+
+int main(int argc, char **argv)
+{
+	if (argc < 3) return -1;
+	int choix = atoi(argv[1]);
+	cout << "Votre choix : " << choix << endl;
+
+	switch (choix)
+	{
+		case 0 : // construction de l'arbre xml
+		{
+			if (construirXML(argv[2]))
+				cout << "XML tree construction successfull" << endl;
+			else
+				cout << "Error : XML tree" << endl;
+			break;
+		}		
+		case 1 : // construction de l'arbre dtd
+		{
+			if (construirDTD(argv[2]))
+				cout << "DTD tree construction successfull" << endl;
+			else
+				cout << "Error : DTD tree" << endl;
+			break;
+		}
+		case 2 : // construction des arbres et verif coherence
+		{
+			if(argc < 4) return -1;
+			if (VerifXmletDtd(argv[2], argv[3]))
+				cout << "Check XML and DTD successfull" << endl;
+			else
+				cout << "Error : XML with DTD" << endl;
+			break;
+		}
+		case 3 : // construction de l'arbre xsl
+		{
+			if(argc < 4) return -1;
+			if (construirXSL(argv[2], argv[3]))
+				cout << "XSL tree construction successfull" << endl;
+			else
+				cout << "Error : XSL tree" << endl;
+			break;
+		}
+		default : cout << "Erreur à l'appel" << endl;
+	}
 
 	return 0;
 }
 
-/* ---VERIF XSLT------------------------------------- */
-bool verifXslt(Document xslt, DocumentDTD dtdXsl)
-{
 
-	return true;
+
+
+
+/* ---PARSEURS------------------------------------- */
+bool parserXSL(Document * docXML, DocumentXSL * docXSL)
+{
+	return false;
 }
 
-
-/* ---PARSEUR------------------------------------- */
 bool parser(Document * docXML, DocumentDTD * docDTD)
 {
-	xmldebug = 1; // pour désactiver l'affichage de l'exécution du parser LALR, commenter cette ligne
+	xmldebug = 1; // pour activer l'affichage de l'exécution du parser LALR
 
 	int err;
 	err = xmlparse(docXML);
