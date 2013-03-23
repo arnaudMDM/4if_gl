@@ -27,6 +27,7 @@ public:
 
     void afficher();
     void setElementXSL(ElementXSL * elementXSL);
+    void setVersion(string version);
 
     string getVersion();
     string getStylesheet();

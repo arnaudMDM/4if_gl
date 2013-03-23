@@ -27,11 +27,6 @@ void ElementXSL::afficher()
 
 }
 
-Type ElementXSL::getType() const
-{
-  return type;
-}
-
 list<AbstractElementXSL*> * ElementXSL::getLstAbstractElementXSL() const
 {
   return lstAbstractElementXSL;

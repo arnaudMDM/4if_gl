@@ -17,19 +17,11 @@ using namespace std;
 #include "AbstractElementXSL.h"
 #include "AttributXSL.h"
 
-enum Type
-{
-	STYLESHEET,
-	TEMPLATE, 
-	APPLYTEMPLATES
-}; 
-
 class ElementXSL : public AbstractElementXSL
 {
 
 // Attributs de classe
 protected:
-	Type type; 
 	AttributXSL * attributXSL;
 	list<AbstractElementXSL*> * lstAbstractElementXSL;
 
@@ -39,7 +31,6 @@ public:
 	ElementXSL(Type type, list<AbstractElementXSL*> * lstAbstractElementXSL, AttributXSL * s);
 	virtual ~ElementXSL();
 
-    Type getType() const;
     list<AbstractElementXSL*> * getLstAbstractElementXSL() const;
     AttributXSL * getAttributXSL() const;
     virtual void afficher();

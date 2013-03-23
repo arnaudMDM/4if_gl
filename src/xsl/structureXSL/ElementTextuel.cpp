@@ -11,6 +11,7 @@
 ElementTextuel::ElementTextuel(string Texte) 
 {
 	this->Texte = Texte; 
+	type = TEXTE;
 
 }
 

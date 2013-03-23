@@ -318,3 +318,15 @@ bool verifNoeud(AbstractElement * abstractNoeud, map<string, ElementDTD*> * elts
 
 	return true;
 }
+
+void transfXSL(Document* docXML, DocumentXSL* docXSL)
+{
+	if(docXML==NULL|docXSL==NULL)
+	{
+		cout<<"erreur pointeur nul"<<endl;
+		return;
+	}
+
+
+}
+
