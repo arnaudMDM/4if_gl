@@ -135,8 +135,8 @@ int main(int argc, char **argv)
 			else
 				cout << "Error : XSL tree" << endl;
 			break;
-		}
-		default : cout << "Erreur à l'appel" << endl;*/
+		}*/
+		default : cout << "Erreur à l'appel" << endl;
 	}
 
 	return 0;

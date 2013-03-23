@@ -1,4 +1,4 @@
-<!DOCTYPE rapport SYSTEM "rap1.dtd">
+<!DOCTYPE rapport SYSTEM "04OkOrdreDif.dtd">
 <rapport>
   <titre>Réaliser un compilateur</titre>
   <auteur>
