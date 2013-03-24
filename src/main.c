@@ -16,28 +16,30 @@
 #include "dtd/structureDTD/ElementDTD.h"
 
 
-/*#include "xsl/structureXSL/AbstractElementXSL.h"
-/#include "xsl/structureXSL/AttributXSL.h"
+#include "xsl/structureXSL/AbstractElementXSL.h"
+#include "xsl/structureXSL/AttributXSL.h"
 #include "xsl/structureXSL/DocumentXSL.h"
-#include "xsl/structureXSL/ElementTextuel.h"*/
+#include "xsl/structureXSL/ElementTextuel.h"
 
 #include <boost/regex.hpp>
 
 
 int xmlparse(Document * xml);
 int dtdparse(DocumentDTD * dtd);
+int xslparse(DocumentXSL * xsl); 
 bool verifXml(DocumentDTD * dtd, Document * xml);
 bool verifNoeud(AbstractElement * noeud, map<string, ElementDTD*> * elts);
 bool parserXML(Document * docXML, char* nomFic);
 bool parserDTD(DocumentDTD * docDTD, char* nomFic);
-//bool parserXSL(DocumentXSL * docXML, char* nomFic);
+bool parserXSL(DocumentXSL * docXML, char* nomFic);
 
 
 extern int xmldebug;
 extern int dtddebug;
+extern int xsldebug; 
 extern FILE * dtdin; // sert a recuperer la dtd a partir du fichier xml ou xsl
 extern FILE * xmlin; // sert a passer le fichier xml a bison
-//extern FILE * xslin; // sert a passer le fichier xsl a bison
+extern FILE * xslin; // sert a passer le fichier xsl a bison
 
 
 /* --- CONSTRUCTION ------------------------------------------*/
@@ -80,14 +82,14 @@ bool VerifXmletDtd(char* nomXML)
 	else return false;
 }
 
-/*bool construirXSL(char* nomXSL)
+bool construirXSL(char* nomXSL)
 {
 	DocumentXSL * docXSL = new DocumentXSL();
 	bool a = parserXSL(docXSL, nomXSL);
 	delete(docXSL);
 
 	return a;
-}*/
+}
 
 // --- PROGRAM BEGIN -------------------
 
@@ -128,14 +130,14 @@ int main(int argc, char **argv)
 				cout << "Error : XML with DTD" << endl;
 			break;
 		}
-		/*case 3 : // construction de l'arbre xsl
+		case 3 : // construction de l'arbre xsl
 		{
 			if (construirXSL(argv[2]))
 				cout << "XSL tree construction successfull" << endl;
 			else
 				cout << "Error : XSL tree" << endl;
 			break;
-		}*/
+		}
 		default : cout << "Erreur à l'appel" << endl;
 	}
 
@@ -147,10 +149,42 @@ int main(int argc, char **argv)
 
 
 /* ---PARSEURS------------------------------------- */
-/*bool parserXSL(DocumentXSL * docXSL, char* nomFic)
+bool parserXSL(DocumentXSL * docXSL, char* nomFic)
 {
-	return false;
-}*/
+	int err;
+	if (nomFic == "")
+	{
+		cout << "Nom de fichier xsl vide" << endl;
+		return false;
+	}
+	else
+	{
+		xsldebug = 1;
+		FILE *file;
+		file = fopen(nomFic, "r");
+	
+		if (!file)
+		{
+			fprintf(stderr, "Could not open %s \n", nomFic);
+			return false;
+		}
+		
+		xslin = file;
+
+		err = xslparse(docXSL);
+		if (err != 0)
+		{
+			printf("Parse XSL ended with %d error(s)\n", err);
+		}
+		else
+		{
+			printf("Parse XSL ended with success\n", err);
+		}
+		docXSL->afficher();
+		fclose(file);
+	}
+	return true;
+}
 
 bool parserXML(Document * docXML, char* nomFic)
 {
