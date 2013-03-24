@@ -20,26 +20,27 @@ ElementXSL::ElementXSL(string type, list<AbstractElementXSL*> * l, AttributXSL *
 {
 	char * tmp1 = "template";
 	char * tmp2 = "apply-templates";
-	char * tmp3 = "stylesheet"; 
+	char * tmp3 = "stylesheet";
 	char * tmp4 = "value-of";
-	char * tmp5 = "for-each"; 
-	if (strcmp(type.c_str(),tmp1) == 0)
+	char * tmp5 = "for-each";
+
+	if (strcmp(type.c_str(), tmp1) == 0)
 	{
 		this->type = TEMPLATE;  
 	}
-	else if (strcmp(type.c_str(),tmp2) == 0)
+	else if (strcmp(type.c_str(), tmp2) == 0)
 	{
 		this->type = APPLYTEMPLATES; 
 	}
-	else if (strcmp(type.c_str(),tmp3) == 0)
+	else if (strcmp(type.c_str(), tmp3) == 0)
 	{
 		this->type = STYLESHEET; 
 	}
-	else if (strcmp(type.c_str(),tmp4) == 0)
+	else if (strcmp(type.c_str(), tmp4) == 0)
 	{
 		this->type = VALUEOF; 
 	}
-	else if (strcmp(type.c_str(),tmp5) == 0)
+	else if (strcmp(type.c_str(), tmp5) == 0)
 	{
 		this->type = FOREACH; 
 	}
@@ -47,6 +48,7 @@ ElementXSL::ElementXSL(string type, list<AbstractElementXSL*> * l, AttributXSL *
 	{
 		this->type = TEXTE;
 	}
+	
 	this->lstAbstractElementXSL = l;
 	this->attributXSL = s;
 }
@@ -84,17 +86,23 @@ void ElementXSL::afficher()
 		cout << "</xsl:" ; 
 		switch(type)
 		{
-			case TEMPLATE : cout << "template";  
-			break; 
-			case APPLYTEMPLATES : cout << "apply-templates";
-			break; 
-			case STYLESHEET : cout << "stylesheet";
-			break;
-			case VALUEOF : cout << "value-of";
-			break; 
-			case FOREACH : cout << "for-each";
-			break;
-			default : break;  
+			case TEMPLATE :
+				cout << "template";  
+				break; 
+			case APPLYTEMPLATES :
+				cout << "apply-templates";
+				break; 
+			case STYLESHEET :
+				cout << "stylesheet";
+				break;
+			case VALUEOF :
+				cout << "value-of";
+				break; 
+			case FOREACH :
+				cout << "for-each";
+				break;
+			default :
+				break;  
 		}
 		cout << ">" << endl;
 	}
