@@ -38,8 +38,8 @@ string ElementSimple::getRegEx() const
 {
 	string retour = "(";
 	retour += nom;
-	retour += ")";
-	/*
+	retour += ",)";
+
 	switch (quantificateur)
 	{
 		case INTERROGATION :
@@ -54,6 +54,6 @@ string ElementSimple::getRegEx() const
 		default :
 			break; 
 	}
-	*/
+	
 	return retour; 
 }

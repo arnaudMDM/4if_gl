@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string>
 #include <set>
+#include <map>
 #include <iterator>
 #include <iostream>
 #include <boost/regex.hpp>
@@ -306,12 +307,14 @@ bool verifNoeud(AbstractElement * abstractNoeud, map<string, ElementDTD*> * elts
 
 	// On vérifie qu'il existe une entrée dans la DTD correspondant au noeud XLM courant
 	string nomNoeudCourant = noeud->getNom();
-	ElementDTD * noeudDTD = (*elts)[nomNoeudCourant];
+	map<string, ElementDTD*>::iterator itnd = elts->find(nomNoeudCourant);
 
-	if (noeudDTD == NULL)
+	if (itnd == elts->end())
 	{
 		return false;
 	}
+
+	ElementDTD * noeudDTD = itnd->second;
 
 	// On vérifie des attributs du noeud courant
 	set<AttributXML*> * attsXML = noeud->getSetAttribut();
@@ -339,7 +342,9 @@ bool verifNoeud(AbstractElement * abstractNoeud, map<string, ElementDTD*> * elts
 		}
 	}
 
-	// On vérifie que les sous-éléments XML sont bien des fils aussi dans la DTD puis on applique la vérification totale à chaque sous-élement
+	string filsExpr = "";
+
+	// Pour chaque sous-élément XML :
 	list<AbstractElement*> * lstEltsXML = noeud->getLstAbstractElement();
 	list<AbstractElement*>::iterator it3;
 	for (it3 = lstEltsXML->begin(); it3 != lstEltsXML->end(); it3++)
@@ -352,21 +357,34 @@ bool verifNoeud(AbstractElement * abstractNoeud, map<string, ElementDTD*> * elts
 			continue;
 		}
 
-		string nomSsNoeud = ssNoeud->getNom();
-		regex regexDTD(noeudDTD->getRegEx());
-
-		cmatch inutilise;
-		if (!regex_match(nomSsNoeud.c_str(), inutilise, regexDTD))
-		{
-			return false;
-		}
-
-		// On applique la vérification totale sur le sous-élément XML
+		// On applique récursivement la fonction sur le sous-élément XML
 		if (!verifNoeud(*(it3), elts))
 		{
 			return false;
 		}
+
+		// On ajoute l'élément à une expression permettant de tester la conformité des fils par rapport au père dans la DTD
+		filsExpr += ssNoeud->getNom();
+		filsExpr += ",";
 	}
+
+	// Test de conformité des fils par rapport au père dans la DTD
+	regex regexDTD(noeudDTD->getRegEx());
+
+	// DEBUG
+	cout << "regex_match : " << filsExpr << " - " << noeudDTD->getRegEx() << endl;
+
+	cmatch inutilise;
+	if (!regex_match(filsExpr.c_str(), inutilise, regexDTD))
+	{
+		// DEBUG
+		cout << "faux" << endl;
+
+		return false;
+	}
+
+	// DEBUG
+	cout << "vrai" << endl;
 
 	return true;
 }

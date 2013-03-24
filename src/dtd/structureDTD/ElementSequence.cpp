@@ -54,18 +54,15 @@ void ElementSequence::Afficher() const
 string ElementSequence::getRegEx() const
 {
 	string retour = "(";
-	list<GroupeSubElement*>::iterator it = listGroupeSubElement->begin();
+	list<GroupeSubElement*>::iterator it;
 
-	retour += (*it)->getRegEx();
-
-	for (it++; it != listGroupeSubElement->end(); it++)
+	for (it = listGroupeSubElement->begin(); it != listGroupeSubElement->end(); it++)
 	{	
-		retour += "|";
 		retour += (*it)->getRegEx();
 	}
 	
 	retour += ")";
-	/*
+
 	switch (quantificateur)
 	{
 		case INTERROGATION :
@@ -80,7 +77,6 @@ string ElementSequence::getRegEx() const
 		default :
 			break;
 	}
-	*/
 	return retour; 
 }
 

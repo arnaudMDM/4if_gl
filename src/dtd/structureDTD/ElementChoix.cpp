@@ -63,7 +63,7 @@ string ElementChoix::getRegEx() const
 	}
 	
 	retour += ")";
-	/*
+	
 	switch (quantificateur)
 	{
 		case INTERROGATION :
@@ -78,6 +78,6 @@ string ElementChoix::getRegEx() const
 		default :
 			break;   
 	}
-	*/
+	
 	return retour; 
 }
