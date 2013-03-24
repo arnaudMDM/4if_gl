@@ -29,6 +29,8 @@ int xmllex(void);
    set<AttributXML*> * lstAttributXml;
 }
 
+/* <?xml version="1.0" encoding="ISO-8859-1"?> */ 
+
 %token EGAL SLASH SUP SUPSPECIAL DOCTYPE
 %token <s> ENCODING VALEUR DONNEES COMMENT NOM ENNOM DTD SYSTEM
 %token <en> OBALISEEN OBALISE OBALISESPECIALE FBALISE FBALISEEN
