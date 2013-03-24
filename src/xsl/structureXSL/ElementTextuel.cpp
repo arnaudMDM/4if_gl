@@ -12,14 +12,13 @@ ElementTextuel::ElementTextuel(string Texte)
 {
 	this->Texte = Texte; 
 	type = TEXTE;
-
 }
 
 ElementTextuel::~ElementTextuel() {}
 
 void ElementTextuel::afficher()
 {
-
+	cout << Texte;
 }
 
 string ElementTextuel::getTexte() const

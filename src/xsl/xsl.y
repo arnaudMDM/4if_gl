@@ -4,15 +4,17 @@ using namespace std;
 #include <cstring>
 #include <cstdio>
 #include <cstdlib>
+#include "commun.h"
 #include "structureXSL/ElementTextuel.h"
 #include "structureXSL/ElementXSL.h"
 #include "structureXSL/DocumentXSL.h"
 #include <list>
 #include "xsl.tab.h"
 
+
 // ces trois fonctions devront changer de nom dans le cas où l'option -p est utilisée
 int xslwrap(void);
-void xslerror(Document * doc, char *msg);
+void xslerror(DocumentXSL * docXSL, char *msg); 
 int xsllex(void);
 
 %}
@@ -20,9 +22,9 @@ int xsllex(void);
 %union {
    char * s;
    ElementName * en;  /* le nom d'un element avec son namespace, cf commun.h */
-   XSLElement * abstractElement; /* C est un element balise uniquement */
-   list<XSLElement *> * lstAbstractElement; /* C est une liste */
-   AttributXSL* lstAttributXml; 
+   AbstractElementXSL * abstractElement; /* C est un element balise uniquement */
+   list<AbstractElementXSL *> * lstAbstractElement; /* C est une liste */
+   AttributXSL * attributXSL; 
 }
 
 %token EGAL SLASH SUP SUPSPECIAL DOCTYPE
@@ -33,7 +35,7 @@ int xsllex(void);
 %type <lstAbstractElement> vide_ou_contenu
 %type <lstAbstractElement> ferme_contenu_et_fin
 %type <en> ouvre
-%type <lstAttributXml> attributs_opt
+%type <attributXSL> attributs_opt
 
 /* Pour recuperer le document en entier */ 
 %parse-param {DocumentXSL * docXSL}
@@ -41,7 +43,7 @@ int xsllex(void);
 %%
 
 document
- : declarations element misc_seq_opt {docXml->setElementXSL((ElementXSL*)$2)}
+ : element misc_seq_opt {docXSL->setElementXSL((ElementXSL*)$1)}
  ;
 misc_seq_opt
  : misc_seq_opt misc /*  si je ne veux pas stocker, je ne mets rien : { $$ = $1  }; $$->push_back(string($2)) }*/ 
@@ -51,62 +53,40 @@ misc
  : COMMENT
  ;
 
-declarations
- : declarations declaration
- | /*vide*/ 
- ;
-
-/*  <?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE rapport SYSTEM "rap2.dtd">
-<?xml-stylesheet type="text/xsl" href="cdcatalog.xsl"?> */  
-/*declaration
- : XMLVERSION {docXSL->setVersion($1);}
-// : DOCTYPE NOM SYSTEM DTD SUP {docXml->setNomDtd(string($4)); docXml->setNomXml(string($2))}
-// | DOCTYPE NOM NOM VALEUR SUP
- /*: OBALISESPECIALE NOM attributs_opt_declarations SUPSPECIAL */
- ;
-
- /*attributs_opt_declarations
- : attributs_opt_declarations NOM EGAL VALEUR {docXml->setNomFeuilleDeStyle($4)}
- | /*vide*/ /*{ $$ = new list<string>() }
- ;*/
-
 element
- : ouvre attributs_opt vide_ou_contenu {$$ = new ElementXSL($1->second,$3,$2)}
+ : ouvre attributs_opt vide_ou_contenu {printf("AAAA!");if( strcmp(($1->first).c_str(),"xsl") == 0 ) $$ = new ElementXSL($1->second,$3,$2) ; else printf("CCCC!");}
  ;
 ouvre
- : OBALISE {$$ = $1}
- | OBALISEEN {$$ = $1}
+ : OBALISEEN {$$ = $1}
  ;
 
 attributs_opt
- : attributs_opt NOM EGAL VALEUR {$$ = $1 ; $$->insert(new AttributXML(string($2),string($4)))}
- | /*vide*/ {$$ = new set<AttributXML*>()}
+ : NOM EGAL VALEUR {$$ = new AttributXSL(string($1),string($3));}
  ;
 
 vide_ou_contenu
- : SLASH SUP {$$=new list<AbstractElement*>()} /*contenu vide*/
+ : SLASH SUP {$$=new list<AbstractElementXSL*>()} /*contenu vide*/
  | ferme_contenu_et_fin SUP { $$ = $1 }  /*contenu non vide*/
  ;
 ferme_contenu_et_fin
- : SUP contenu_opt FBALISE { $$ = $2 }
+ : SUP contenu_opt FBALISEEN { $$ = $2 }
  ;
 contenu_opt /* Regle de construction en commentaire */
- : contenu_opt DONNEES { $$ = $1 ; $$->push_back(new ElementTexte(string($2)))} // delete $2
+ : contenu_opt DONNEES { $$ = $1 ; $$->push_back(new ElementTextuel(string($2)))} // delete $2
  | contenu_opt misc { $$ = $1 }
  | contenu_opt element  { $$ = $1 ; $$->push_back($2)} //  delete $2
- | /*vide*/     { $$ = new list<AbstractElement*>() }      
+ | /*vide*/     { $$ = new list<AbstractElementXSL*>() }      
  ;
 
 %%
 
 
-int xmlwrap(void)
+int xslwrap(void)
 {
   return 1;
 }
 
-void xmlerror(Document * doc, char *msg)
+void xslerror(DocumentXSL * docXSL, char *msg)
 {
   fprintf(stderr, "%s\n", msg);
 }

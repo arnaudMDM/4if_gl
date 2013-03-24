@@ -6,13 +6,15 @@
 #include <ctype.h>
 #include <string.h>
 #include <stdlib.h>
+#include "commun.h"
 #include "structureXSL/ElementTextuel.h"
 #include "structureXSL/ElementXSL.h"
 #include "structureXSL/DocumentXSL.h"
+#include "xsl.tab.h"
 
 // si vous activez l'option -P de flex, changez les deux lignes suivantes
-#define YYTEXT xmltext
-#define YYLVAL xmllval
+#define YYTEXT xsltext
+#define YYLVAL xsllval
 // exemple avec -Pxml
 //#define YYTEXT xmltext
 //#define YYLVAL xmllval
@@ -75,7 +77,6 @@ static char * separeNom(char *s)
    return name;
 }
 
-
 %}
 
 nl		(\r\n|\r|\n)
@@ -91,10 +92,9 @@ data		([^<\n&]|\n[^<&]|\n{esc}|{esc})+
 pcdata		[^<]+
 comment		{inf}"!--"([^-]|"-"[^-])*"--"{sup}
 chaine		\"([^"&]|{esc})*\"|\'([^'&]|{esc})*\'
-xmlversion   {esp}?"<?xml"{esp}"version="{chaine}{esp}"encoding="{chaine}"?>"{nl}?
 stylesheet {esp}?"<xsl:stylesheet"{esp}
 template {esp}?"<xsl:template"{esp}
-applytemplate {esp}?"<xsl:apply-templates"{esp}
+applytemplates {esp}?"<xsl:apply-templates"{esp}
 doctype     {esp}?"<!DOCTYPE"{esp}
 infspecial {esp}?"<?"
 supspecial "?>"{nl}?
@@ -111,7 +111,6 @@ system  "SYSTEM"
 %%
 
 <INITIAL>{esp}		{/* skip */}
-<INITIAL>{xmlversion} {return XMLVERSION;}
 <INITIAL>{doctype} {return DOCTYPE;}
 <INITIAL>"/"		{return SLASH;}
 <INITIAL>"="		{return EGAL;}
@@ -119,14 +118,10 @@ system  "SYSTEM"
 <INITIAL>{supspecial}	{ return SUPSPECIAL;}
 <INITIAL>{system} {YYLVAL.s = strdup(YYTEXT); return SYSTEM;}
 <INITIAL>{nom}		{YYLVAL.s = strdup(YYTEXT); return NOM;}
-<INITIAL>{ennom}		{YYLVAL.s = strdup(YYTEXT); return ENNOM;}
 <INITIAL>{dtd}	{YYLVAL.s = strdup(enleveGuillemets(YYTEXT)); return DTD;}
 <INITIAL>{chaine}	{YYLVAL.s = strdup(enleveGuillemets(YYTEXT)); return VALEUR;}
 
-{infspecial}{esp}?{nom}	{BEGIN(INITIAL); char * tmp = mot(YYTEXT); YYLVAL.en = new ElementName("",tmp); free(tmp); return OBALISESPECIALE;}
-{inf}{esp}?{nom}	{BEGIN(INITIAL); char * tmp = mot(YYTEXT); YYLVAL.en = new ElementName("",tmp); free(tmp); return OBALISE;}
 {inf}{esp}?{ennom}	{BEGIN(INITIAL); char *tmp1 = espaceDeNom(YYTEXT); char * tmp2 = separeNom(YYTEXT); YYLVAL.en = new ElementName(tmp1,tmp2); free(tmp1); free(tmp2); return OBALISEEN;}
-{inf}"/"{nom}		{BEGIN(INITIAL); char * tmp = mot(YYTEXT); YYLVAL.en = new ElementName("",tmp); free(tmp); return FBALISE;}
 {inf}"/"{ennom}		{BEGIN(INITIAL); char *tmp1 = espaceDeNom(YYTEXT); char * tmp2 = separeNom(YYTEXT); YYLVAL.en = new ElementName(tmp1,tmp2); free(tmp1); free(tmp2); return FBALISEEN;}
 {comment}		{YYLVAL.s = strdup(YYTEXT); return COMMENT;}
 

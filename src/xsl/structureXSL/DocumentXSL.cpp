@@ -10,8 +10,7 @@
 
 DocumentXSL::DocumentXSL() 
 {
-	elementXSL = NULL;
-
+	// elementXSL = NULL;
 }
 
 DocumentXSL::~DocumentXSL() 
@@ -22,7 +21,8 @@ DocumentXSL::~DocumentXSL()
 
 void DocumentXSL::afficher()
 {
-
+	cout << "<?xml version=\"1.0\"?>" << endl;
+   	elementXSL->afficher();
 }
 
 void DocumentXSL::setElementXSL(ElementXSL * elementXSL)

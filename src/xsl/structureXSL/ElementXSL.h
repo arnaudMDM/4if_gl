@@ -28,7 +28,7 @@ protected:
 // Constructeurs et Méthodes
 public:
 	ElementXSL();
-	ElementXSL(Type type, list<AbstractElementXSL*> * lstAbstractElementXSL, AttributXSL * s);
+	ElementXSL(string type, list<AbstractElementXSL*> * lstAbstractElementXSL, AttributXSL * s);
 	virtual ~ElementXSL();
 
     list<AbstractElementXSL*> * getLstAbstractElementXSL() const;
