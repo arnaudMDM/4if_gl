@@ -52,6 +52,6 @@ void DocumentDTD::Afficher()
 	{
 		ElementDTD * tmpElement = it->second;
 		GroupeSubElement tmpElementFils =  
-	}*/
+	}
 	return true; 
 }*/ 
