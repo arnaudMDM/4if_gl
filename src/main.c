@@ -339,7 +339,7 @@ bool verifNoeud(AbstractElement * abstractNoeud, map<string, ElementDTD*> * elts
 		}
 	}
 
-	// On vérifie que les sous-éléments XML sont bien des fils aussi dans la DTD puis on applique la vérifification totale à chaque sous-élement
+	// On vérifie que les sous-éléments XML sont bien des fils aussi dans la DTD puis on applique la vérification totale à chaque sous-élement
 	list<AbstractElement*> * lstEltsXML = noeud->getLstAbstractElement();
 	list<AbstractElement*>::iterator it3;
 	for (it3 = lstEltsXML->begin(); it3 != lstEltsXML->end(); it3++)
@@ -355,8 +355,8 @@ bool verifNoeud(AbstractElement * abstractNoeud, map<string, ElementDTD*> * elts
 		string nomSsNoeud = ssNoeud->getNom();
 		regex regexDTD(noeudDTD->getRegEx());
 
-		cmatch what;
-		if (!regex_match(nomSsNoeud.c_str(), what, regexDTD))
+		cmatch inutilise;
+		if (!regex_match(nomSsNoeud.c_str(), inutilise, regexDTD))
 		{
 			return false;
 		}
