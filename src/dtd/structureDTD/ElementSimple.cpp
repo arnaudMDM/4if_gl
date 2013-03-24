@@ -36,13 +36,13 @@ void ElementSimple::Afficher() const
 
 string ElementSimple::getRegEx() const
 {
-	string retour = "";
+	string retour;
 	if (nom == "#PCDATA")
 	{
 		retour = ".*";
 	}
 	else {
-		string retour += "(";
+		retour = "(";
 		retour += nom;
 		retour += ",)";
 

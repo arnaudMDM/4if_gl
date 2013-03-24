@@ -129,7 +129,7 @@ int main(int argc, char **argv)
 			if (VerifXmletDtd(argv[2]))
 				cout << "XML/DTD check successfull" << endl;
 			else
-				cout << "Error : XML with DTD" << endl;
+				cout << "Error : XML/DTD check failed" << endl;
 			break;
 		}
 		case 3 : // construction de l'arbre xsl
