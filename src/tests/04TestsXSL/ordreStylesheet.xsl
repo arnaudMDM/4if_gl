@@ -1,6 +1,4 @@
 <?xml version='1.0'?>
-<xsl:stylesheet version="1.0"
-      xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <xsl:template match="/">
   <HTML>
@@ -14,13 +12,16 @@
   </HTML>
 </xsl:template>
 
+<xsl:stylesheet version="1.0"
+      xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	  
 <xsl:template match="nom">
   <TD STYLE="font-size:14pt font-family:serif">
     <xsl:apply-templates />
   </TD>
 </xsl:template>
 
-<xsl:template >
+<xsl:template match="prenom">
   <TD> <xsl:apply-templates /> </TD>
 </xsl:template>
 
