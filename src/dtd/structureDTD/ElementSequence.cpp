@@ -27,7 +27,7 @@ void ElementSequence::Afficher() const
 
 	(*it)->Afficher();
 
-	for(it++; it != listGroupeSubElement->end(); it++)
+	for (it++; it != listGroupeSubElement->end(); it++)
 	{
 		cout << ",";
 		(*it)->Afficher();

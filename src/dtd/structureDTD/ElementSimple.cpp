@@ -10,7 +10,10 @@ ElementSimple::ElementSimple(string n, Quantificateur q)
 	quantificateur = q;
 }
 
-ElementSimple::~ElementSimple() {}
+ElementSimple::~ElementSimple()
+{
+	/* bloc vide */
+}
 
 void ElementSimple::Afficher() const
 {
@@ -46,7 +49,8 @@ string ElementSimple::getRegEx() const
 		case ETOILE :
 			retour += "*";
 			break;
-		default : break; 
+		default :
+			break; 
 	}
 	return retour; 
 }
