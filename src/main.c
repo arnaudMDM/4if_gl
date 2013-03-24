@@ -369,22 +369,18 @@ bool verifNoeud(AbstractElement * abstractNoeud, map<string, ElementDTD*> * elts
 	}
 
 	// Test de conformité des fils par rapport au père dans la DTD
-	regex regexDTD(noeudDTD->getRegEx());
+	string regexStr = noeudDTD->getRegEx();
+	regex regexDTD(regexStr);
 
-	// DEBUG
-	cout << "regex_match : " << filsExpr << " - " << noeudDTD->getRegEx() << endl;
+	// cout << "regex_match : \"" << filsExpr << "\" \"" << regexStr << "\"" << endl; // DEBUG
 
 	cmatch inutilise;
 	if (!regex_match(filsExpr.c_str(), inutilise, regexDTD))
 	{
-		// DEBUG
-		cout << "faux" << endl;
+		cout << "Failed regex_match : \"" << filsExpr << "\" \"" << regexStr << "\"" << endl;
 
 		return false;
 	}
-
-	// DEBUG
-	cout << "vrai" << endl;
 
 	return true;
 }
