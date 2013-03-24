@@ -96,11 +96,8 @@ chaine		\"([^"&]|{esc})*\"|\'([^'&]|{esc})*\'
 stylesheet {esp}?"<xsl:stylesheet"{esp}
 template {esp}?"<xsl:template"{esp}
 applytemplates {esp}?"<xsl:apply-templates"{esp}
-doctype     {esp}?"<!DOCTYPE"{esp}
 infspecial {esp}?"<?"
 supspecial "?>"{nl}?
-dtd  \"[A-Za-z\200-\377_0-9]+".dtd"\"
-system  "SYSTEM"
 
 /*
  * Le mode CONTENU est utilisé entre les balises ouvrantes et fermantes
@@ -112,14 +109,12 @@ system  "SYSTEM"
 %%
 
 <INITIAL>{esp}		{/* skip */}
-<INITIAL>{doctype} {return DOCTYPE;}
 <INITIAL>"/"		{return SLASH;}
 <INITIAL>"="		{return EGAL;}
 <INITIAL>{sup}	{BEGIN(CONTENU); return SUP;}
 <INITIAL>{supspecial}	{ return SUPSPECIAL;}
 <INITIAL>{system} {YYLVAL.s = strdup(YYTEXT); return SYSTEM;}
 <INITIAL>{nom}		{YYLVAL.s = strdup(YYTEXT); return NOM;}
-<INITIAL>{dtd}	{YYLVAL.s = strdup(enleveGuillemets(YYTEXT)); return DTD;}
 <INITIAL>{chaine}	{YYLVAL.s = strdup(enleveGuillemets(YYTEXT)); return VALEUR;}
 
 {inf}{esp}?{ennom}	{BEGIN(INITIAL); char *tmp1 = espaceDeNom(YYTEXT); char * tmp2 = separeNom(YYTEXT); YYLVAL.en = new ElementName(tmp1,tmp2); free(tmp1); free(tmp2); return OBALISEEN;}
