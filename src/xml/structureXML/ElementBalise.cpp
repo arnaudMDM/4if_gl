@@ -14,6 +14,24 @@ ElementBalise::ElementBalise() {
 }
 
 ElementBalise::~ElementBalise() {
+  if(setAttributs!=NULL)
+  {
+    set<AttributXML*>::iterator it;
+    for (it = setAttributs->begin(); it != setAttributs->end(); it++)
+    {
+      delete(*it);
+    }
+    delete(setAttributs);
+  }
+  if(lstAbstractElement!=NULL)
+  {
+    list<AbstractElement*>::iterator it;
+    for (it = lstAbstractElement->begin(); it != lstAbstractElement->end(); it++)
+    {
+      delete(*it);
+    }
+    delete(lstAbstractElement);
+  }
 }
 
 ElementBalise::ElementBalise(string nom, list<AbstractElement*> * l, set<AttributXML*> * s)

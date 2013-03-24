@@ -50,9 +50,9 @@ bool construirXML(char* nomXML)
 {
 	Document * docXML = new Document();
 	bool a = parserXML(docXML, nomXML);
-	docXML->afficher();
+	if(a)
+		docXML->afficher();
 	delete(docXML);
-
 	return a;
 }
 
@@ -60,7 +60,8 @@ bool construirDTD(char* nomDTD)
 {
 	DocumentDTD * docDTD = new DocumentDTD();
 	bool a = parserDTD(docDTD, nomDTD);
-	docDTD->Afficher();
+	if(a)
+		docDTD->Afficher();
 	delete(docDTD);
 
 	return a;
@@ -72,9 +73,11 @@ bool VerifXmletDtd(char* nomXML)
 	DocumentDTD * docDTD = new DocumentDTD();
 
 	bool a = parserXML(docXML, nomXML);
-	docXML->afficher();
+	if(a)
+		docXML->afficher();
 	bool b = parserDTD(docDTD, (char*)(docXML->getNomDtd()).c_str());
-	docDTD->Afficher();
+	if(b)
+		docDTD->Afficher();
 	bool c = verifXml(docDTD, docXML);
 
 	delete(docXML);
@@ -172,11 +175,11 @@ bool parserXSL(DocumentXSL * docXSL, char* nomFic)
 		}
 		
 		xslin = file;
-
 		err = xslparse(docXSL);
 		if (err != 0)
 		{
 			printf("Parse XSL ended with %d error(s)\n", err);
+			return false;
 		}
 		else
 		{
@@ -195,11 +198,8 @@ bool parserXML(Document * docXML, char* nomFic)
 	int err;
 	if (nomFic == "")
 	{
-
-		printf("Parse XML ended with %d error(s)\n", err);
 		cout << "Nom de fichier xml vide" << endl;
 		return false;
-
 	}
 	else
 	{
@@ -219,6 +219,7 @@ bool parserXML(Document * docXML, char* nomFic)
 		if (err != 0)
 		{
 			printf("Parse XML ended with %d error(s)\n", err);
+			return false;
 		}
 		else
 		{
@@ -257,6 +258,7 @@ bool parserDTD(DocumentDTD * docDTD, char* nomFic)
 		if (err != 0)
 		{
 			printf("Parse DTD ended with %d error(s)\n", err);
+			return false;
 		}
 		else
 		{

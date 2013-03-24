@@ -14,6 +14,8 @@ Document::Document() {
 }
 
 Document::~Document() {
+    if(elementBalise!=NULL)
+        delete(elementBalise);
 	// TODO Auto-generated destructor stub
 }
 

@@ -2,8 +2,6 @@
 #define COMMUN_H
 
 using namespace std;
-#include <list>
-#include <utility>
 #include <string>
 
 typedef pair<string,string> ElementName;

@@ -27,14 +27,12 @@ int xsllex(void);
    AttributXSL * attributXSL; 
 }
 
-%token EGAL SLASH SUP SUPSPECIAL DOCTYPE
-%token <s> ENCODING VALEUR DONNEES COMMENT NOM ENNOM DTD SYSTEM
-%token <en> OBALISEEN OBALISESPECIALE FBALISEEN
+%token EGAL SLASH SUP
+%token <s> DATA VALEUR COMMENT NOM OSTYLESHEET FSTYLESHEET OTEMPLATE FTEMPLATE OAPPLYTEMPLATES
 %type <abstractElement> element
 %type <lstAbstractElement> contenu_opt  
-%type <lstAbstractElement> vide_ou_contenu
 %type <lstAbstractElement> ferme_contenu_et_fin
-%type <en> ouvre
+%type <s> ouvre_contenu ferme_contenu
 %type <attributXSL> attributs_opt
 
 /* Pour recuperer le document en entier */ 
@@ -54,27 +52,33 @@ misc
  ;
 
 element
- : ouvre attributs_opt vide_ou_contenu {printf("AAAA!");if( strcmp(($1->first).c_str(),"xsl") == 0 ) $$ = new ElementXSL($1->second,$3,$2) ; else printf("CCCC!");}
+ : ouvre_contenu attributs_opt ferme_contenu_et_fin SUP {$$ = new ElementXSL(string($1),$3,$2);}
+ | OAPPLYTEMPLATES attributs_opt SLASH SUP {$$ = new ElementXSL(string($1),new list<AbstractElementXSL*>(),$2);}
  ;
-ouvre
- : OBALISEEN {$$ = $1}
+
+ouvre_contenu
+ : OSTYLESHEET {$$ = $1;}
+ | OTEMPLATE {$$ = $1;}
  ;
 
 attributs_opt
  : NOM EGAL VALEUR {$$ = new AttributXSL(string($1),string($3));}
+ | /*vide*/{$$ = NULL}
  ;
 
-vide_ou_contenu
- : SLASH SUP {$$=new list<AbstractElementXSL*>()} /*contenu vide*/
- | ferme_contenu_et_fin SUP { $$ = $1 }  /*contenu non vide*/
- ;
 ferme_contenu_et_fin
- : SUP contenu_opt FBALISEEN { $$ = $2 }
+ : SUP contenu_opt ferme_contenu { $$ = $2 }
  ;
+
+ ferme_contenu
+ : FSTYLESHEET
+ | FTEMPLATE
+ ;
+
 contenu_opt /* Regle de construction en commentaire */
- : contenu_opt DONNEES { $$ = $1 ; $$->push_back(new ElementTextuel(string($2)))} // delete $2
- | contenu_opt misc { $$ = $1 }
+ : contenu_opt misc { $$ = $1 }
  | contenu_opt element  { $$ = $1 ; $$->push_back($2)} //  delete $2
+ | contenu_opt DATA { $$ = $1 ; $$->push_back(new ElementTextuel(string($2)))} // delete $2
  | /*vide*/     { $$ = new list<AbstractElementXSL*>() }      
  ;
 

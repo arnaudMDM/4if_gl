@@ -87,17 +87,13 @@ debutnom	[A-Za-z\200-\377_]
 caracnom	[A-Za-z\200-\377_0-9.-]
 esc		"&#"[0-9]+";"|"&#x"[0-9a-fA-F]+";"
 nom		{debutnom}{caracnom}*
-ennom		{debutnom}{caracnom}*":"{debutnom}{caracnom}*
-data		([^<\n&]|\n[^<&]|\n{esc}|{esc})+
-test 		[^<xsl]
-pcdata		[{test}]+
+data [A-Za-z\200-\377_0-9.<>/\\"':.=?! -]*
 comment		{inf}"!--"([^-]|"-"[^-])*"--"{sup}
 chaine		\"([^"&]|{esc})*\"|\'([^'&]|{esc})*\'
-stylesheet {esp}?"<xsl:stylesheet"{esp}
-template {esp}?"<xsl:template"{esp}
-applytemplates {esp}?"<xsl:apply-templates"{esp}
-infspecial {esp}?"<?"
-supspecial "?>"{nl}?
+xsl "xsl:"
+stylesheet "stylesheet"{esp}
+template "template"{esp}
+applytemplates "apply-templates"{esp}
 
 /*
  * Le mode CONTENU est utilisé entre les balises ouvrantes et fermantes
@@ -112,16 +108,18 @@ supspecial "?>"{nl}?
 <INITIAL>"/"		{return SLASH;}
 <INITIAL>"="		{return EGAL;}
 <INITIAL>{sup}	{BEGIN(CONTENU); return SUP;}
-<INITIAL>{supspecial}	{ return SUPSPECIAL;}
-<INITIAL>{system} {YYLVAL.s = strdup(YYTEXT); return SYSTEM;}
 <INITIAL>{nom}		{YYLVAL.s = strdup(YYTEXT); return NOM;}
 <INITIAL>{chaine}	{YYLVAL.s = strdup(enleveGuillemets(YYTEXT)); return VALEUR;}
 
-{inf}{esp}?{ennom}	{BEGIN(INITIAL); char *tmp1 = espaceDeNom(YYTEXT); char * tmp2 = separeNom(YYTEXT); YYLVAL.en = new ElementName(tmp1,tmp2); free(tmp1); free(tmp2); return OBALISEEN;}
-{inf}"/"{ennom}		{BEGIN(INITIAL); char *tmp1 = espaceDeNom(YYTEXT); char * tmp2 = separeNom(YYTEXT); YYLVAL.en = new ElementName(tmp1,tmp2); free(tmp1); free(tmp2); return FBALISEEN;}
+{inf}{xsl}{stylesheet}	{BEGIN(INITIAL); YYLVAL.s = strdup(YYTEXT); return OSTYLESHEET;}
+{inf}{xsl}{template}  {BEGIN(INITIAL); YYLVAL.s = strdup(YYTEXT); return OTEMPLATE;}
+{inf}{xsl}{applytemplates}  {BEGIN(INITIAL); YYLVAL.s = strdup(YYTEXT); return OAPPLYTEMPLATES;}
+{inf}"/"{stylesheet}		{BEGIN(INITIAL); YYLVAL.s = strdup(YYTEXT); return FSTYLESHEET;}
+{inf}"/"{template}    {BEGIN(INITIAL); YYLVAL.s = strdup(YYTEXT); return FTEMPLATE;}
+
 {comment}		{YYLVAL.s = strdup(YYTEXT); return COMMENT;}
 
 
-<CONTENU>{esp}?{pcdata}		{YYLVAL.s = strdup(supprimeEspaces(YYTEXT)); return DONNEES;}
+<CONTENU>{esp}?{data}    {YYLVAL.s = strdup(YYTEXT); return DATA;}
 
 .			{fprintf(stderr, "!ERROR(%c)\n", *YYTEXT);}
