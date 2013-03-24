@@ -297,6 +297,12 @@ bool verifNoeud(AbstractElement * abstractNoeud, map<string, ElementDTD*> * elts
 		return false;
 	}
 
+	ElementBalise * noeud = dynamic_cast<ElementBalise*>(abstractNoeud);
+	if (noeud == 0) // il s'agit pas d'un élément texte
+	{
+		return true;
+	}
+
 	// On vérifie qu'il existe une entrée dans la DTD correspondant au noeud XML courant
 	string nomNoeudCourant = noeud->getNom();
 	map<string, ElementDTD*>::iterator itnd = elts->find(nomNoeudCourant);
