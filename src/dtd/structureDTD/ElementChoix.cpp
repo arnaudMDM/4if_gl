@@ -54,12 +54,12 @@ string ElementChoix::getRegEx() const
 	string retour = "(";
 	list<GroupeSubElement*>::iterator it = listGroupeSubElement->begin();
 
-	(*it)->getRegEx();
+	retour += (*it)->getRegEx();
 
 	for (it++; it != listGroupeSubElement->end(); it++)
 	{
 		retour += "|";
-		(*it)->getRegEx();
+		retour += (*it)->getRegEx();
 	}
 	
 	retour += ")";

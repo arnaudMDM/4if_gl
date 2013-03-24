@@ -56,11 +56,12 @@ string ElementSequence::getRegEx() const
 	string retour = "(";
 	list<GroupeSubElement*>::iterator it = listGroupeSubElement->begin();
 
-	(*it)->getRegEx();
+	retour += (*it)->getRegEx();
 
 	for (it++; it != listGroupeSubElement->end(); it++)
-	{
-		(*it)->getRegEx();
+	{	
+		retour += "|";
+		retour += (*it)->getRegEx();
 	}
 	
 	retour += ")";
