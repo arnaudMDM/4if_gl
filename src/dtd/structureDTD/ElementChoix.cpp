@@ -5,8 +5,8 @@ using namespace std;
 
 ElementChoix::ElementChoix(list<GroupeSubElement*> * l, Quantificateur q)
 {
-	listGroupeSubElement=l;
-	quantificateur=q;
+	listGroupeSubElement = l;
+	quantificateur = q;
 }
 
 ElementChoix::~ElementChoix()
@@ -56,13 +56,14 @@ string ElementChoix::getRegEx() const
 
 	(*it)->getRegEx();
 
-	for(it++; it!=listGroupeSubElement->end(); it++)
+	for (it++; it != listGroupeSubElement->end(); it++)
 	{
 		retour += "|";
 		(*it)->getRegEx();
 	}
 	
-	retour += ")";	
+	retour += ")";
+	/*
 	switch (quantificateur)
 	{
 		case INTERROGATION :
@@ -74,7 +75,9 @@ string ElementChoix::getRegEx() const
 		case ETOILE :
 			retour += "*";
 			break; 
-		default : break;   
+		default :
+			break;   
 	}
+	*/
 	return retour; 
 }

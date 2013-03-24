@@ -63,7 +63,8 @@ string ElementSequence::getRegEx() const
 		(*it)->getRegEx();
 	}
 	
-	retour += ")";	
+	retour += ")";
+	/*
 	switch (quantificateur)
 	{
 		case INTERROGATION :
@@ -78,6 +79,7 @@ string ElementSequence::getRegEx() const
 		default :
 			break;
 	}
+	*/
 	return retour; 
 }
 

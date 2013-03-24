@@ -29,7 +29,8 @@ void ElementSimple::Afficher() const
 		case ETOILE :
 			cout << "*";
 			break;
-		default : break; 
+		default :
+			break; 
 	}
 }
 
@@ -38,6 +39,7 @@ string ElementSimple::getRegEx() const
 	string retour = "(";
 	retour += nom;
 	retour += ")";
+	/*
 	switch (quantificateur)
 	{
 		case INTERROGATION :
@@ -52,5 +54,6 @@ string ElementSimple::getRegEx() const
 		default :
 			break; 
 	}
+	*/
 	return retour; 
 }
