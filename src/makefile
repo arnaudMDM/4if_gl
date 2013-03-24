@@ -13,8 +13,8 @@ XSLSTRUCT=$(XSLSTRUCTPATH)DocumentXSL.cpp $(XSLSTRUCTPATH)AbstractElementXSL.h  
 EXEC=analyse
 
 all: $(EXEC)
-$(EXEC): analyseXML analyseDTD analyseXSL structureXML structureDTD structureXSL main.c makefile
-#$(EXEC): analyseXML analyseDTD structureXML structureDTD main.c makefile
+#$(EXEC): analyseXML analyseDTD analyseXSL structureXML structureDTD structureXSL main.c makefile
+$(EXEC): analyseXML analyseDTD structureXML structureDTD main.c makefile
 	g++ -g -o $(EXEC) *.o main.c -lboost_regex
 analyseXML: xml/*.l xml/*.y xml/makefile
 	cd xml; make all

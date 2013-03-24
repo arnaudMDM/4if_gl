@@ -76,7 +76,7 @@ void ElementDTD::Afficher() const
 
 string ElementDTD::getRegEx()
 {
-	string regEx="/^";
+	string regEx = "/^";
 	regEx += groupeSubElement->getRegEx();
 	regEx += "$/";
 }

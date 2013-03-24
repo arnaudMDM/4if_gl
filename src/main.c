@@ -21,7 +21,7 @@
 #include "xsl/structureXSL/DocumentXSL.h"
 #include "xsl/structureXSL/ElementTextuel.h"
 
-#include <boost/regex.hpp>
+using namespace boost;
 
 
 int xmlparse(Document * xml);
@@ -296,25 +296,24 @@ bool verifNoeud(AbstractElement * abstractNoeud, map<string, ElementDTD*> * elts
 		return false;
 	}
 
+	// On vérifie que l'élément XML n'est pas un élément texte
 	ElementBalise * noeud = dynamic_cast<ElementBalise*>(abstractNoeud);
-
 	if (noeud == 0)
 	{
 		// il s'agit d'un élément texte
 		return true;
 	}
 
+	// On vérifie qu'il existe une entrée dans la DTD correspondant au noeud XLM courant
 	string nomNoeudCourant = noeud->getNom();
-
 	ElementDTD * noeudDTD = (*elts)[nomNoeudCourant];
 
-	// verification de l'existance du noeud courant dans la dtd
 	if (noeudDTD == NULL)
 	{
 		return false;
 	}
 
-	// vérification des attributs du noeud courant
+	// On vérifie des attributs du noeud courant
 	set<AttributXML*> * attsXML = noeud->getSetAttribut();
 	set<AttributDTD*> * attsDTD = noeudDTD->getSetAttributDTD();
 
@@ -340,11 +339,29 @@ bool verifNoeud(AbstractElement * abstractNoeud, map<string, ElementDTD*> * elts
 		}
 	}
 
-	// vérification des sous-éléments*/
+	// On vérifie que les sous-éléments XML sont bien des fils aussi dans la DTD puis on applique la vérifification totale à chaque sous-élement
 	list<AbstractElement*> * lstEltsXML = noeud->getLstAbstractElement();
 	list<AbstractElement*>::iterator it3;
 	for (it3 = lstEltsXML->begin(); it3 != lstEltsXML->end(); it3++)
 	{
+		// On vérifie que l'élément XML n'est pas un élément texte
+		ElementBalise * ssNoeud = dynamic_cast<ElementBalise*>(*it3);
+		if (ssNoeud == 0)
+		{
+			// il s'agit d'un élément texte
+			continue;
+		}
+
+		string nomSsNoeud = ssNoeud->getNom();
+		regex regexDTD(noeudDTD->getRegEx());
+
+		cmatch what;
+		if (!regex_match(nomSsNoeud.c_str(), what, regexDTD))
+		{
+			return false;
+		}
+
+		// On applique la vérification totale sur le sous-élément XML
 		if (!verifNoeud(*(it3), elts))
 		{
 			return false;
