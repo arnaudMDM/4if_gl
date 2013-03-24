@@ -31,12 +31,8 @@ bool verifXml(DocumentDTD * dtd, Document * xml);
 bool verifNoeud(AbstractElement * noeud, map<string, ElementDTD*> * elts);
 bool parserXML(Document * docXML, char* nomFic);
 bool parserDTD(DocumentDTD * docDTD, char* nomFic);
-<<<<<<< .mine
 void ajouterTexteTemplate(AbstractElement* abstXML,AbstractElementXSL* abstXSL,list<AbstractElementXSL*>lstAbstXSL, list<string>* lstString);
-//bool parserXSL(DocumentXSL * docXML, char* nomFic);
-=======
 bool parserXSL(DocumentXSL * docXML, char* nomFic);
->>>>>>> .r105
 
 
 extern int xmldebug;
@@ -358,6 +354,7 @@ bool verifNoeud(AbstractElement * abstractNoeud, map<string, ElementDTD*> * elts
 	return true;
 }
 
+/*
 bool verifTemplate(list<AbstractElementXSL*>*lst)
 {
 	list<AbstractElementXSL*>::iterator it;
@@ -375,15 +372,15 @@ ElementXSL* trouveTemplate(list<AbstractElementXSL*>*lstXSL,string s)
 	list<AbstractElementXSL*>::iterator it;
 	for(it=lstXSL->begin() ; it!=lstXSL->end() ; it++)
 	{
-		if(((((*it)->getAttributXSL())->getValeur()).compare(s))==0)
+		if(((((*it)->getAttributXSL())->getValeur()).compare(s))==0) //peut etre caster
 			retour=(*it);
 	}
 	return retour;
 }
 
-void ajouterTousTextesXML(AbstractElement* abstXML, list<string>* lstString)
+void ajouterTousTextesXML(ElementBalise* EltXML, list<string>* lstString)
 {
-	list<AbstractElement*>* lstAbstXML=abstXML->getElementBalise();
+	list<AbstractElement*>* lstAbstXML=EltXML->getLstAbstractElement();
 	list<AbstractElement*>::iterator it;
 
 
@@ -392,30 +389,30 @@ void ajouterTousTextesXML(AbstractElement* abstXML, list<string>* lstString)
 		if((*it)->getIsText())
 			lstString->push_back((*it)->getTexte());
 		else
-			ajouterTousTextesXML((*it),lstString);
+			ajouterTousTextesXML((*it),lstString);//peut etre caster
 	}
 }
 
-void applyTemplates(AbstractElement* abstXML, list<AbstractElementXSL*>* lstAbstXSL,list<string>* lstString)
+void applyTemplates(ElementBalise* EltXML, list<AbstractElementXSL*>* lstAbstXSL,list<string>* lstString)
 {
-	list<AbstractElement*>* lstAbstXML=abstXML->getElementBalise();
+	list<AbstractElement*>* lstAbstXML=EltXML->getLstAbstractElement();
 	list<AbstractElement*>::iterator it;
-	AbstractElementXSL* abstXSL;
+	ElementXSL* EltXSL;
 
 	for(it=lstAbstXML->begin() ; it!=lstAbstXML->end() ; it++)
 	{
 		if((*it)->getIsText())
 			lstString->push_back((*it)->getTexte());
-		else if((abstXSL=trouveTemplate(lstAbstXSL,(*it)->getNom()))!=NULL)
-			ajouterTexteTemplate((*it),abstXSL,lstAbstXSL,lstString);
+		else if((EltXSL=trouveTemplate(lstAbstXSL,(*it)->getNom()))!=NULL)
+			ajouterTexteTemplate((*it),EltXSL,lstAbstXSL,lstString);
 		else
 			ajouterTousTextesXML((*it),lstString);
 	}
 }
 
-void ajouterTexteTemplate(AbstractElement* abstXML,AbstractElementXSL* abstXSL,list<AbstractElementXSL*>lstAbstXSL, list<string>* lstString)
+void ajouterTexteTemplate(ElementBalise* EltXML, ElementXSL* EltXSL,list<AbstractElementXSL*>lstAbstXSL, list<string>* lstString)
 {
-	list<AbstractElementXSL*>* lstAbstXSL=elt->getLstAbstractElementXSL();
+	list<AbstractElementXSL*>* lstAbstXSL=EltXSL->getLstAbstractElementXSL();
 
 	list<AbstractElementXSL*>::iterator it;
 	for(it=lstAbstXSL->begin() ; it!=lstAbstXSL->end() ; it++)
@@ -423,7 +420,7 @@ void ajouterTexteTemplate(AbstractElement* abstXML,AbstractElementXSL* abstXSL,l
 		if((*it)->getType()==TEXT)
 			lstString->push_back((*it)->getTexte());
 		else if((*it)->getType()==APPLYTEMPLATES)
-			applyTemplates(lstAbstXML,lstAbstXSL)
+			applyTemplates(EltXML,lstAbstXSL,lstString)
 		else
 		{
 			cout<<"balise xsl interdite"<<endl;
@@ -463,5 +460,5 @@ void transfXML(Document* docXML, DocumentXSL* docXSL)
 	}
 	else
 		applyTemplates(docXML->getElementBalise(),lstAbstXSL,lstString);
-}
+}*/
 
