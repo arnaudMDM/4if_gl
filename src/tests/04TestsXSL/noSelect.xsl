@@ -7,7 +7,7 @@
     <BODY>
       <TABLE>
           <TR>
-            <xsl:apply-templates select="//nom" />
+            <xsl:apply-templates select= />
             <xsl:apply-templates select="//prenom" />
             <xsl:apply-templates select="//titre" />
           </TR>

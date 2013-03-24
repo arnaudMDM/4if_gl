@@ -18,7 +18,7 @@
 
 <xsl:template match="//nom">
   <TD STYLE="font-size:14pt font-family:serif">
-    <xsl:apply-templates />
+    <xsl:apply-templates >
   </TD>
 </xsl:template>
 
