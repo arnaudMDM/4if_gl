@@ -36,23 +36,30 @@ void ElementSimple::Afficher() const
 
 string ElementSimple::getRegEx() const
 {
-	string retour = "(";
-	retour += nom;
-	retour += ",)";
-
-	switch (quantificateur)
+	string retour = "";
+	if (nom == "#PCDATA")
 	{
-		case INTERROGATION :
-			retour += "?";
-			break;
-		case CROIX :
-			retour += "+";
-			break;
-		case ETOILE :
-			retour += "*";
-			break;
-		default :
-			break; 
+		retour = ".*";
+	}
+	else {
+		string retour += "(";
+		retour += nom;
+		retour += ",)";
+
+		switch (quantificateur)
+		{
+			case INTERROGATION :
+				retour += "?";
+				break;
+			case CROIX :
+				retour += "+";
+				break;
+			case ETOILE :
+				retour += "*";
+				break;
+			default :
+				break; 
+		}
 	}
 	
 	return retour; 

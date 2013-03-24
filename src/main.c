@@ -127,7 +127,7 @@ int main(int argc, char **argv)
 		case 2 : // construction des arbres et verif coherence
 		{
 			if (VerifXmletDtd(argv[2]))
-				cout << "Check XML and DTD successfull" << endl;
+				cout << "XML/DTD check successfull" << endl;
 			else
 				cout << "Error : XML with DTD" << endl;
 			break;
