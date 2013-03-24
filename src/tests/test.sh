@@ -15,13 +15,13 @@ lot4KO="04TestsXSL/erreurBalise2.xsl 04TestsXSL/noStylesheet.xsl 04TestsXSL/ordr
 erreur=0
 
 option="-cxml"
-testo="-ne"
+resultat=0
 
 for fichier in $lot1OK
 do
 	echo "../analyse $option $fichier"
 	../analyse $option $fichier > /dev/null 2> /dev/null
-	if [ $? $testo 0 ]
+	if [ $? -ne $resultat ]
 	then
 		echo "$fichier : résultat inattendu"
 		erreur=1
@@ -31,13 +31,13 @@ do
 	echo
 done
 
-testo="-eq"
+resultat=1
 
 for fichier in $lot1KO
 do
 	echo "../analyse $option $fichier"
 	../analyse $option $fichier > /dev/null 2> /dev/null
-	if [ $? $testo 0 ]
+	if [ $? -ne $resultat ]
 	then
 		echo "$fichier : résultat inattendu"
 		erreur=1
@@ -48,13 +48,13 @@ do
 done
 
 option="-cdtd"
-testo="-ne"
+resultat=0
 
 for fichier in $lot2OK
 do
 	echo "../analyse $option $fichier"
 	../analyse $option $fichier > /dev/null 2> /dev/null
-	if [ $? $testo 0 ]
+	if [ $? -ne $resultat ]
 	then
 		echo "$fichier : résultat inattendu"
 		erreur=1
@@ -64,13 +64,13 @@ do
 	echo
 done
 
-testo="-eq"
+resultat=1
 
 for fichier in $lot2KO
 do
 	echo "../analyse $option $fichier"
 	../analyse $option $fichier > /dev/null 2> /dev/null
-	if [ $? $testo 0 ]
+	if [ $? -ne $resultat ]
 	then
 		echo "$fichier : résultat inattendu"
 		erreur=1
@@ -81,13 +81,13 @@ do
 done
 
 option="-check"
-testo="-ne"
+resultat=0
 
 for fichier in $lot3OK
 do
 	echo "../analyse $option $fichier"
 	../analyse $option $fichier > /dev/null 2> /dev/null
-	if [ $? $testo 0 ]
+	if [ $? -ne $resultat ]
 	then
 		echo "$fichier : résultat inattendu"
 		erreur=1
@@ -97,13 +97,13 @@ do
 	echo
 done
 
-testo="-eq"
+resultat=1
 
 for fichier in $lot3KO
 do
 	echo "../analyse $option $fichier"
 	../analyse $option $fichier > /dev/null 2> /dev/null
-	if [ $? $testo 0 ]
+	if [ $? -ne $resultat ]
 	then
 		echo "$fichier : résultat inattendu"
 		erreur=1
@@ -114,13 +114,13 @@ do
 done
 
 option="-cxsl"
-testo="-ne"
+resultat=0
 
 for fichier in $lot4OK
 do
 	echo "../analyse $option $fichier"
 	../analyse $option $fichier > /dev/null 2> /dev/null
-	if [ $? $testo 0 ]
+	if [ $? -ne $resultat ]
 	then
 		echo "$fichier : résultat inattendu"
 		erreur=1
@@ -130,13 +130,13 @@ do
 	echo
 done
 
-testo="-eq"
+resultat=1
 
 for fichier in $lot4KO
 do
 	echo "../analyse $option $fichier"
 	../analyse $option $fichier > /dev/null 2> /dev/null
-	if [ $? $testo 0 ]
+	if [ $? -ne $resultat ]
 	then
 		echo "$fichier : résultat inattendu"
 		erreur=1
