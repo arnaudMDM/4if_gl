@@ -47,11 +47,11 @@ void DocumentDTD::Afficher()
 // TODO 
 /* bool DocumentDTD::VerificationCoherence()
 {
-	map<string, ElementDTD*>::iterator it; 
+	/*map<string, ElementDTD*>::iterator it; 
 	for (it = mapElementDTDbegin() ; it != mapElementDTD.end() ; it++)
 	{
 		ElementDTD * tmpElement = it->second;
 		GroupeSubElement tmpElementFils =  
-	}
+	}*/
 	return true; 
 }*/ 

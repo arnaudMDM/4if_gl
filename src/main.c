@@ -31,7 +31,12 @@ bool verifXml(DocumentDTD * dtd, Document * xml);
 bool verifNoeud(AbstractElement * noeud, map<string, ElementDTD*> * elts);
 bool parserXML(Document * docXML, char* nomFic);
 bool parserDTD(DocumentDTD * docDTD, char* nomFic);
+<<<<<<< .mine
+void ajouterTexteTemplate(AbstractElement* abstXML,AbstractElementXSL* abstXSL,list<AbstractElementXSL*>lstAbstXSL, list<string>* lstString);
+//bool parserXSL(DocumentXSL * docXML, char* nomFic);
+=======
 bool parserXSL(DocumentXSL * docXML, char* nomFic);
+>>>>>>> .r105
 
 
 extern int xmldebug;
@@ -353,14 +358,110 @@ bool verifNoeud(AbstractElement * abstractNoeud, map<string, ElementDTD*> * elts
 	return true;
 }
 
-void transfXSL(Document* docXML, DocumentXSL* docXSL)
+bool verifTemplate(list<AbstractElementXSL*>*lst)
 {
+	list<AbstractElementXSL*>::iterator it;
+	for(it=lst->begin() ; it!=lst->end() ; it++)
+	{
+		if((*it)->getType()!=APPLYTEMPLATES)
+			return false;
+	}
+	return true;
+}
+
+ElementXSL* trouveTemplate(list<AbstractElementXSL*>*lstXSL,string s)
+{
+	ElementXSL* retour=NULL;
+	list<AbstractElementXSL*>::iterator it;
+	for(it=lstXSL->begin() ; it!=lstXSL->end() ; it++)
+	{
+		if(((((*it)->getAttributXSL())->getValeur()).compare(s))==0)
+			retour=(*it);
+	}
+	return retour;
+}
+
+void ajouterTousTextesXML(AbstractElement* abstXML, list<string>* lstString)
+{
+	list<AbstractElement*>* lstAbstXML=abstXML->getElementBalise();
+	list<AbstractElement*>::iterator it;
+
+
+	for(it=lstAbstXML->begin() ; it!=lstAbstXML->end() ; it++)
+	{
+		if((*it)->getIsText())
+			lstString->push_back((*it)->getTexte());
+		else
+			ajouterTousTextesXML((*it),lstString);
+	}
+}
+
+void applyTemplates(AbstractElement* abstXML, list<AbstractElementXSL*>* lstAbstXSL,list<string>* lstString)
+{
+	list<AbstractElement*>* lstAbstXML=abstXML->getElementBalise();
+	list<AbstractElement*>::iterator it;
+	AbstractElementXSL* abstXSL;
+
+	for(it=lstAbstXML->begin() ; it!=lstAbstXML->end() ; it++)
+	{
+		if((*it)->getIsText())
+			lstString->push_back((*it)->getTexte());
+		else if((abstXSL=trouveTemplate(lstAbstXSL,(*it)->getNom()))!=NULL)
+			ajouterTexteTemplate((*it),abstXSL,lstAbstXSL,lstString);
+		else
+			ajouterTousTextesXML((*it),lstString);
+	}
+}
+
+void ajouterTexteTemplate(AbstractElement* abstXML,AbstractElementXSL* abstXSL,list<AbstractElementXSL*>lstAbstXSL, list<string>* lstString)
+{
+	list<AbstractElementXSL*>* lstAbstXSL=elt->getLstAbstractElementXSL();
+
+	list<AbstractElementXSL*>::iterator it;
+	for(it=lstAbstXSL->begin() ; it!=lstAbstXSL->end() ; it++)
+	{
+		if((*it)->getType()==TEXT)
+			lstString->push_back((*it)->getTexte());
+		else if((*it)->getType()==APPLYTEMPLATES)
+			applyTemplates(lstAbstXML,lstAbstXSL)
+		else
+		{
+			cout<<"balise xsl interdite"<<endl;
+			return;
+		}
+	}
+}
+
+void transfXML(Document* docXML, DocumentXSL* docXSL)
+{
+	list<string>* lstString=new list<string>();
 	if(docXML==NULL|docXSL==NULL)
 	{
 		cout<<"erreur pointeur nul"<<endl;
 		return;
 	}
 
+	ElementXSL * eltXSL = docXSL->getElementXSL();
 
+	if(eltXSL->getType()!=STYLESHEET)
+	{
+		cout<<"pas de balise stylesheet dans le xsl"<<endl;
+		return;
+	}
+
+	list<AbstractElementXSL*>* lstAbstXSL=eltXSL->getLstAbstractElementXSL();
+
+	if(!verifTemplate(lstAbstXSL))
+	{
+		cout<<"élément fils de stylesheet inconnu"<<endl;
+		return;
+	}
+
+	if((eltXSL=trouveTemplate(lstAbstXSL,"/"))!=NULL)
+	{
+		ajouterTexteTemplate(docXML->getElementBalise(),eltXSL,lstAbstXSL,lstString);
+	}
+	else
+		applyTemplates(docXML->getElementBalise(),lstAbstXSL,lstString);
 }
 

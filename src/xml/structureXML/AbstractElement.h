@@ -11,6 +11,9 @@
 class AbstractElement {
 public:
    virtual void afficher()=0;
+   bool getIsText()const{return isText;};
+protected:
+	bool isText;
 };
 
 #endif /* ABSTRACTELEMENT_H_ */

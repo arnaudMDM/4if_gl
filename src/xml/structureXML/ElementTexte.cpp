@@ -10,7 +10,7 @@
 
 ElementTexte::ElementTexte(string Texte) {
 	this->Texte = Texte; 
-
+	isText=true;
 }
 
 ElementTexte::~ElementTexte() {

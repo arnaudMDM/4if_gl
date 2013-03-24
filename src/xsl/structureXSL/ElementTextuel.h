@@ -21,8 +21,8 @@ protected:
 public:
 	ElementTextuel(string Texte);
 	virtual ~ElementTextuel();
-        virtual void afficher();
-    	string getTexte() const;
+    virtual void afficher();
+	string getTexte() const;
 };
 
 #endif /* ELEMENTTEXTUEL_H_ */

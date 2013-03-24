@@ -22,6 +22,7 @@ ElementBalise::ElementBalise(string nom, list<AbstractElement*> * l, set<Attribu
 	this->lstAbstractElement = l;
 	this->setAttributs = s;
   this->setAttributs = new set<AttributXML*>();
+  isText=false;
 }
 
 void ElementBalise::afficher()
