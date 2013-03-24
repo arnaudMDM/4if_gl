@@ -1,4 +1,4 @@
-<!ELEMENT rapport (titre, auteur+, resume, chapitre+)>
+<!ELEMENT rapport (titre, auteur+, chapitre+, resume)>
 <!ELEMENT auteur (prenom, nom)>
 <!ELEMENT nom (#PCDATA)>
 <!ELEMENT prenom (#PCDATA)>

@@ -1,6 +1,5 @@
 <!DOCTYPE rapport SYSTEM "05XmlNonConforme.dtd">
 <rapport>
-  <titre>Réaliser un compilateur</titre>
   <auteur>
     <prenom> Nino </prenom>
     <nom> Silverio </nom>
