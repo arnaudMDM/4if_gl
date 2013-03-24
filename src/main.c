@@ -297,15 +297,7 @@ bool verifNoeud(AbstractElement * abstractNoeud, map<string, ElementDTD*> * elts
 		return false;
 	}
 
-	// On vérifie que l'élément XML n'est pas un élément texte
-	ElementBalise * noeud = dynamic_cast<ElementBalise*>(abstractNoeud);
-	if (noeud == 0)
-	{
-		// il s'agit d'un élément texte
-		return true;
-	}
-
-	// On vérifie qu'il existe une entrée dans la DTD correspondant au noeud XLM courant
+	// On vérifie qu'il existe une entrée dans la DTD correspondant au noeud XML courant
 	string nomNoeudCourant = noeud->getNom();
 	map<string, ElementDTD*>::iterator itnd = elts->find(nomNoeudCourant);
 
@@ -351,21 +343,18 @@ bool verifNoeud(AbstractElement * abstractNoeud, map<string, ElementDTD*> * elts
 	{
 		// On vérifie que l'élément XML n'est pas un élément texte
 		ElementBalise * ssNoeud = dynamic_cast<ElementBalise*>(*it3);
-		if (ssNoeud == 0)
+		if (ssNoeud != 0) // il ne s'agit pas d'un élément texte
 		{
-			// il s'agit d'un élément texte
-			continue;
-		}
+			// On applique récursivement la fonction sur le sous-élément XML
+			if (!verifNoeud(*(it3), elts))
+			{
+				return false;
+			}
 
-		// On applique récursivement la fonction sur le sous-élément XML
-		if (!verifNoeud(*(it3), elts))
-		{
-			return false;
+			// On ajoute l'élément à une expression permettant de tester la conformité des fils par rapport au père dans la DTD
+			filsExpr += ssNoeud->getNom();
+			filsExpr += ",";
 		}
-
-		// On ajoute l'élément à une expression permettant de tester la conformité des fils par rapport au père dans la DTD
-		filsExpr += ssNoeud->getNom();
-		filsExpr += ",";
 	}
 
 	// Test de conformité des fils par rapport au père dans la DTD
