@@ -29,7 +29,7 @@ int xsllex(void);
 
 %token EGAL SLASH SUP SUPSPECIAL DOCTYPE
 %token <s> ENCODING VALEUR DONNEES COMMENT NOM ENNOM DTD SYSTEM
-%token <en> OBALISEEN OBALISE OBALISESPECIALE FBALISE FBALISEEN
+%token <en> OBALISEEN OBALISESPECIALE FBALISEEN
 %type <abstractElement> element
 %type <lstAbstractElement> contenu_opt  
 %type <lstAbstractElement> vide_ou_contenu

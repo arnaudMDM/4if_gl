@@ -89,7 +89,8 @@ esc		"&#"[0-9]+";"|"&#x"[0-9a-fA-F]+";"
 nom		{debutnom}{caracnom}*
 ennom		{debutnom}{caracnom}*":"{debutnom}{caracnom}*
 data		([^<\n&]|\n[^<&]|\n{esc}|{esc})+
-pcdata		[^<]+
+test 		[^<xsl]
+pcdata		[{test}]+
 comment		{inf}"!--"([^-]|"-"[^-])*"--"{sup}
 chaine		\"([^"&]|{esc})*\"|\'([^'&]|{esc})*\'
 stylesheet {esp}?"<xsl:stylesheet"{esp}
