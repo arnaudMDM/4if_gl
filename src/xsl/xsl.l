@@ -119,4 +119,4 @@ data (([^<])|("<"[^/x])|("<x"[^s])|("<xs"[^l])|("</"[^x])|("</x"[^s])|("</xs"[^l
 
 <CONTENU>{esp}?{data}    {YYLVAL.s = strdup(supprimeEspaces(YYTEXT)); return DATA;}
 
-.			{fprintf(stderr, "!ERROR(%c)\n", *YYTEXT);}
+

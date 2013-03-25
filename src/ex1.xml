@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <customers>
+   coucou
    <customer>
       <name>John Smith</name>
       <address>123 Elm St.</address>

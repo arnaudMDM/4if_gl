@@ -214,7 +214,7 @@ bool parserXSL(DocumentXSL * docXSL, char* nomFic)
 	}
 	else
 	{
-		xsldebug = 1;
+		//xsldebug = 1;
 		FILE *file;
 		file = fopen(nomFic, "r");
 	
@@ -243,8 +243,6 @@ bool parserXSL(DocumentXSL * docXSL, char* nomFic)
 
 bool parserXML(Document * docXML, char* nomFic)
 {
-	xmldebug = 1; // active l'affichage de l'exécution du parser LALR
-
 	int err;
 	if (nomFic == "")
 	{
@@ -468,7 +466,10 @@ void applyTemplates(ElementBalise* eltXML, list<AbstractElementXSL*>* lstAbstXSL
 	if (bRoot)
 	{
 		if ((EltXSL = trouveTemplate(lstAbstXSL, eltXML->getNom())) != NULL)
+		{
 			ajouterTexteTemplate(eltXML, EltXSL, lstAbstXSL, lstString, false);
+			return;
+		}
 	}
 
 	list<AbstractElement*>* lstAbstXML=eltXML->getLstAbstractElement();
@@ -477,11 +478,11 @@ void applyTemplates(ElementBalise* eltXML, list<AbstractElementXSL*>* lstAbstXSL
 	for (it = lstAbstXML->begin(); it != lstAbstXML->end(); it++)
 	{
 		if ((*it)->getIsText())
-			lstString->push_back(((ElementTexte*)(*it))->getTexte()); //peut-etre caster
-		else if ((EltXSL = trouveTemplate(lstAbstXSL, ((ElementBalise*)(*it))->getNom())) != NULL) //peut-etre caster
-			ajouterTexteTemplate(((ElementBalise*)(*it)), EltXSL, lstAbstXSL, lstString, false); //peut-etre caster
+			lstString->push_back(((ElementTexte*)(*it))->getTexte());
+		else if ((EltXSL = trouveTemplate(lstAbstXSL, ((ElementBalise*)(*it))->getNom())) != NULL)
+			ajouterTexteTemplate(((ElementBalise*)(*it)), EltXSL, lstAbstXSL, lstString, false);
 		else
-			applyTemplates(((ElementBalise*)(*it)), lstAbstXSL, lstString, false); //peut-etre caster
+			applyTemplates(((ElementBalise*)(*it)), lstAbstXSL, lstString, false);
 	}
 }
 
@@ -494,9 +495,9 @@ void ajouterTexteTemplate(ElementBalise* eltXML, ElementXSL* EltXSL, list<Abstra
 	for (it = lstAbstXSL2->begin(); it != lstAbstXSL2->end(); it++)
 	{
 		if ((*it)->getType() == TEXTE)
-			lstString->push_back(((ElementTexte*)(*it))->getTexte());//peut-etre caster
+			lstString->push_back(((ElementTexte*)(*it))->getTexte());
 		else if ((*it)->getType() == APPLYTEMPLATES)
-			applyTemplates(eltXML, lstAbstXSL, lstString, true);
+			applyTemplates(eltXML, lstAbstXSL, lstString, bRoot);
 		else
 		{
 			cout << "balise xsl interdite" << endl;
