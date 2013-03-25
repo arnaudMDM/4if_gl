@@ -34,6 +34,7 @@ bool parserXML(Document * docXML, char* nomFic);
 bool parserDTD(DocumentDTD * docDTD, char* nomFic);
 void ajouterTexteTemplate(ElementBalise* eltXML, ElementXSL* EltXSL,list<AbstractElementXSL*>* lstAbstXSL, list<string>* lstString, bool bRoot);
 bool parserXSL(DocumentXSL * docXML, char* nomFic);
+list<string>* transfXML(Document* docXML, DocumentXSL* docXSL);
 
 
 extern int xmldebug;
@@ -111,6 +112,10 @@ int main(int argc, char **argv)
 	else if (strcmp(*(argv+1), "-all") == 0) choix = 5;
 	else choix = 999;
 
+	list<string>* lstString;
+	Document docXML;
+	DocumentXSL docXSL;
+
 	switch (choix)
 	{
 		case 0 : // construction de l'arbre xml
@@ -138,25 +143,28 @@ int main(int argc, char **argv)
 				cout << "Error : XSL tree" << endl;
 			break;
 		case 4 : // transformation xsl
-		{
-			Document docXML();
 			if (!parserXML(&docXML, argv[2]))
 			{
 				cout << "Error : XML tree" << endl;
 				break;
 			}
 		
-			DocumentXSL docXSL();
 			if (!parserXSL(&docXSL, argv[3]))
 			{
 				cout << "Error : XSL tree" << endl;
 				break;
 			}
 			
-			transfXML(&docXML, &docXSL);
-			
+			if((lstString=transfXML(&docXML, &docXSL))!=NULL)
+			{
+				list<string>::iterator it;
+				for(it=lstString->begin() ; it!=lstString->end() ; it++)
+				{
+					cout<<(*it)<<endl;
+				}
+			}
+
 			break;
-		}
 		case 5 : // all
 			if (VerifXmletDtd(argv[2]))
 			{
@@ -168,14 +176,12 @@ int main(int argc, char **argv)
 				break;
 			}
 			
-			Document docXML();
 			if (!parserXML(&docXML, argv[2]))
 			{
 				cout << "Error : XML tree" << endl;
 				break;
 			}
 		
-			DocumentXSL docXSL();
 			if (!parserXSL(&docXSL, argv[3]))
 			{
 				cout << "Error : XSL tree" << endl;
@@ -237,7 +243,7 @@ bool parserXSL(DocumentXSL * docXSL, char* nomFic)
 
 bool parserXML(Document * docXML, char* nomFic)
 {
-	//xmldebug = 1; // active l'affichage de l'exécution du parser LALR
+	xmldebug = 1; // active l'affichage de l'exécution du parser LALR
 
 	int err;
 	if (nomFic == "")
@@ -434,7 +440,7 @@ bool verifTemplate(list<AbstractElementXSL*>* lst)
 	list<AbstractElementXSL*>::iterator it;
 	for (it = lst->begin(); it != lst->end(); it++)
 	{
-		if ((*it)->getType() != APPLYTEMPLATES)
+		if ((*it)->getType() != TEMPLATE)
 			return false;
 	}
 	return true;
@@ -500,13 +506,13 @@ void ajouterTexteTemplate(ElementBalise* eltXML, ElementXSL* EltXSL, list<Abstra
 }
 
 //transforme un document XML en un autre document par le biais du document XSL
-void transfXML(Document* docXML, DocumentXSL* docXSL)
+list<string>* transfXML(Document* docXML, DocumentXSL* docXSL)
 {
 	list<string>* lstString = new list<string>();
 	if (docXML == NULL || docXSL == NULL)
 	{
 		cout << "erreur pointeur nul" << endl;
-		return;
+		return NULL;
 	}
 
 	ElementXSL * eltXSL = docXSL->getElementXSL();
@@ -514,7 +520,7 @@ void transfXML(Document* docXML, DocumentXSL* docXSL)
 	if (eltXSL->getType() != STYLESHEET)
 	{
 		cout << "pas de balise stylesheet dans le xsl" << endl;
-		return;
+		return NULL;
 	}
 
 	list<AbstractElementXSL*>* lstAbstXSL = eltXSL->getLstAbstractElementXSL();
@@ -522,7 +528,7 @@ void transfXML(Document* docXML, DocumentXSL* docXSL)
 	if (!verifTemplate(lstAbstXSL))
 	{
 		cout << "élément fils de stylesheet inconnu" << endl;
-		return;
+		return NULL;
 	}
 
 	if ((eltXSL = trouveTemplate(lstAbstXSL, "/")) != NULL)
@@ -532,4 +538,5 @@ void transfXML(Document* docXML, DocumentXSL* docXSL)
 	else
 		applyTemplates(docXML->getElementBalise(), lstAbstXSL, lstString, false);
 
+	return lstString;
 }

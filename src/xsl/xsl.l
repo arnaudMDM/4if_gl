@@ -7,8 +7,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include "commun.h"
-#include "structureXSL/ElementTextuel.h"
-#include "structureXSL/ElementXSL.h"
 #include "structureXSL/DocumentXSL.h"
 #include "xsl.tab.h"
 
@@ -87,13 +85,13 @@ debutnom	[A-Za-z\200-\377_]
 caracnom	[A-Za-z\200-\377_0-9.-]
 esc		"&#"[0-9]+";"|"&#x"[0-9a-fA-F]+";"
 nom		{debutnom}{caracnom}*
-data [A-Za-z\200-\377_0-9.<>/\\"':.=?! -]*
 comment		{inf}"!--"([^-]|"-"[^-])*"--"{sup}
 chaine		\"([^"&]|{esc})*\"|\'([^'&]|{esc})*\'
 xsl "xsl:"
-stylesheet "stylesheet"{esp}
-template "template"{esp}
-applytemplates "apply-templates"{esp}
+stylesheet "stylesheet"
+template "template"
+applytemplates "apply-templates"
+data (([^<])|("<"[^/])|("<"[/]?[^x])|("<"[/]?"x"[^s])|("<"[/]?"xs"[^l]))
 
 /*
  * Le mode CONTENU est utilisé entre les balises ouvrantes et fermantes
@@ -111,15 +109,14 @@ applytemplates "apply-templates"{esp}
 <INITIAL>{nom}		{YYLVAL.s = strdup(YYTEXT); return NOM;}
 <INITIAL>{chaine}	{YYLVAL.s = strdup(enleveGuillemets(YYTEXT)); return VALEUR;}
 
-{inf}{xsl}{stylesheet}	{BEGIN(INITIAL); YYLVAL.s = strdup(YYTEXT); return OSTYLESHEET;}
-{inf}{xsl}{template}  {BEGIN(INITIAL); YYLVAL.s = strdup(YYTEXT); return OTEMPLATE;}
-{inf}{xsl}{applytemplates}  {BEGIN(INITIAL); YYLVAL.s = strdup(YYTEXT); return OAPPLYTEMPLATES;}
-{inf}"/"{stylesheet}		{BEGIN(INITIAL); YYLVAL.s = strdup(YYTEXT); return FSTYLESHEET;}
-{inf}"/"{template}    {BEGIN(INITIAL); YYLVAL.s = strdup(YYTEXT); return FTEMPLATE;}
+{inf}{xsl}{stylesheet}	{BEGIN(INITIAL); YYLVAL.s = separeNom(YYTEXT); return OSTYLESHEET;}
+{inf}{xsl}{template}  {BEGIN(INITIAL); YYLVAL.s = separeNom(YYTEXT); return OTEMPLATE;}
+{inf}{xsl}{applytemplates}  {BEGIN(INITIAL); YYLVAL.s = separeNom(YYTEXT); return OAPPLYTEMPLATES;}
+{inf}"/"{xsl}{stylesheet}		{BEGIN(INITIAL); YYLVAL.s = separeNom(YYTEXT); return FSTYLESHEET;}
+{inf}"/"{xsl}{template}    {BEGIN(INITIAL); YYLVAL.s = separeNom(YYTEXT); return FTEMPLATE;}
 
 {comment}		{YYLVAL.s = strdup(YYTEXT); return COMMENT;}
 
-
-<CONTENU>{esp}?{data}    {YYLVAL.s = strdup(YYTEXT); return DATA;}
+<CONTENU>{esp}?{data}    {YYLVAL.s = strdup(supprimeEspaces(YYTEXT)); return DATA;}
 
 .			{fprintf(stderr, "!ERROR(%c)\n", *YYTEXT);}

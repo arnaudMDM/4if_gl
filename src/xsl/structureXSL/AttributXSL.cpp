@@ -16,7 +16,7 @@ AttributXSL::AttributXSL(string nom, string valeur) : nom(nom), valeur(valeur)
 
 void AttributXSL::afficher() const
 {
-	cout << " " << nom << "=\"" << valeur << "\"";
+	cout << nom << "=\"" << valeur << "\"";
 }
 
 string AttributXSL::getNom() const

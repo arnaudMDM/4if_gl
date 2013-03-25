@@ -28,7 +28,7 @@ int xsllex(void);
 }
 
 %token EGAL SLASH SUP
-%token <s> DATA VALEUR COMMENT NOM OSTYLESHEET FSTYLESHEET OTEMPLATE FTEMPLATE OAPPLYTEMPLATES
+%token <s> DATA VALEUR COMMENT NOM OSTYLESHEET FSTYLESHEET OTEMPLATE FTEMPLATE OAPPLYTEMPLATES FBALISE
 %type <abstractElement> element
 %type <lstAbstractElement> contenu_opt  
 %type <lstAbstractElement> ferme_contenu_et_fin
@@ -67,7 +67,7 @@ attributs_opt
  ;
 
 ferme_contenu_et_fin
- : SUP contenu_opt ferme_contenu { $$ = $2 }
+ : SUP contenu_opt ferme_contenu { $$ = $2 ;}
  ;
 
  ferme_contenu
@@ -78,8 +78,8 @@ ferme_contenu_et_fin
 contenu_opt /* Regle de construction en commentaire */
  : contenu_opt misc { $$ = $1 }
  | contenu_opt element  { $$ = $1 ; $$->push_back($2)} //  delete $2
- | contenu_opt DATA { $$ = $1 ; $$->push_back(new ElementTextuel(string($2)))} // delete $2
- | /*vide*/     { $$ = new list<AbstractElementXSL*>() }      
+ | contenu_opt DATA { $$ = $1 ;$$->push_back(new ElementTextuel(string($2)))} // delete $2     
+ | /*vide*/{ $$ = new list<AbstractElementXSL*>() } 
  ;
 
 %%
