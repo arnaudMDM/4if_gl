@@ -78,7 +78,7 @@ ferme_contenu_et_fin
 contenu_opt /* Regle de construction en commentaire */
  : contenu_opt misc { $$ = $1 }
  | contenu_opt element  { $$ = $1 ; $$->push_back($2)} //  delete $2
- | contenu_opt DATA { $$ = $1 ;$$->push_back(new ElementTextuel(string($2)))} // delete $2     
+ | contenu_opt DATA {$$ = $1 ;$$->push_back(new ElementTextuel(string($2)))} // delete $2     
  | /*vide*/{ $$ = new list<AbstractElementXSL*>() } 
  ;
 

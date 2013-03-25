@@ -91,7 +91,7 @@ xsl "xsl:"
 stylesheet "stylesheet"
 template "template"
 applytemplates "apply-templates"
-data (([^<])|("<"[^/])|("<"[/]?[^x])|("<"[/]?"x"[^s])|("<"[/]?"xs"[^l]))
+data (([^<])|("<"[^/x])|("<x"[^s])|("<xs"[^l])|("</"[^x])|("</x"[^s])|("</xs"[^l]))+
 
 /*
  * Le mode CONTENU est utilisé entre les balises ouvrantes et fermantes

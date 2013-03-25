@@ -1,10 +1,10 @@
 <xsl:stylesheet version="1.0">
 <xsl:template match="/">
-h1
+<hl>
 <xsl:apply-templates/>
-h1
+<hl>
 </xsl:template>
 <xsl:template match="name">
-test
-</xsl:apply-templates>
+<test>
+</xsl:template>
 </xsl:stylesheet>
