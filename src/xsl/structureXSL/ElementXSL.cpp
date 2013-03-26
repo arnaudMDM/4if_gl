@@ -14,7 +14,22 @@
 using namespace std;
 
 ElementXSL::ElementXSL() {}
-ElementXSL::~ElementXSL() {}
+
+ElementXSL::~ElementXSL() 
+{
+	if(lstAbstractElementXSL!=NULL)
+	{
+		list<AbstractElementXSL*>::iterator it;
+		for(it=lstAbstractElementXSL->begin() ; it!=lstAbstractElementXSL->end() ; it++)
+		{
+			if((*it)!=NULL)
+				delete(*it);
+		}
+		delete lstAbstractElementXSL;
+	}
+
+	if(attributXSL!=NULL) delete(attributXSL);
+}
 
 ElementXSL::ElementXSL(string type, list<AbstractElementXSL*> * l, AttributXSL * s)
 {

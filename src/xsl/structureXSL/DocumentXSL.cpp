@@ -10,12 +10,12 @@
 
 DocumentXSL::DocumentXSL() 
 {
-	// elementXSL = NULL;
+	elementXSL = NULL;
 }
 
 DocumentXSL::~DocumentXSL() 
 {
-	// TODO Auto-generated destructor stub
+	if(elementXSL!=NULL) delete(elementXSL);
 }
 
 

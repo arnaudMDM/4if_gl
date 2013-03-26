@@ -11,13 +11,17 @@ ElementSequence::ElementSequence(list<GroupeSubElement*> * l,Quantificateur q)
 
 ElementSequence::~ElementSequence()
 {
-	list<GroupeSubElement*>::iterator it;
-	for (it = this->listGroupeSubElement->begin(); it != this->listGroupeSubElement->end(); it++)
+	if(listGroupeSubElement!=NULL)
 	{
-		delete(*it);
-	}
+		list<GroupeSubElement*>::iterator it;
+		for (it = this->listGroupeSubElement->begin(); it != this->listGroupeSubElement->end(); it++)
+		{
+			if((*it)!=NULL)
+				delete(*it);
+		}
 
-	delete(this->listGroupeSubElement);
+		delete(this->listGroupeSubElement);
+	}
 }
 
 void ElementSequence::Afficher() const

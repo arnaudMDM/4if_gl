@@ -51,7 +51,7 @@ int dtdlex(void);
 
 %%
 
-main: dtd_list_opt{docDtd->setMapElementDTD((map<string,ElementDTD*>*)$1);}
+main: dtd_list_opt{docDtd->setMapElementDTD($1);}
 ;
 
 dtd_list_opt

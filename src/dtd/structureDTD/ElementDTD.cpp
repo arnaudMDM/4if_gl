@@ -18,15 +18,19 @@ ElementDTD::ElementDTD()
 
 ElementDTD::~ElementDTD()
 {
-	delete(groupeSubElement);
+	if(groupeSubElement!=NULL) delete(groupeSubElement);
 
-	set<AttributDTD*>::iterator it2;
-	for (it2 = this->setAttributDTD->begin(); it2 != this->setAttributDTD->end(); it2++)
+	if(setAttributDTD!=NULL)
 	{
-		delete(*it2);
-	}
+		set<AttributDTD*>::iterator it;
+		for (it = this->setAttributDTD->begin(); it != this->setAttributDTD->end(); it++)
+		{
+			if((*it)!=NULL)
+				delete(*it);
+		}
 
-	delete(this->setAttributDTD);
+		delete(this->setAttributDTD);
+	}
 }
 
 ElementDTD::ElementDTD(GroupeSubElement* groupeSubElement)

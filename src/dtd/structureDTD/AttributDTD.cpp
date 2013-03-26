@@ -18,7 +18,11 @@ AttributDTD::AttributDTD()
 
 AttributDTD::~AttributDTD()
 {
-	/* bloc vide */
+	if(listType!=NULL)
+	{
+		listType->erase(listType->begin(),listType->end());
+		delete(listType);
+	}
 }
 
 AttributDTD::AttributDTD(string nom, string type,string defaut) : nom(nom), type(type), defaut(defaut), bEnum(false)

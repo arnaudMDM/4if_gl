@@ -10,7 +10,6 @@
 
 Document::Document() {
 	elementBalise = NULL;
-
 }
 
 Document::~Document() {

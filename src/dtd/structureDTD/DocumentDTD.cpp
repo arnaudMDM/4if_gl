@@ -7,21 +7,27 @@
 
 using namespace std;
 
+#include <iostream>
 #include "DocumentDTD.h"
 
 DocumentDTD::DocumentDTD()
 {
+	mapElementDTD=NULL;
 	/* bloc vide */
 }
 
 DocumentDTD::~DocumentDTD()
 {
-	map<string, ElementDTD*>::iterator it;
-	for (it = this->mapElementDTD->begin(); it != this->mapElementDTD->end(); it++)
+	if(mapElementDTD!=NULL)
 	{
-		delete(it->second);
+		map<string, ElementDTD*>::iterator it;
+		for (it = this->mapElementDTD->begin(); it != this->mapElementDTD->end(); it++)
+		{
+			if((it->second)!=NULL)
+				delete(it->second);
+		}
+		delete(this->mapElementDTD);
 	}
-	delete(this->mapElementDTD);
 }
 
 map<string, ElementDTD*> * DocumentDTD::getElementsDTD() const
