@@ -35,7 +35,8 @@ bool parserDTD(DocumentDTD * docDTD, char* nomFic);
 bool ajouterTexteTemplate(ElementBalise* eltXML, ElementXSL* EltXSL,list<AbstractElementXSL*>* lstAbstXSL, list<string>* lstString, bool bRoot);
 bool parserXSL(DocumentXSL * docXML, char* nomFic);
 list<string>* transfXML(Document* docXML, DocumentXSL* docXSL);
-void afficherHTML(list<string>* lstString);
+string afficherHTML(list<string>* lstString);
+void enregistrerHTML(string html,string& nomXML);
 
 
 extern int xmldebug;
@@ -76,9 +77,13 @@ bool VerifXmletDtd(char* nomXML)
 	DocumentDTD docDTD;
 
 	if(parserXML(&docXML, nomXML))
-		if(parserDTD(&docDTD, (char*)(docXML.getNomDtd()).c_str()))
+	{
+		string dtd=string(nomXML);
+		dtd.replace(dtd.find_last_of('/')+1,string::npos,docXML.getNomDtd());
+		if(parserDTD(&docDTD, (char*)(dtd.c_str())))
 			if(verifXml(&docDTD, &docXML))
 				return true;
+	}
 
 	return false;
 }
@@ -103,12 +108,17 @@ bool transformeXML(char* nomXML, char* nomXSL)
 	list<string> * lstString;
 
 	if(parserXML(&docXML,nomXML))
+	{
+		string dtd=string(nomXML);
+		dtd.replace(dtd.find_last_of('/')+1,string::npos,docXML.getNomDtd());
 		if(parserXSL(&docXSL,nomXSL))
 			if((lstString=transfXML(&docXML,&docXSL))!=NULL)
 			{
-				afficherHTML(lstString);
+				string html=string(nomXML);
+				enregistrerHTML(afficherHTML(lstString),html);
 				return true;
 			}
+	}
 
 	return false;
 }
@@ -126,7 +136,8 @@ bool all(char* nomXML, char* nomXSL)
 				if(parserXSL(&docXSL,nomXSL))
 					if((lstString=transfXML(&docXML,&docXSL))!=NULL)
 					{
-						afficherHTML(lstString);
+						string html=string(nomXML);
+						enregistrerHTML(afficherHTML(lstString),html);
 						return true;
 					}
 
@@ -155,37 +166,60 @@ int main(int argc, char **argv)
 			if (construirXML(argv[2]))
 				cout << "XML tree construction successfull" << endl;
 			else
-				cout << "Error : XML tree" << endl;
+			{
+				cerr << "Error : XML tree" << endl;
+				return 1;
+			}
 			break;	
 		case 1 : // construction de l'arbre dtd
 			if (construirDTD(argv[2]))
 				cout << "DTD tree construction successfull" << endl;
 			else
-				cout << "Error : DTD tree" << endl;
+			{
+				cerr << "Error : DTD tree" << endl;
+				return 1;
+			}
 			break;
 		case 2 : // construction des arbres et verif coherence
 			if (VerifXmletDtd(argv[2]))
 				cout << "XML/DTD check successfull" << endl;
 			else
-				cout << "Error : XML/DTD check failed" << endl;
+			{
+				cerr << "Error : XML/DTD check failed" << endl;
+				return 1;
+			}
 			break;
 		case 3 : // construction de l'arbre xsl
 			if (construirXSL(argv[2]))
 				cout << "XSL tree construction successfull" << endl;
 			else
-				cout << "Error : XSL tree" << endl;
+			{
+				cerr << "Error : XSL tree" << endl;
+				return 1;
+			}
 			break;
 		case 4 : // transformation xsl
 			if(transformeXML(argv[2],argv[3]))
-				cout<<"coucou"<<endl;
+				cout<<"Transformation XML in HTML successfull"<<endl;
+			else
+			{
+				cerr<<"Error : Transformation XML in HTML failed"<<endl;
+				return 1;
+			}
 
 			break;
 		case 5 : // all		
 			if(all(argv[2],argv[3]))
-				cout<<"coucou"<<endl;
+				cout<<"All well"<<endl;
+			else
+			{
+				cerr<<"Error"<<endl;
+				return 1;
+			}
 			break;
 		default :
 			cout << "Erreur à l'appel" << endl;
+			return 1;
 			break;
 	}
 
@@ -228,7 +262,6 @@ bool parserXSL(DocumentXSL * docXSL, char* nomFic)
 		{
 			cout<<"Parse XSL ended with success"<<endl;
 		}
-		docXSL->afficher();
 		fclose(file);
 	}
 	return true;
@@ -305,7 +338,6 @@ bool parserDTD(DocumentDTD * docDTD, char* nomFic)
 		{
 			cout<<"Parse DTD ended with success"<<endl;
 		}
-		docDTD->Afficher();
 		fclose(file);
 	}
 
@@ -550,16 +582,34 @@ list<string>* transfXML(Document* docXML, DocumentXSL* docXSL)
 	return lstString;
 }
 
-void afficherHTML(list<string>* lstString)
+string afficherHTML(list<string>* lstString)
 {
+	string retour="";
+
 	if(lstString==NULL)
 	{
 		cout<<"ERROR : pointeur null"<<endl;
-		return;
+		return retour;
 	}
+
 	list<string>::iterator it;
 	for(it=lstString->begin() ; it!=lstString->end() ; it++)
 	{
+		retour+=(*it);
 		cout<<(*it)<<endl;
 	}
+
+	return retour;
+}
+
+void enregistrerHTML(string html,string& nomXML)
+{
+	FILE * pFile;
+	const char * pHtml=html.c_str();
+	string nomResult=nomXML+"Result";
+
+	pFile = fopen ( nomResult.c_str() , "w" );
+	fwrite (pHtml , 1 , html.size() , pFile );
+  	fclose (pFile);
+
 }

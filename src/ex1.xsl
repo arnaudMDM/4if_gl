@@ -5,6 +5,6 @@
 <hl>
 </xsl:template>
 <xsl:template match="address">
-</xsm:test>
+<xsl:apply-templates/>
 </xsl:template>
 </xsl:stylesheet>
