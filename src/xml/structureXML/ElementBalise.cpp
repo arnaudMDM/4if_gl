@@ -36,9 +36,10 @@ ElementBalise::~ElementBalise() {
   }
 }
 
-ElementBalise::ElementBalise(string nom, list<AbstractElement*> * l, set<AttributXML*> * s)
+ElementBalise::ElementBalise(string nom,string nomFin, list<AbstractElement*> * l, set<AttributXML*> * s)
 {
 	this->nom = nom;
+  this->nomFin = nomFin;
 	this->lstAbstractElement = l;
 	this->setAttributs = s;
   this->setAttributs = new set<AttributXML*>();

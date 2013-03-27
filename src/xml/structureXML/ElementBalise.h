@@ -22,13 +22,14 @@ class ElementBalise : public AbstractElement {
 // Attributs de classe
 protected:
 	string nom;
+	string nomFin;
 	set<AttributXML*> * setAttributs;
 	list<AbstractElement*> * lstAbstractElement;
 
 // Constructeurs et Méthodes
 public:
 	ElementBalise();
-	ElementBalise(string nom, list<AbstractElement*> * lstAbstractElement, set<AttributXML*> * s);
+	ElementBalise(string nom,string nomFin, list<AbstractElement*> * lstAbstractElement, set<AttributXML*> * s);
 	virtual ~ElementBalise();
     string getNom() const;
 

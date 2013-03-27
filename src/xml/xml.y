@@ -26,6 +26,7 @@ int xmllex(void);
    ElementName * en;  /* le nom d'un element avec son namespace, cf commun.h */
    AbstractElement * abstractElement; /* C est un element balise uniquement */
    list<AbstractElement *> * lstAbstractElement; /* C est une liste */
+   pair<list<AbstractElement*>*,string> * pairAbstElt; 
    set<AttributXML*> * lstAttributXml;
 }
 
@@ -36,8 +37,7 @@ int xmllex(void);
 %token <en> OBALISEEN OBALISE OBALISESPECIALE FBALISE FBALISEEN
 %type <abstractElement> element
 %type <lstAbstractElement> contenu_opt  
-%type <lstAbstractElement> vide_ou_contenu
-%type <lstAbstractElement> ferme_contenu_et_fin
+%type <pairAbstElt> vide_ou_contenu ferme_contenu_et_fin
 %type <en> ouvre
 %type <lstAttributXml> attributs_opt
 
@@ -77,7 +77,7 @@ declaration
  ;*/
 
 element
- : ouvre attributs_opt vide_ou_contenu {$$ = new ElementBalise($1->second,$3,$2)}
+ : ouvre attributs_opt vide_ou_contenu {$$ = new ElementBalise($1->second,$3->second,$3->first,$2)}
  ;
 ouvre
  : OBALISE {$$ = $1}
@@ -90,11 +90,11 @@ attributs_opt
  ;
 
 vide_ou_contenu
- : SLASH SUP {$$=new list<AbstractElement*>()} /*contenu vide*/
+ : SLASH SUP {$$=new pair<list<AbstractElement*>*,string>()} /*contenu vide*/
  | ferme_contenu_et_fin SUP { $$ = $1 }  /*contenu non vide*/
  ;
 ferme_contenu_et_fin
- : SUP contenu_opt FBALISE { $$ = $2 }
+ : SUP contenu_opt FBALISE { $$ =new pair<list<AbstractElement*>*,string>($2,$3->second); }
  ;
 contenu_opt /* Regle de construction en commentaire */
  : contenu_opt DONNEES { $$ = $1 ; $$->push_back(new ElementTexte(string($2)))} // delete $2

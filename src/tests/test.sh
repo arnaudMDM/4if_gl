@@ -14,11 +14,15 @@ lot4KO="04TestsXSL/erreurBalise2.xsl 04TestsXSL/noStylesheet.xsl 04TestsXSL/ordr
 
 erreur=0
 
+nbTest=0
+nbTestReussi=0
+
 option="-cxml"
 resultat=0
 
 for fichier in $lot1OK
 do
+	nbTest=`expr $nbTest + 1`
 	echo "../analyse $option $fichier"
 	../analyse $option $fichier > /dev/null 2> /dev/null
 	if [ $? -ne $resultat ]
@@ -26,6 +30,7 @@ do
 		echo "$fichier : résultat inattendu"
 		erreur=1
 	else
+		nbTestReussi=`expr $nbTestReussi + 1`
 		echo "$fichier : OK"
 	fi
 	echo
@@ -35,6 +40,7 @@ resultat=1
 
 for fichier in $lot1KO
 do
+	nbTest=`expr $nbTest + 1`
 	echo "../analyse $option $fichier"
 	../analyse $option $fichier > /dev/null 2> /dev/null
 	if [ $? -ne $resultat ]
@@ -42,6 +48,7 @@ do
 		echo "$fichier : résultat inattendu"
 		erreur=1
 	else
+		nbTestReussi=`expr $nbTestReussi + 1`
 		echo "$fichier : OK"
 	fi
 	echo
@@ -52,6 +59,7 @@ resultat=0
 
 for fichier in $lot2OK
 do
+	nbTest=`expr $nbTest + 1`
 	echo "../analyse $option $fichier"
 	../analyse $option $fichier > /dev/null 2> /dev/null
 	if [ $? -ne $resultat ]
@@ -59,6 +67,7 @@ do
 		echo "$fichier : résultat inattendu"
 		erreur=1
 	else
+		nbTestReussi=`expr $nbTestReussi + 1`
 		echo "$fichier : OK"
 	fi
 	echo
@@ -68,6 +77,7 @@ resultat=1
 
 for fichier in $lot2KO
 do
+	nbTest=`expr $nbTest + 1`
 	echo "../analyse $option $fichier"
 	../analyse $option $fichier > /dev/null 2> /dev/null
 	if [ $? -ne $resultat ]
@@ -75,6 +85,7 @@ do
 		echo "$fichier : résultat inattendu"
 		erreur=1
 	else
+		nbTestReussi=`expr $nbTestReussi + 1`
 		echo "$fichier : OK"
 	fi
 	echo
@@ -85,6 +96,7 @@ resultat=0
 
 for fichier in $lot3OK
 do
+	nbTest=`expr $nbTest + 1`
 	echo "../analyse $option $fichier"
 	../analyse $option $fichier > /dev/null 2> /dev/null
 	if [ $? -ne $resultat ]
@@ -92,6 +104,7 @@ do
 		echo "$fichier : résultat inattendu"
 		erreur=1
 	else
+		nbTestReussi=`expr $nbTestReussi + 1`
 		echo "$fichier : OK"
 	fi
 	echo
@@ -101,6 +114,7 @@ resultat=1
 
 for fichier in $lot3KO
 do
+	nbTest=`expr $nbTest + 1`
 	echo "../analyse $option $fichier"
 	../analyse $option $fichier > /dev/null 2> /dev/null
 	if [ $? -ne $resultat ]
@@ -108,6 +122,7 @@ do
 		echo "$fichier : résultat inattendu"
 		erreur=1
 	else
+		nbTestReussi=`expr $nbTestReussi + 1`
 		echo "$fichier : OK"
 	fi
 	echo
@@ -118,6 +133,7 @@ resultat=0
 
 for fichier in $lot4OK
 do
+	nbTest=`expr $nbTest + 1`
 	echo "../analyse $option $fichier"
 	../analyse $option $fichier > /dev/null 2> /dev/null
 	if [ $? -ne $resultat ]
@@ -125,6 +141,7 @@ do
 		echo "$fichier : résultat inattendu"
 		erreur=1
 	else
+		nbTestReussi=`expr $nbTestReussi + 1`
 		echo "$fichier : OK"
 	fi
 	echo
@@ -134,6 +151,7 @@ resultat=1
 
 for fichier in $lot4KO
 do
+	nbTest=`expr $nbTest + 1`
 	echo "../analyse $option $fichier"
 	../analyse $option $fichier > /dev/null 2> /dev/null
 	if [ $? -ne $resultat ]
@@ -141,15 +159,10 @@ do
 		echo "$fichier : résultat inattendu"
 		erreur=1
 	else
+		nbTestReussi=`expr $nbTestReussi + 1`
 		echo "$fichier : OK"
 	fi
 	echo
 done
 
-echo
-if [ $erreur -eq 0 ]
-then
-	echo "Lot de tests réalisé sans erreur"
-else
-	echo "Une ou plusieurs erreurs sont survenues dans le lot de tests"
-fi
+echo $nbTestReussi " tests sur " $nbTest " sont passés"
